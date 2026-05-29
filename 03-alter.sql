@@ -14,8 +14,8 @@ alter table ASISTENCIA
       on delete restrict on update restrict;
 
 alter table BACKORDER
-   add constraint FK_BACKORDE_SERA_PAGA_DETALLE_ foreign key (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2B)
-      references DETALLE_ORDEN_B2B (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2B)
+   add constraint FK_BACKORDE_SERA_PAGA_DETALLE_ foreign key (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2B)
+      references DETALLE_ORDEN_B2B (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2B)
       on delete restrict on update restrict;
 
 alter table BASEDISENO_PRUEBA
@@ -108,11 +108,6 @@ alter table CARGO
       references DEPARTAMENTO (ID_DEPARTAMENTO)
       on delete restrict on update restrict;
 
-alter table CARRITO_COMPRA
-   add constraint FK_CARRITO__QUIERE_CO_USUARIO foreign key (ID_USUARIO)
-      references USUARIO (ID_USUARIO)
-      on delete restrict on update restrict;
-
 alter table CATEGORIA
    add constraint FK_CATEGORI_SE_DIVIDE_CATEGORI foreign key (CAT_ID_CATEGORIA)
       references CATEGORIA (ID_CATEGORIA)
@@ -203,6 +198,11 @@ alter table CONTRATO_PERSONAL
       references EMPLEADO (ID_PERSONA_NATURAL)
       on delete restrict on update restrict;
 
+alter table CONTRATO_PERSONAL
+   add constraint FK_CONTRATO_SE_ESTABL_META_MEN foreign key (ID_META_MENSUAL)
+      references META_MENSUAL (ID_META_MENSUAL)
+      on delete restrict on update restrict;
+
 alter table CORREO
    add constraint FK_CORREO_COORDINA_PERSONA_ foreign key (ID_PERSONA_JURIDICA)
       references PERSONA_JURIDICA (ID_PERSONA_JURIDICA)
@@ -248,16 +248,6 @@ alter table DESCUENTO_ORDEN_B2C
       references DESCUENTO (ID_DESCUENTO)
       on delete restrict on update restrict;
 
-alter table DETALLE_CARRITO_COMPRA
-   add constraint FK_DETALLE__SE_APARTA_INVENTAR foreign key (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO)
-      references INVENTARIO_PRODUCTO (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO)
-      on delete restrict on update restrict;
-
-alter table DETALLE_CARRITO_COMPRA
-   add constraint FK_DETALLE__SE_LE_AGR_CARRITO_ foreign key (ID_CARRITO_COMPRA)
-      references CARRITO_COMPRA (ID_CARRITO_COMPRA)
-      on delete restrict on update restrict;
-
 alter table DETALLE_MANIFIESTO_CRAGO
    add constraint FK_DETALLE__SE_DESPAC_ORDEN_CO foreign key (ID_ORDEN_COMPRA_B2B)
       references ORDEN_COMPRA_B2B (ID_ORDEN_COMPRA_B2B)
@@ -274,13 +264,18 @@ alter table DETALLE_ORDEN_B2B
       on delete restrict on update restrict;
 
 alter table DETALLE_ORDEN_B2B
-   add constraint FK_DETALLE__SE_PIDE_INVENTAR foreign key (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO)
-      references INVENTARIO_PRODUCTO (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO)
+   add constraint FK_DETALLE__SE_PIDE_PRODUCTO foreign key (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO)
+      references PRODUCTO (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO)
       on delete restrict on update restrict;
 
 alter table DETALLE_ORDEN_B2C
    add constraint FK_DETALLE__ES_DETALL_ORDEN_CO foreign key (ID_ORDEN_COMPRA_B2C)
       references ORDEN_COMPRA_B2C (ID_ORDEN_COMPRA_B2C)
+      on delete restrict on update restrict;
+
+alter table DETALLE_ORDEN_B2C
+   add constraint FK_DETALLE__SE_APARTA_PRODUCTO foreign key (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO)
+      references PRODUCTO (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO)
       on delete restrict on update restrict;
 
 alter table DISTRIBUCION_PAGO_B2B
@@ -349,13 +344,13 @@ alter table FASE_DISENO
       on delete restrict on update restrict;
 
 alter table FASE_EMPLEADO
-   add constraint FK_FASE_EMP_SUJETO_A_FASE_PRO foreign key (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, ID_CARGO, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION)
+   add constraint FK_FASE_EMP_SUJETO_A_FASE_PRO foreign key (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, FAS_ID_CARGO, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION)
       references FASE_PRODUCCION (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, ID_CARGO, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION)
       on delete restrict on update restrict;
 
 alter table FASE_EMPLEADO
-   add constraint FK_FASE_EMP_TRABAJA_E_EMPLEADO foreign key (ID_PERSONA_NATURAL)
-      references EMPLEADO (ID_PERSONA_NATURAL)
+   add constraint FK_FASE_EMP_TRABAJA_E_CONTRATO foreign key (ID_CARGO, ID_CONTRATO, ID_CONTRATO_CARGO)
+      references CONTRATO_CARGO (ID_CARGO, ID_CONTRATO, ID_CONTRATO_CARGO)
       on delete restrict on update restrict;
 
 alter table FASE_PRODUCCION
@@ -394,8 +389,8 @@ alter table HISTORICO_FASE_PRODUCCION
       on delete restrict on update restrict;
 
 alter table HISTORICO_FASE_PRODUCCION
-   add constraint FK_HISTORIC_SE_REGIST_FASE_EMP foreign key (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, ID_CARGO, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_PERSONA_NATURAL, ID_FASE_EMPLEADO)
-      references FASE_EMPLEADO (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, ID_CARGO, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_PERSONA_NATURAL, ID_FASE_EMPLEADO)
+   add constraint FK_HISTORIC_SE_REGIST_FASE_EMP foreign key (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, FAS_ID_CARGO, ID_PIEZA, ID_MOLDE, ID_CARGO, ID_CONTRATO, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_CONTRATO_CARGO, ID_FASE_EMPLEADO)
+      references FASE_EMPLEADO (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, FAS_ID_CARGO, ID_PIEZA, ID_MOLDE, ID_CARGO, ID_CONTRATO, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_CONTRATO_CARGO, ID_FASE_EMPLEADO)
       on delete restrict on update restrict;
 
 alter table HISTORICO_INV_PRODUCTO
@@ -544,18 +539,18 @@ alter table ORDEN_COMPRA_B2B
       on delete restrict on update restrict;
 
 alter table ORDEN_COMPRA_B2B
-   add constraint FK_ORDEN_CO_VENDE_VENDEDOR foreign key (ID_VENDEDOR)
-      references VENDEDOR (ID_VENDEDOR)
+   add constraint FK_ORDEN_CO_VENDE_CONTRATO foreign key (ID_CONTRATO)
+      references CONTRATO_PERSONAL (ID_CONTRATO)
       on delete restrict on update restrict;
 
 alter table ORDEN_COMPRA_B2C
-   add constraint FK_ORDEN_CO_ESTA_VEND_VENDEDOR foreign key (ID_VENDEDOR)
-      references VENDEDOR (ID_VENDEDOR)
+   add constraint FK_ORDEN_CO_ES_VENDED_CONTRATO foreign key (ID_CONTRATO)
+      references CONTRATO_PERSONAL (ID_CONTRATO)
       on delete restrict on update restrict;
 
 alter table ORDEN_COMPRA_B2C
-   add constraint FK_ORDEN_CO_ES_DESCRI_DETALLE_ foreign key (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_CARRITO_COMPRA)
-      references DETALLE_CARRITO_COMPRA (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_CARRITO_COMPRA)
+   add constraint FK_ORDEN_CO_QUIERE_CO_USUARIO foreign key (ID_USUARIO)
+      references USUARIO (ID_USUARIO)
       on delete restrict on update restrict;
 
 alter table ORDEN_COMPRA_B2C
@@ -846,9 +841,4 @@ alter table USUARIO_METODO_PAGO
 alter table USUARIO_METODO_PAGO
    add constraint FK_USUARIO__REGISTRA_USUARIO foreign key (ID_USUARIO)
       references USUARIO (ID_USUARIO)
-      on delete restrict on update restrict;
-
-alter table VENDEDOR
-   add constraint FK_VENDEDOR_SE_CUMPLE_META_MEN foreign key (ID_META_MENSUAL)
-      references META_MENSUAL (ID_META_MENSUAL)
       on delete restrict on update restrict;

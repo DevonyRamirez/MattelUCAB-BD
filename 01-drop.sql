@@ -1,3 +1,4 @@
+
 drop index GENERA_FK;
 
 drop index ES_GANADOR2_FK;
@@ -90,12 +91,6 @@ drop index CARGO_PK;
 
 drop table CARGO;
 
-drop index QUIERE_COMPRAR_FK;
-
-drop index CARRITO_COMPRA_PK;
-
-drop table CARRITO_COMPRA;
-
 drop index SE_DIVIDE_FK;
 
 drop index CATEGORIA_PK;
@@ -180,6 +175,8 @@ drop index CONTRATO_HORARIO_PK;
 
 drop table CONTRATO_HORARIO;
 
+drop index SE_ESTABLECE_FK;
+
 drop index LO_CONTRATAN2_FK;
 
 drop index CONTRATO_PERSONAL_PK;
@@ -232,14 +229,6 @@ drop index DESCUENTO_ORDEN_B2C_PK;
 
 drop table DESCUENTO_ORDEN_B2C;
 
-drop index SE_LE_AGREGA_FK;
-
-drop index SE_APARTA_FK;
-
-drop index DETALLE_CARRITO_COMPRA_PK;
-
-drop table DETALLE_CARRITO_COMPRA;
-
 drop index SE_DESPACHA_FK;
 
 drop index SE_DESPACHA_EN_FK;
@@ -255,6 +244,10 @@ drop index SE_PIDE_FK;
 drop index DETALLE_ORDEN_B2B_PK;
 
 drop table DETALLE_ORDEN_B2B;
+
+drop index ES_DETALLADA_POR_FK;
+
+drop index SE_APARTA_FK;
 
 drop index DETALLE_ORDEN_B2C_PK;
 
@@ -528,11 +521,11 @@ drop index ORDEN_COMPRA_B2B_PK;
 
 drop table ORDEN_COMPRA_B2B;
 
-drop index ESTA_VENDIENDO_FK;
+drop index ES_VENDEDOR_FK;
+
+drop index QUIERE_COMPRAR_FK;
 
 drop index SERA_ENTREGADO_FK;
-
-drop index ES_DESCRITA_POR_FK;
 
 drop index ORDEN_COMPRA_B2C_PK;
 
@@ -783,10 +776,3 @@ drop index REGISTRA_FK;
 drop index USUARIO_METODO_PAGO_PK;
 
 drop table USUARIO_METODO_PAGO;
-
-drop index SE_CUMPLE_FK;
-
-drop index VENDEDOR_PK;
-
-drop table VENDEDOR;
-

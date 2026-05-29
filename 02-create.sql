@@ -1,8 +1,4 @@
 /*==============================================================*/
-create table BENEFICIO (
-   ID_BENEFICIO         SERIAL               not null,
-   NOMBRE_BENEFICIO     VARCHAR(50)          not null,
-/*==============================================================*/
 /* Table: ADJUDICACION                                          */
 /*==============================================================*/
 create table ADJUDICACION (
@@ -67,7 +63,6 @@ create table BACKORDER (
    ID_BACKORDER         SERIAL               not null,
    ID_PIEZA             INT4                 not null,
    ID_MOLDE             INT4                 not null,
-   ID_SEDE              INT4                 not null,
    ID_MATERIAPRIMA      INT4                 not null,
    BAS_ID_BASEDISENO    INT4                 not null,
    ID_BASEDISENO        INT4                 not null,
@@ -91,7 +86,6 @@ ID_BACKORDER
 create  index SERA_PAGADA_FK on BACKORDER (
 ID_PIEZA,
 ID_MOLDE,
-ID_SEDE,
 ID_MATERIAPRIMA,
 BAS_ID_BASEDISENO,
 ID_BASEDISENO,
@@ -297,7 +291,10 @@ ID_BASEDISENO
 
 /*==============================================================*/
 /* Table: BENEFICIO                                             */
-
+/*==============================================================*/
+create table BENEFICIO (
+   ID_BENEFICIO         SERIAL               not null,
+   NOMBRE_BENEFICIO     VARCHAR(50)          not null,
    DESCRIPCION_BENEFICIO VARCHAR(200)         not null,
    TIPO_BENEFICIO       VARCHAR(50)          not null,
    constraint PK_BENEFICIO primary key (ID_BENEFICIO)
@@ -389,31 +386,6 @@ ID_DEPARTAMENTO
 /*==============================================================*/
 create  index ES_ASIGNADO_POR_FK on CARGO (
 ID_TABULAR_SALARIAL
-);
-
-/*==============================================================*/
-/* Table: CARRITO_COMPRA                                        */
-/*==============================================================*/
-create table CARRITO_COMPRA (
-   ID_CARRITO_COMPRA    SERIAL               not null,
-   ID_USUARIO           INT4                 not null,
-   FECHAHORA_CREACION_CARRITO DATE                 not null,
-   FECHAHORA_FIN_CARRITO DATE                 null,
-   constraint PK_CARRITO_COMPRA primary key (ID_CARRITO_COMPRA)
-);
-
-/*==============================================================*/
-/* Index: CARRITO_COMPRA_PK                                     */
-/*==============================================================*/
-create unique index CARRITO_COMPRA_PK on CARRITO_COMPRA (
-ID_CARRITO_COMPRA
-);
-
-/*==============================================================*/
-/* Index: QUIERE_COMPRAR_FK                                     */
-/*==============================================================*/
-create  index QUIERE_COMPRAR_FK on CARRITO_COMPRA (
-ID_USUARIO
 );
 
 /*==============================================================*/
@@ -573,9 +545,9 @@ ID_CLASIFICACION
 create table CLIENTE_B2C (
    ID_PERSONA_NATURAL   SERIAL               not null,
    ID_LUGAR             INT4                 not null,
-   RIF_PERSONA_NATURAL  VARCHAR(20)          not null,
+   RIF_PERSONA_NATURAL  VARCHAR(20)          not null unique,
    DIRECCION_PERSONA_NATURAL VARCHAR(100)         not null,
-   CEDULA_PERSONA_NATURAL VARCHAR(20)          not null,
+   CEDULA_PERSONA_NATURAL VARCHAR(20)          not null unique,
    P_NOMBRE_PERSONA_NATURAL VARCHAR(30)          not null,
    S_NOMBRE_PERSONA_NATURAL VARCHAR(30)          null,
    P_APELLIDO_PERSONA_NATURAL VARCHAR(30)          not null,
@@ -769,6 +741,7 @@ ID_HORARIO
 /*==============================================================*/
 create table CONTRATO_PERSONAL (
    ID_CONTRATO          SERIAL               not null,
+   ID_META_MENSUAL      INT4                 null,
    ID_PERSONA_NATURAL   INT4                 not null,
    CONTRATO_FECHA_INICIO DATE                 not null,
    CONTRATO_FECHA_FIN   DATE                 null,
@@ -787,6 +760,13 @@ ID_CONTRATO
 /*==============================================================*/
 create  index LO_CONTRATAN2_FK on CONTRATO_PERSONAL (
 ID_PERSONA_NATURAL
+);
+
+/*==============================================================*/
+/* Index: SE_ESTABLECE_FK                                       */
+/*==============================================================*/
+create  index SE_ESTABLECE_FK on CONTRATO_PERSONAL (
+ID_META_MENSUAL
 );
 
 /*==============================================================*/
@@ -974,57 +954,6 @@ ID_DESCUENTO
 );
 
 /*==============================================================*/
-/* Table: DETALLE_CARRITO_COMPRA                                */
-/*==============================================================*/
-create table DETALLE_CARRITO_COMPRA (
-   ID_PIEZA             INT4                 not null,
-   ID_MOLDE             INT4                 not null,
-   ID_SEDE              INT4                 not null,
-   ID_MATERIAPRIMA      INT4                 not null,
-   BAS_ID_BASEDISENO    INT4                 not null,
-   ID_BASEDISENO        INT4                 not null,
-   ID_PRODUCTO          INT4                 not null,
-   ID_CARRITO_COMPRA    INT4                 not null,
-   CANTIDAD_DETALLE_CARRITO INT4                 not null,
-   PRECIO_UNITARIO_DETALLE_CARRITO DECIMAL(10,2)        not null,
-   constraint PK_DETALLE_CARRITO_COMPRA primary key (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_CARRITO_COMPRA)
-);
-
-/*==============================================================*/
-/* Index: DETALLE_CARRITO_COMPRA_PK                             */
-/*==============================================================*/
-create unique index DETALLE_CARRITO_COMPRA_PK on DETALLE_CARRITO_COMPRA (
-ID_PIEZA,
-ID_MOLDE,
-ID_SEDE,
-ID_MATERIAPRIMA,
-BAS_ID_BASEDISENO,
-ID_BASEDISENO,
-ID_PRODUCTO,
-ID_CARRITO_COMPRA
-);
-
-/*==============================================================*/
-/* Index: SE_APARTA_FK                                          */
-/*==============================================================*/
-create  index SE_APARTA_FK on DETALLE_CARRITO_COMPRA (
-ID_PIEZA,
-ID_MOLDE,
-ID_SEDE,
-ID_MATERIAPRIMA,
-BAS_ID_BASEDISENO,
-ID_BASEDISENO,
-ID_PRODUCTO
-);
-
-/*==============================================================*/
-/* Index: SE_LE_AGREGA_FK                                       */
-/*==============================================================*/
-create  index SE_LE_AGREGA_FK on DETALLE_CARRITO_COMPRA (
-ID_CARRITO_COMPRA
-);
-
-/*==============================================================*/
 /* Table: DETALLE_MANIFIESTO_CRAGO                              */
 /*==============================================================*/
 create table DETALLE_MANIFIESTO_CRAGO (
@@ -1062,7 +991,6 @@ ID_ORDEN_COMPRA_B2B
 create table DETALLE_ORDEN_B2B (
    ID_PIEZA             INT4                 not null,
    ID_MOLDE             INT4                 not null,
-   ID_SEDE              INT4                 not null,
    ID_MATERIAPRIMA      INT4                 not null,
    BAS_ID_BASEDISENO    INT4                 not null,
    ID_BASEDISENO        INT4                 not null,
@@ -1071,7 +999,7 @@ create table DETALLE_ORDEN_B2B (
    CANTIDADSOLICITAD_ORDEN_B2B INT4                 not null,
    CANTIDAD_DESPACHADA  INT4                 null,
    PRECIO_UNITARIO_DETALLE_B2B DECIMAL(10,2)        not null,
-   constraint PK_DETALLE_ORDEN_B2B primary key (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2B)
+   constraint PK_DETALLE_ORDEN_B2B primary key (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2B)
 );
 
 /*==============================================================*/
@@ -1080,7 +1008,6 @@ create table DETALLE_ORDEN_B2B (
 create unique index DETALLE_ORDEN_B2B_PK on DETALLE_ORDEN_B2B (
 ID_PIEZA,
 ID_MOLDE,
-ID_SEDE,
 ID_MATERIAPRIMA,
 BAS_ID_BASEDISENO,
 ID_BASEDISENO,
@@ -1094,7 +1021,6 @@ ID_ORDEN_COMPRA_B2B
 create  index SE_PIDE_FK on DETALLE_ORDEN_B2B (
 ID_PIEZA,
 ID_MOLDE,
-ID_SEDE,
 ID_MATERIAPRIMA,
 BAS_ID_BASEDISENO,
 ID_BASEDISENO,
@@ -1112,16 +1038,47 @@ ID_ORDEN_COMPRA_B2B
 /* Table: DETALLE_ORDEN_B2C                                     */
 /*==============================================================*/
 create table DETALLE_ORDEN_B2C (
+   ID_PIEZA             INT4                 not null,
+   ID_MOLDE             INT4                 not null,
+   ID_MATERIAPRIMA      INT4                 not null,
+   BAS_ID_BASEDISENO    INT4                 not null,
+   ID_BASEDISENO        INT4                 not null,
+   ID_PRODUCTO          INT4                 not null,
    ID_ORDEN_COMPRA_B2C  INT4                 not null,
    CANTIDAD_ORDEN_B2C   INT4                 not null,
-   PRECIO_UNITARIO_B2C  DECIMAL(10,2)        not null,
-   constraint PK_DETALLE_ORDEN_B2C primary key (ID_ORDEN_COMPRA_B2C)
+   PRECIO_UNITARIO_B2C  DECIMAL(20,2)        not null,
+   constraint PK_DETALLE_ORDEN_B2C primary key (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2C)
 );
 
 /*==============================================================*/
 /* Index: DETALLE_ORDEN_B2C_PK                                  */
 /*==============================================================*/
 create unique index DETALLE_ORDEN_B2C_PK on DETALLE_ORDEN_B2C (
+ID_PIEZA,
+ID_MOLDE,
+ID_MATERIAPRIMA,
+BAS_ID_BASEDISENO,
+ID_BASEDISENO,
+ID_PRODUCTO,
+ID_ORDEN_COMPRA_B2C
+);
+
+/*==============================================================*/
+/* Index: SE_APARTA_FK                                          */
+/*==============================================================*/
+create  index SE_APARTA_FK on DETALLE_ORDEN_B2C (
+ID_PIEZA,
+ID_MOLDE,
+ID_MATERIAPRIMA,
+BAS_ID_BASEDISENO,
+ID_BASEDISENO,
+ID_PRODUCTO
+);
+
+/*==============================================================*/
+/* Index: ES_DETALLADA_POR_FK                                   */
+/*==============================================================*/
+create  index ES_DETALLADA_POR_FK on DETALLE_ORDEN_B2C (
 ID_ORDEN_COMPRA_B2C
 );
 
@@ -1542,7 +1499,7 @@ create table FASE_EMPLEADO (
    FAS_BAS_ID_BASEDISENO INT4                 not null,
    ID_PRUEBA            INT4                 not null,
    FAS_ID_BASEDISENO    INT4                 not null,
-   ID_CARGO             INT4                 not null,
+   FAS_ID_CARGO         INT4                 not null,
    ID_PIEZA             INT4                 not null,
    ID_MOLDE             INT4                 not null,
    ID_MATERIAPRIMA      INT4                 not null,
@@ -1550,9 +1507,11 @@ create table FASE_EMPLEADO (
    ID_BASEDISENO        INT4                 not null,
    ID_PRODUCTO          INT4                 not null,
    ID_FASE_PRODUCCION   INT4                 not null,
-   ID_PERSONA_NATURAL   INT4                 not null,
+   ID_CARGO             INT4                 not null,
+   ID_CONTRATO          INT4                 not null,
+   ID_CONTRATO_CARGO    INT4                 not null,
    ID_FASE_EMPLEADO     SERIAL               not null,
-   constraint PK_FASE_EMPLEADO primary key (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, ID_CARGO, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_PERSONA_NATURAL, ID_FASE_EMPLEADO)
+   constraint PK_FASE_EMPLEADO primary key (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, FAS_ID_CARGO, ID_PIEZA, ID_MOLDE, ID_CARGO, ID_CONTRATO, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_CONTRATO_CARGO, ID_FASE_EMPLEADO)
 );
 
 /*==============================================================*/
@@ -1562,15 +1521,17 @@ create unique index FASE_EMPLEADO_PK on FASE_EMPLEADO (
 FAS_BAS_ID_BASEDISENO,
 ID_PRUEBA,
 FAS_ID_BASEDISENO,
-ID_CARGO,
+FAS_ID_CARGO,
 ID_PIEZA,
 ID_MOLDE,
+ID_CARGO,
+ID_CONTRATO,
 ID_MATERIAPRIMA,
 BAS_ID_BASEDISENO,
 ID_BASEDISENO,
 ID_PRODUCTO,
 ID_FASE_PRODUCCION,
-ID_PERSONA_NATURAL,
+ID_CONTRATO_CARGO,
 ID_FASE_EMPLEADO
 );
 
@@ -1581,7 +1542,7 @@ create  index SUJETO_A_FK on FASE_EMPLEADO (
 FAS_BAS_ID_BASEDISENO,
 ID_PRUEBA,
 FAS_ID_BASEDISENO,
-ID_CARGO,
+FAS_ID_CARGO,
 ID_PIEZA,
 ID_MOLDE,
 ID_MATERIAPRIMA,
@@ -1595,7 +1556,9 @@ ID_FASE_PRODUCCION
 /* Index: TRABAJA_EN_FK                                         */
 /*==============================================================*/
 create  index TRABAJA_EN_FK on FASE_EMPLEADO (
-ID_PERSONA_NATURAL
+ID_CARGO,
+ID_CONTRATO,
+ID_CONTRATO_CARGO
 );
 
 /*==============================================================*/
@@ -1728,20 +1691,22 @@ create table HISTORICO_FASE_PRODUCCION (
    FAS_BAS_ID_BASEDISENO INT4                 not null,
    ID_PRUEBA            INT4                 not null,
    FAS_ID_BASEDISENO    INT4                 not null,
-   ID_CARGO             INT4                 not null,
+   FAS_ID_CARGO         INT4                 not null,
    ID_PIEZA             INT4                 not null,
    ID_MOLDE             INT4                 not null,
+   ID_CARGO             INT4                 not null,
+   ID_CONTRATO          INT4                 not null,
    ID_MATERIAPRIMA      INT4                 not null,
    BAS_ID_BASEDISENO    INT4                 not null,
    ID_BASEDISENO        INT4                 not null,
    ID_PRODUCTO          INT4                 not null,
    ID_FASE_PRODUCCION   INT4                 not null,
-   ID_PERSONA_NATURAL   INT4                 not null,
+   ID_CONTRATO_CARGO    INT4                 not null,
    ID_FASE_EMPLEADO     INT4                 not null,
    ID_ESTATUS_FP        INT4                 not null,
    FECHAHORA_INICIO_FASEP DATE                 not null,
    FECHAHORA_FINAL_FASEP DATE                 null,
-   constraint PK_HISTORICO_FASE_PRODUCCION primary key (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, ID_CARGO, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_PERSONA_NATURAL, ID_FASE_EMPLEADO, ID_ESTATUS_FP)
+   constraint PK_HISTORICO_FASE_PRODUCCION primary key (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, FAS_ID_CARGO, ID_PIEZA, ID_MOLDE, ID_CARGO, ID_CONTRATO, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_CONTRATO_CARGO, ID_FASE_EMPLEADO, ID_ESTATUS_FP)
 );
 
 /*==============================================================*/
@@ -1751,15 +1716,17 @@ create unique index HISTORICO_FASE_PRODUCCION_PK on HISTORICO_FASE_PRODUCCION (
 FAS_BAS_ID_BASEDISENO,
 ID_PRUEBA,
 FAS_ID_BASEDISENO,
-ID_CARGO,
+FAS_ID_CARGO,
 ID_PIEZA,
 ID_MOLDE,
+ID_CARGO,
+ID_CONTRATO,
 ID_MATERIAPRIMA,
 BAS_ID_BASEDISENO,
 ID_BASEDISENO,
 ID_PRODUCTO,
 ID_FASE_PRODUCCION,
-ID_PERSONA_NATURAL,
+ID_CONTRATO_CARGO,
 ID_FASE_EMPLEADO,
 ID_ESTATUS_FP
 );
@@ -1771,15 +1738,17 @@ create  index SE_REGISTRA_FK on HISTORICO_FASE_PRODUCCION (
 FAS_BAS_ID_BASEDISENO,
 ID_PRUEBA,
 FAS_ID_BASEDISENO,
-ID_CARGO,
+FAS_ID_CARGO,
 ID_PIEZA,
 ID_MOLDE,
+ID_CARGO,
+ID_CONTRATO,
 ID_MATERIAPRIMA,
 BAS_ID_BASEDISENO,
 ID_BASEDISENO,
 ID_PRODUCTO,
 ID_FASE_PRODUCCION,
-ID_PERSONA_NATURAL,
+ID_CONTRATO_CARGO,
 ID_FASE_EMPLEADO
 );
 
@@ -2403,7 +2372,7 @@ PAG_ID_METODO_PAGO
 create table ORDEN_COMPRA_B2B (
    ID_ORDEN_COMPRA_B2B  SERIAL               not null,
    ID_USUARIO           INT4                 not null,
-   ID_VENDEDOR          CHAR(10)             not null,
+   ID_CONTRATO          INT4                 not null,
    FECHAHORA_ORDEN_COMPRA_B2B DATE                 not null,
    CONDICION_PAGO       INT4                 not null
       constraint CKC_CONDICION_PAGO_ORDEN_CO check (CONDICION_PAGO in (30,60,90)),
@@ -2431,7 +2400,7 @@ ID_USUARIO
 /* Index: VENDE_FK                                              */
 /*==============================================================*/
 create  index VENDE_FK on ORDEN_COMPRA_B2B (
-ID_VENDEDOR
+ID_CONTRATO
 );
 
 /*==============================================================*/
@@ -2440,19 +2409,12 @@ ID_VENDEDOR
 create table ORDEN_COMPRA_B2C (
    ID_ORDEN_COMPRA_B2C  SERIAL               not null,
    ID_ENVIO_B2C         INT4                 null,
-   ID_VENDEDOR          CHAR(10)             not null,
-   ID_PIEZA             INT4                 not null,
-   ID_MOLDE             INT4                 not null,
-   ID_SEDE              INT4                 not null,
-   ID_MATERIAPRIMA      INT4                 not null,
-   BAS_ID_BASEDISENO    INT4                 not null,
-   ID_BASEDISENO        INT4                 not null,
-   ID_PRODUCTO          INT4                 not null,
-   ID_CARRITO_COMPRA    INT4                 not null,
+   ID_USUARIO           INT4                 not null,
+   ID_CONTRATO          INT4                 not null,
    FECHAHORA_ORDEN_COMPRA_B2C DATE                 not null,
    N_FACTURA_COMPRA_B2C INT4                 not null,
-   SUBTOTAL_ORDEN_COMPRA_B2C INT4                 not null,
-   TOTAL_ORDEN_COMPRA_B2C INT4                 not null,
+   SUBTOTAL_ORDEN_COMPRA_B2C DECIMAL(20,2)        not null,
+   TOTAL_ORDEN_COMPRA_B2C DECIMAL(20,2)        not null,
    constraint PK_ORDEN_COMPRA_B2C primary key (ID_ORDEN_COMPRA_B2C)
 );
 
@@ -2464,20 +2426,6 @@ ID_ORDEN_COMPRA_B2C
 );
 
 /*==============================================================*/
-/* Index: ES_DESCRITA_POR_FK                                    */
-/*==============================================================*/
-create  index ES_DESCRITA_POR_FK on ORDEN_COMPRA_B2C (
-ID_PIEZA,
-ID_MOLDE,
-ID_SEDE,
-ID_MATERIAPRIMA,
-BAS_ID_BASEDISENO,
-ID_BASEDISENO,
-ID_PRODUCTO,
-ID_CARRITO_COMPRA
-);
-
-/*==============================================================*/
 /* Index: SERA_ENTREGADO_FK                                     */
 /*==============================================================*/
 create  index SERA_ENTREGADO_FK on ORDEN_COMPRA_B2C (
@@ -2485,10 +2433,17 @@ ID_ENVIO_B2C
 );
 
 /*==============================================================*/
-/* Index: ESTA_VENDIENDO_FK                                     */
+/* Index: QUIERE_COMPRAR_FK                                     */
 /*==============================================================*/
-create  index ESTA_VENDIENDO_FK on ORDEN_COMPRA_B2C (
-ID_VENDEDOR
+create  index QUIERE_COMPRAR_FK on ORDEN_COMPRA_B2C (
+ID_USUARIO
+);
+
+/*==============================================================*/
+/* Index: ES_VENDEDOR_FK                                        */
+/*==============================================================*/
+create  index ES_VENDEDOR_FK on ORDEN_COMPRA_B2C (
+ID_CONTRATO
 );
 
 /*==============================================================*/
@@ -2804,7 +2759,7 @@ create table PERSONA_JURIDICA (
    ID_LINEA_CREDITO     INT4                 null,
    ID_LUGAR             INT4                 not null,
    LUG_ID_LUGAR         INT4                 not null,
-   RIF_PERSONA_JURIDICA VARCHAR(20)          not null,
+   RIF_PERSONA_JURIDICA VARCHAR(20)          not null unique,
    DIR_FISCAL_PERSONA_JURIDICA VARCHAR(200)         not null,
    RAZON_SOCIAL_PERSONA_JURIDICA VARCHAR(100)         not null,
    DIR_FISICA_PERSONA_JURIDICA VARCHAR(200)         not null,
@@ -3567,27 +3522,4 @@ TAR_ID_METODO_PAGO
 /*==============================================================*/
 create  index ES_VALIDADA_FK on USUARIO_METODO_PAGO (
 ID_METODO_PAGO
-);
-
-/*==============================================================*/
-/* Table: VENDEDOR                                              */
-/*==============================================================*/
-create table VENDEDOR (
-   ID_VENDEDOR          CHAR(10)             not null,
-   ID_META_MENSUAL      INT4                 not null,
-   constraint PK_VENDEDOR primary key (ID_VENDEDOR)
-);
-
-/*==============================================================*/
-/* Index: VENDEDOR_PK                                           */
-/*==============================================================*/
-create unique index VENDEDOR_PK on VENDEDOR (
-ID_VENDEDOR
-);
-
-/*==============================================================*/
-/* Index: SE_CUMPLE_FK                                          */
-/*==============================================================*/
-create  index SE_CUMPLE_FK on VENDEDOR (
-ID_META_MENSUAL
 );
