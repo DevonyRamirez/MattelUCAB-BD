@@ -641,8 +641,8 @@ ID_COLOR
 create table CONTRATO_BENEFICIO (
    ID_CONTRATO          INT4                 not null,
    ID_BENEFICIO         INT4                 not null,
-   MONTO_CONTRATO_BENEFICIO INT4                 null,
-   CANTIDAD_INCIDENCIAS INT4                 null,
+   MONTO_CONTRATO_BENEFICIO DECIMAL(10,2)    not null,
+   CANTIDAD_INCIDENCIAS INT4                not null,
    constraint PK_CONTRATO_BENEFICIO primary key (ID_CONTRATO, ID_BENEFICIO)
 );
 
