@@ -619,8 +619,8 @@ alter table PAGO_MEMBRESIA
       on delete restrict on update restrict;
 
 alter table PAGO_MEMBRESIA
-   add constraint FK_PAGO_MEM_ES_REALIZ_USUARIO_ foreign key (ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO)
-      references USUARIO_METODO_PAGO (ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO)
+   add constraint FK_PAGO_MEM_ES_REALIZ_USUARIO_ foreign key (ID_USUARIO_METODO_PAGO)
+      references USUARIO_METODO_PAGO (ID_USUARIO_METODO_PAGO)
       on delete restrict on update restrict;
 
 alter table PAGO_MEMBRESIA
@@ -644,8 +644,8 @@ alter table PAGO_SUBASTA
       on delete restrict on update restrict;
 
 alter table PAGO_SUBASTA
-   add constraint FK_PAGO_SUB_ES_VALIDA_USUARIO_ foreign key (ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO)
-      references USUARIO_METODO_PAGO (ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO)
+   add constraint FK_PAGO_SUB_ES_VALIDA_USUARIO_ foreign key (ID_USUARIO_METODO_PAGO)
+      references USUARIO_METODO_PAGO (ID_USUARIO_METODO_PAGO)
       on delete restrict on update restrict;
 
 alter table PAYPAL

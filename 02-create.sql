@@ -3436,12 +3436,20 @@ ID_TIPO_TRANSPORTE
 /*==============================================================*/
 create table USUARIO (
    ID_USUARIO           SERIAL               not null,
-   ID_PERSONA_JURIDICA  INT4                 not null,
+   /* Las 3 FKs de actor son nullable: un usuario representa UN solo tipo de actor
+      (persona juridica, empleado o cliente b2c). El CHECK CKC_USUARIO_TIPO_ACTOR
+      garantiza que exactamente una este presente. Antes eran las 3 NOT NULL, lo que
+      obligaba a que cada usuario fuera empresa + empleado + cliente a la vez. */
+   ID_PERSONA_JURIDICA  INT4                 null,
    ID_ROL               INT4                 not null,
-   ID_PERSONA_NATURAL   INT4                 not null,
-   PER_ID_PERSONA_NATURAL INT4                 not null,
+   ID_PERSONA_NATURAL   INT4                 null,
+   PER_ID_PERSONA_NATURAL INT4                 null,
    NOMBRE_USUARIO       VARCHAR(50)          not null,
    CONTRASENA_USUARIO   VARCHAR(50)          not null,
+   constraint CKC_USUARIO_TIPO_ACTOR check (
+      (case when ID_PERSONA_JURIDICA    is not null then 1 else 0 end) +
+      (case when ID_PERSONA_NATURAL     is not null then 1 else 0 end) +
+      (case when PER_ID_PERSONA_NATURAL is not null then 1 else 0 end) = 1 ),
    constraint PK_USUARIO primary key (ID_USUARIO)
 );
 
@@ -3485,21 +3493,25 @@ PER_ID_PERSONA_NATURAL
 /*==============================================================*/
 create table USUARIO_METODO_PAGO (
    ID_USUARIO           INT4                 not null,
-   TAR_ID_METODO_PAGO   INT4                 not null,
-   ID_METODO_PAGO       INT4                 not null,
+   /* TAR_ID_METODO_PAGO (->TARJETA_CREDITO) e ID_METODO_PAGO (->TARJETA_DEBITO) son
+      nullable: un metodo de pago del usuario es de UN tipo (credito o debito), no ambos.
+      El CHECK CKC_UMP_TIENE_METODO exige al menos uno. Antes ambos eran NOT NULL y parte
+      del PK, obligando a tener tarjeta de credito Y debito en cada fila. El PK pasa a ser
+      el surrogate ID_USUARIO_METODO_PAGO (SERIAL, ya unico). */
+   TAR_ID_METODO_PAGO   INT4                 null,
+   ID_METODO_PAGO       INT4                 null,
    ID_USUARIO_METODO_PAGO SERIAL               not null,
    ES_VALIDADO          BOOL                 not null,
    FECHA_REGISTRO       DATE                 not null,
-   constraint PK_USUARIO_METODO_PAGO primary key (ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO)
+   constraint CKC_UMP_TIENE_METODO check (
+      TAR_ID_METODO_PAGO is not null or ID_METODO_PAGO is not null ),
+   constraint PK_USUARIO_METODO_PAGO primary key (ID_USUARIO_METODO_PAGO)
 );
 
 /*==============================================================*/
 /* Index: USUARIO_METODO_PAGO_PK                                */
 /*==============================================================*/
 create unique index USUARIO_METODO_PAGO_PK on USUARIO_METODO_PAGO (
-ID_USUARIO,
-TAR_ID_METODO_PAGO,
-ID_METODO_PAGO,
 ID_USUARIO_METODO_PAGO
 );
 
