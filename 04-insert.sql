@@ -2992,6 +2992,606 @@ VALUES
   ('LA VICTORIA', 'parroquia', 359),
   ('RAFAEL URDANETA', 'parroquia', 359);
 
+-- ========================================================================================
+-- SECCIÓN 1: CATÁLOGOS BASE (Tablas independientes que no dependen de otras)
+-- ========================================================================================
+
+INSERT INTO BANCO (ID_BANCO, NOMBRE_BANCO) VALUES 
+    (1, 'Banco de Venezuela'),
+    (2, 'Banesco'), 
+    (3, 'Mercantil'), 
+    (4, 'BBVA Provincial'), 
+    (5, 'Banco del Tesoro'), 
+    (6, 'Banco Bicentenario'), 
+    (7, 'Banco Exterior'), 
+    (8, 'Banco Caroní'), 
+    (9, 'Banco Nacional de Crédito'), 
+    (10, 'Banco Sofitasa');
+
+INSERT INTO COLOR (ID_COLOR, NOMBRE_COLOR) VALUES 
+    (1, 'Blanco'), 
+    (2, 'Negro'), 
+    (3, 'Amarillo'), 
+    (4, 'Marrón'), 
+    (5, 'Rosado'), 
+    (6, 'Verde'), 
+    (7, 'Azul'), 
+    (8, 'Morado'), 
+    (9, 'Rojo'),
+    (10, 'Plateado');
+
+INSERT INTO CLASIFICACION (ID_CLASIFICACION, NOMBRE_CLASIFICACION, DESCRIPCION_CLASIFICACION) VALUES 
+    (1, 'Black Label', 'Línea de colección orientada al público adulto con temáticas de cultura pop'),
+    (2, 'Gold Label', 'Ediciones exclusivas limitadas a un máximo de 25,000 unidades globales'),
+    (3, 'Platinum Label', 'Ediciones ultra exclusivas numeradas consecutivamente con menos de 1,000 unidades');
+
+-- Se adaptó a las columnas de la tabla (Nivel Grado y Sueldo Base)
+INSERT INTO TABULADOR_SALARIAL (ID_TABULADOR, NIVEL_GRADO, SUELDO_BASE) VALUES 
+    (1, 'Operador de Planta (24/7)', 200.00),
+    (2, 'Operador Especializado', 280.00),
+    (3, 'Supervisor de Planta', 350.00),
+    (4, 'Ejecutivo B2B Junior', 400.00),
+    (5, 'Ejecutivo B2B Senior', 600.00),
+    (6, 'Escultor de Moldes Jr', 500.00),
+    (7, 'Diseñador I+D Master', 800.00),
+    (8, 'Ingeniero de I+D', 900.00),
+    (9, 'Gerente B2B / I+D', 1200.00),
+    (10, 'Director Corporativo', 2000.00);
+
+INSERT INTO BENEFICIO (ID_BENEFICIO, NOMBRE_BENEFICIO, DESCRIPCION_BENEFICIO, TIPO_BENEFICIO) VALUES 
+    (1, 'Recargo Nocturno', 'Recargo salarial por laborar en turnos nocturnos', 'Recargo Legal'),
+    (2, 'Prima Feriado/Descanso', 'Prima por laborar en días feriados', 'Recargo Legal'),
+    (3, 'Comisión Volumen Máster', 'Comisión porcentual por volumen facturado', 'Incentivo Ventas'),
+    (4, 'Bono Cumplimiento Metas', 'Bono asignado por alcanzar o superar metas', 'Incentivo Ventas'),
+    (5, 'Regalía de Diseño (I+D)', 'Bono especial para autores de diseños', 'Incentivo I+D'),
+    (6, 'Regalía Black Label', 'Incentivo especial piezas Black Label', 'Incentivo I+D'),
+    (7, 'Bono Eficiencia', 'Bono de productividad métricas de planta', 'Productividad'),
+    (8, 'Seguro HCM', 'Póliza de salud para el trabajador', 'Bienestar'),
+    (9, 'Bono de Alimentación', 'Subsidio de ley para alimentación', 'Bienestar'),
+    (10, 'Bono por Antigüedad', 'Incentivo que premia la lealtad', 'Estabilidad');
+
+INSERT INTO MOLDE (ID_MOLDE, NOMBRE_MOLDE) VALUES 
+    (1, 'Superstar'), (2, 'Mackie'), (3, 'Millie'), (4, 'Steffie'), (5, 'CEO / Generation Girl'),
+    (6, 'Lara / Ana'), (7, 'Goddess'), (8, 'Aphrodite'), (9, 'Claudette'), (10, 'Diva');
+
+INSERT INTO PIEZA (ID_PIEZA, NOMBRE_PIEZA) VALUES 
+    (1, 'Cabeza Vinyl Estándar'), (2, 'Cuerpo Curvy Articulado'), (3, 'Brazo Derecho Made-to-Move'),
+    (4, 'Mecanismo de Sonido Interno'), (5, 'Torso Tall de Inyección'), (6, 'Cabeza de Goma Colectora'),
+    (7, 'Pierna Izquierda Petite'), (8, 'Fibra Textil de Sarán'), (9, 'Polímero de Poliestireno'),
+    (10, 'Micro-articulación de Codo');
+
+INSERT INTO PROFESION (ID_PROFESION, NOMBRE_PROFESION) VALUES 
+    (1, 'Astronauta'), (2, 'Cirujana'), (3, 'Presidenta'), (4, 'Ingeniera de Software'),
+    (5, 'Veterinaria de Mascotas'), (6, 'Piloto de Aviación'), (7, 'Chef Ejecutiva'),
+    (8, 'Científica de Laboratorio'), (9, 'Arquitecta de Interiores'), (10, 'Bombera de Rescate');
+
+INSERT INTO PRUEBA_CALIDAD (ID_PRUEBA, NOMBRE_PRUEBA) VALUES 
+    (1, 'Caída Libre (Drop Test)'), (2, 'Toxicidad de Polímeros'), (3, 'Tracción de Extremidades'),
+    (4, 'Flamabilidad Textil'), (5, 'Inspección Estética'), (6, 'Fatiga de Articulación'),
+    (7, 'Voltaje de Batería'), (8, 'Resistencia al Agua'), (9, 'Alérgenos Textiles'),
+    (10, 'Compresión en Caja Máster');
+
+INSERT INTO SET_REGALO (ID_SET_REGALO, NOMBRE_SET) VALUES 
+    (1, 'Aventura de Camping'), (2, 'Boda de Ensueño'), (3, 'Viajeros del Mundo'),
+    (4, 'Colección Vintage 65'), (5, 'Guardería de Cachorros'), (6, 'Estudio Diseño de Moda'),
+    (7, 'Concierto de Rock'), (8, 'Paseo en Convertible'), (9, 'Escuadrón STEM'),
+    (10, 'Fiesta Sorpresa');
+
+INSERT INTO MATERIAPRIMA (ID_MATERIAPRIMA, NOMBRE_MATERIAPRIMA, DESCRIPCION_MATERIAPRIMA) VALUES 
+    (1, 'Polímero ABS', 'Plástico rígido de alta resistencia'),
+    (2, 'Vinilo PVC Súper Suave', 'Plástico moldeable y elástico'),
+    (3, 'Fibra de Sarán', 'Cabello sintético de alta calidad'),
+    (4, 'Fibra de Nailon', 'Cabello textil resistente'),
+    (5, 'Polipropileno', 'Termoplástico ligero y flexible'),
+    (6, 'Resina de Poliuretano', 'Material premium de alta definición'),
+    (7, 'Pintura Acrílica Base Agua', 'Pigmentos de alta adherencia'),
+    (8, 'Policarbonato Translúcido', 'Plástico de alta transparencia'),
+    (9, 'Tinta de Tampografía', 'Tinta especial de secado rápido'),
+    (10, 'Polvo de Nailon', 'Material para simular terciopelo');
+
+INSERT INTO COLECCION (ID_COLECCION, NOMBRE_COLECCION, DESCRIPCION_COLECCION) VALUES 
+    (1, 'Barbie Fashionistas', 'Línea de alta diversidad con múltiples cuerpos, pieles y ojos; base para el diseño de empaquetado optimizado en paletas de distribución.'),
+    (2, 'Barbie Signature', 'Colección premium para adultos entusiastas, vinculada a membresías Gold y Platinum para otorgar acceso prioritario a lanzamientos.'),
+    (3, 'Dreamhouse (Bienes Raíces)', 'Línea de activos inmobiliarios (casas, campers) que gestiona una estructura de ambientes, mobiliario y compatibilidad.'),
+    (4, 'Día de Muertos', 'Edición especial de colección limitada con restricciones estrictas de compra por persona para mitigar la reventa web.'),
+    (5, 'Barbie Sirena', 'Línea temática de fantasía de alta demanda comercial, solicitada habitualmente en órdenes de compra masivas por clientes B2B.');
+
+INSERT INTO DEPARTAMENTO (ID_DEPARTAMENTO, NOMBRE_DEPARTAMENTO) VALUES 
+    (1, 'Investigación y Desarrollo (I+D)'), (2, 'Diseño de Modas y Textil'),
+    (3, 'Manufactura e Inyección'), (4, 'Pintura y Estética Facial'),
+    (5, 'Control de Calidad (QA)'), (6, 'Logística y Distribución Hub'),
+    (7, 'Ventas Corporativas B2B'), (8, 'Mercadeo y Trade Marketing'),
+    (9, 'Administración y Finanzas'), (10, 'Gestión de Talento Humano');
+
+INSERT INTO TIPO_CUERPO (ID_TIPO_CUERPO, NOMBRE_TIPO_CUERPO, DESCRIPCION_TIPO_CUERPO) VALUES 
+    (1, 'Classic / Estándar', 'El cuerpo tradicional esbelto con las proporciones históricas'),
+    (2, 'Curvy', 'Cuerpo con proporciones más realistas y curvas pronunciadas'),
+    (3, 'Tall', 'Estructura de mayor estatura y extremidades alargadas'),
+    (4, 'Petite', 'Estructura de menor estatura y contextura compacta'),
+    (5, 'Made to Move', 'Cuerpo ultra articulado con 22 puntos de pivote');
+
+INSERT INTO ROL (ID_ROL, NOMBRE_ROL) VALUES 
+    (1, 'Gerente de Inventario'), (2, 'Vendedor'), (3, 'Diseñador / Escultor (I+D)'),
+    (4, 'Coleccionista Platinum'), (5, 'Cliente en General');
+
+INSERT INTO PRIVILEGIO (ID_PRIVILEGIO, DESCRIPCION_PRIVILEGIO) VALUES 
+    (1, 'Visualizar los costos de producción'),
+    (2, 'Realizar modificaciones en los niveles de stock'),
+    (3, 'Consultar los precios de lista'),
+    (4, 'Consultar la disponibilidad de los productos'),
+    (5, 'Rastrear la autoría sobre el ADN de los productos'),
+    (6, 'Acceder a subastas exclusivas'),
+    (7, 'Consultar su propio historial de compras'),
+    (8, 'Acceso a la compra en línea'),
+    (9, 'Cargar dinámicamente interfaces y menús según el rol'),
+    (10, 'Ocultar márgenes de ganancia y datos de otros clientes');
+
+INSERT INTO MONEDA (ID_MONEDA, NOMBRE_MONEDA, SIMBOLO_MONEDA, TIPO_MONEDA) VALUES
+    (1, 'Dólar estadounidense', '$', 'Moneda Base'),
+    (2, 'Bolívares', 'Bs.', 'Moneda Nacional'),
+    (3, 'Tether', 'USDT', 'Criptoactivo Real'),
+    (4, 'Bitcoin', 'BTC', 'Criptoactivo Real'),
+    (5, 'BarbieCoins', '฿', 'Digital de la Marca');
+
+INSERT INTO TIPO_TRANSPORTE (ID_TIPO_TRANSPORTE, NOMBRE_TIPO_TRANSPORTE, DESCRIPCION_TIPO_TRANSPORTE) VALUES 
+    (1, 'Carga Consolidada B2B', 'Despachos masivos a grandes cadenas.'),
+    (2, 'Paquetería B2C', 'Despacho individualizado consumidor final.'),
+    (3, 'Marítimo', 'Mercancía en contenedores oceánicos.'),
+    (4, 'Aéreo Express', 'Importación de emergencia.'),
+    (5, 'Hub-to-Hub', 'Traslado masivo de stock interurbano.'),
+    (6, 'Última Milla', 'Distribución urbana rápida.'),
+    (7, 'Multimodal Internacional', 'Combinación terrestre y marítima.'),
+    (8, 'Carga Química Controlada', 'Logística especial con temperatura.'),
+    (9, 'Suministros y Cartonaje', 'Movimiento de cajas vacías y etiquetas.'),
+    (10, 'Material POP', 'Distribución de exhibidores.');
+
+INSERT INTO HORARIO (ID_HORARIO, DIA_HORARIO, HORA_ENTRADA_HORARIO, HORA_ENTRADA_SALIDA, TURNO_HORARIO) VALUES 
+    (1, 'Lunes a Viernes', '06:00:00', '14:00:00', 'Turno Diurno'),
+    (2, 'Lunes a Viernes', '14:00:00', '22:00:00', 'Turno Vespertino'),
+    (3, 'Lunes a Viernes', '22:00:00', '06:00:00', 'Turno Nocturno'),
+    (4, 'Fines de Semana', '06:00:00', '14:00:00', 'Turno Diurno Fin de Semana'),
+    (5, 'Fines de Semana', '14:00:00', '22:00:00', 'Turno Vespertino Fin de Semana'),
+    (6, 'Fines de Semana', '22:00:00', '06:00:00', 'Turno Nocturno Fin de Semana'),
+    (7, 'Feriados', '06:00:00', '14:00:00', 'Turno Diurno Feriado'),
+    (8, 'Feriados', '14:00:00', '22:00:00', 'Turno Vespertino Feriado'),
+    (9, 'Feriados', '22:00:00', '06:00:00', 'Turno Nocturno Feriado'),
+    (10, 'Staff Administrativo', '08:00:00', '17:00:00', 'Turno Administrativo');
+
+INSERT INTO COURIER (ID_COURIER, NOMBRE_COURIER) VALUES 
+    (1, 'DHL'), (2, 'FedEx'), (3, 'Zoom'), (4, 'MRW');
+
+INSERT INTO MEMBRESIA (ID_MEMBRESIA, NOMBRE_MEMBRESIA, PRECIO_MEMBRESIA) VALUES 
+    (1, 'Membresia Gold Mensual', 9.99),
+    (2, 'Membresia Gold Anual', 99.99),
+    (3, 'Membresia Platinum Mensual', 24.99),
+    (4, 'Membresia Platinum Anual', 249.99);
+
+INSERT INTO CARACTERISTICA (ID_CARACTERISTICA, NOMBRE_CARACTERISTICA, DESCRIPCION_CARACTERISTICA) VALUES 
+    (1, 'Tipo de Ojos', 'Tampografía o cristal.'),
+    (2, 'Pestañas Enraizadas', 'Presencia de filamentos sintéticos.'),
+    (3, 'Acabado de Piel', 'Mate o satinado.'),
+    (4, 'Densidad Cabello', 'Cantidad de folículos por cm2.'),
+    (5, 'Puntos Articulación', 'Cantidad de uniones mecánicas.'),
+    (6, 'Conector de Cuello', 'Especificación del anclaje superior.'),
+    (7, 'Resistencia UV', 'Evita la decoloración solar.'),
+    (8, 'Complejidad Maquillaje', 'Número de capas de tampografía.'),
+    (9, 'Moldeado Pies', 'Plano o de tacón.'),
+    (10, 'Escala Proporción', 'Dimensión paramétrica.');
+
+INSERT INTO DESCUENTO (ID_DESCUENTO, NOMBRE_DESCUENTO, DESCRIPCION_DESCUENTO, PORCENTAJE_DESCUENTO) VALUES 
+    (1, 'Lanzamiento Gold', 'Rebaja del 5% preventas.', 0.0500),
+    (2, 'Aniversario Pink Box', 'Descuento especial del 10%.', 0.1000),
+    (3, 'VIP Platinum', 'Reducción del 15% subastas.', 0.1500),
+    (4, 'Black Friday', 'Descuento del 30% web.', 0.3000),
+    (5, 'Volumen B2B', 'Incentivo del 12% por compras masivas.', 0.1200),
+    (6, 'Liquidación Dreamtopia', 'Descuento del 50% remanentes.', 0.5000),
+    (7, 'Bono Registro', 'Cortesía de bienvenida del 8%.', 0.0800),
+    (8, 'Cumpleaños Premium', 'Beneficio del 20% aniversario.', 0.2000),
+    (9, 'Suscripción Anual', 'Descuento del 25% transición.', 0.2500),
+    (10, 'Saldos Outlet', 'Rebaja del 40% piezas de exhibición.', 0.4000);
+
+INSERT INTO TIPO_CRIPTOMONEDA (ID_TIPO_CRIPTOMONEDA, RED_BLOCKCHAIN) VALUES 
+    (1, 'Bitcoin'),         -- Para la moneda Bitcoin (BTC)
+    (2, 'Tron (TRC-20)'),   -- Red más utilizada para Tether (USDT)
+    (3, 'BarbieChain');     -- Red propietaria para las BarbieCoins
+
+-- ========================================================================================
+-- SECCIÓN 2: DISEÑO Y PRODUCTO (Categorías, Bases de Diseño y Productos Finales)
+-- ========================================================================================
+
+-- TABLA: CATEGORIA 
+-- Las primeras 5 son categorías "Padre" (CAT_ID_CATEGORIA es NULL).
+-- Las últimas 5 son subcategorías que apuntan a un padre.
+INSERT INTO CATEGORIA (ID_CATEGORIA, CAT_ID_CATEGORIA, NOMBRE_CATEGORIA, DESCRIPCION_CATEGORIA) VALUES 
+    (1, NULL, 'Muñecas Clásicas', 'Línea de muñecas de escala estándar y exhibición.'),
+    (2, NULL, 'Accesorios', 'Complementos, ropa, zapatos y joyería en miniatura.'),
+    (3, NULL, 'Playsets', 'Sets de juego y escenarios temáticos interactivos.'),
+    (4, NULL, 'Vehículos', 'Autos, campers, aviones y transporte a escala.'),
+    (5, NULL, 'Coleccionables', 'Piezas de exhibición Premium y Black Label.'),
+    (6, 1, 'Fantasía', 'Sirenas, hadas, princesas y personajes míticos.'),
+    (7, 1, 'Profesiones', 'Línea inspiracional con temática laboral y carreras.'),
+    (8, 2, 'Ropa Casual', 'Atuendos de uso diario y moda urbana.'),
+    (9, 3, 'Casas y Mansiones', 'Estructuras habitacionales grandes (Dreamhouse).'),
+    (10, 4, 'Convertibles', 'Coches deportivos de techo abierto.');
+
+-- TABLA: CATEGORIA_CATEGORIA 
+-- Relación de jerarquías de categorías.
+INSERT INTO CATEGORIA_CATEGORIA (CAT_ID_CATEGORIA, ID_CATEGORIA) VALUES 
+    (1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+    (6, 6), (7, 7), (8, 8), (9, 9), (10, 10);
+
+-- TABLA: BASE_DISENO
+-- Cruza la Era, Color de Ojo, Tono de Piel y Tipo de Cuerpo.
+-- Nota: ALTO, ANCHO y PROFUNDIDAD están en DECIMAL(3,2), lo que significa que el valor máximo posible es 9.99 (ideal para pulgadas o escalas pequeñas).
+INSERT INTO BASE_DISENO (ID_BASEDISENO, ID_ERA, BAS_ID_BASEDISENO, ID_COLOR_OJO, ID_TONO_PIEL, ID_TIPO_CUERPO, ID_COLECCION, NOMBRE_BASEDISENO, DESCRIPCION_BASEDISENO, ALTO_BASEDISENO, ANCHO_BASEDISENO, PROFUNDIDAD_BASEDISENO) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 'Diseño Base Vintage', 'Especificación original de 1959 con mirada lateral.', 9.50, 2.50, 1.50),
+    (2, 2, 2, 2, 2, 2, 2, 'Diseño Mod Era', 'Especificación psicodélica y colorida de los años 60s.', 9.50, 2.60, 1.60),
+    (3, 3, 3, 3, 3, 3, 3, 'Diseño Superstar', 'Cuerpo articulado y sonrisa amplia de los 70s.', 9.60, 2.70, 1.70),
+    (4, 4, 4, 4, 4, 4, 4, 'Diseño Moderno', 'Cuerpo petite compacto de los 90s.', 8.50, 2.40, 1.40),
+    (5, 1, 5, 5, 5, 5, 5, 'Diseño Dreamhouse', 'Escala paramétrica compatible con ambientes arquitectónicos.', 9.70, 2.80, 1.80),
+    (6, 2, 6, 6, 1, 1, 1, 'Diseño Articulado M2M', 'Estructura Made to Move de 22 puntos de pivote.', 9.50, 2.50, 1.50),
+    (7, 3, 7, 7, 2, 2, 2, 'Diseño Curvy Realista', 'Proporciones corporales basadas en medidas realistas.', 9.40, 3.00, 2.00),
+    (8, 4, 8, 8, 3, 3, 3, 'Diseño Tall Extendido', 'Estatura extendida y extremidades alargadas.', 9.99, 2.50, 1.50),
+    (9, 1, 9, 9, 4, 4, 4, 'Diseño Coleccionista', 'Proporciones de alta costura para exhibición en vitrina.', 9.80, 2.60, 1.50),
+    (10, 2, 10, 10, 5, 5, 5, 'Diseño Fantasía Sirena', 'Matriz especial que integra cola en la parte inferior.', 9.90, 3.50, 2.50);
+
+-- TABLA: PRODUCTO 
+-- Las llaves foráneas coinciden exactamente (1 al 10) con lo que compran las órdenes B2B y las Subastas.
+INSERT INTO PRODUCTO (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, CAT_ID_BASEDISENO, ID_CATEGORIA, BAS_ID_BASEDISENO2, ID_SET_REGALO, CLA_ID_BASEDISENO, ID_CLASIFICACION, CAR_ID_BASEDISENO, ID_CARACTERISTICA, ID_PROFESION, PRO_ID_BASEDISENO, CONDICION_PRODUCTO) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Nuevo en Caja - Calidad Retail'),
+    (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 'Nuevo en Caja - Calidad Retail'),
+    (3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 'Edición Limitada - MINT Condition'),
+    (4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4, 4, 4, 4, 'Nuevo en Caja - Calidad Retail'),
+    (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, 5, 5, 5, 5, 'Nuevo en Caja - Calidad Retail'),
+    (6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 6, 6, 6, 6, 'Prototipo Interno - No Comercializable'),
+    (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 1, 7, 7, 7, 7, 'Nuevo en Caja - Calidad Retail'),
+    (8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 2, 8, 8, 8, 8, 'Nuevo en Caja - Calidad Retail'),
+    (9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 3, 9, 9, 9, 9, 'Usado - Pieza de Exhibición en Vitrina'),
+    (10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 10, 10, 10, 10, 'Nuevo en Caja - Calidad Retail');
+
+-- TABLAS INTERMEDIAS DE DISEÑO 
+
+-- TABLA: PROFESION_BASEDISENO
+INSERT INTO PROFESION_BASEDISENO (ID_PROFESION, ID_BASEDISENO) VALUES 
+    (1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+    (6, 6), (7, 7), (8, 8), (9, 9), (10, 10);
+
+-- TABLA: BASEDISENO_PRUEBA
+INSERT INTO BASEDISENO_PRUEBA (ID_BASEDISENO, ID_PRUEBA) VALUES 
+    (1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+    (6, 6), (7, 7), (8, 8), (9, 9), (10, 10);
+
+-- TABLA: CARACTERISTICA_BASEDISENO
+INSERT INTO CARACTERISTICA_BASEDISENO (ID_BASEDISENO, ID_CARACTERISTICA) VALUES 
+    (1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+    (6, 6), (7, 7), (8, 8), (9, 9), (10, 10);
+
+-- TABLA: CATEGORIA_BASEDISENO
+INSERT INTO CATEGORIA_BASEDISENO (ID_BASEDISENO, ID_CATEGORIA) VALUES 
+    (1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+    (6, 6), (7, 7), (8, 8), (9, 9), (10, 10);
+
+-- TABLA: BASE_DISENO_CONSTRUCCION 
+-- Asocia la pieza, el molde, la materia prima y el diseño base con la cantidad de materia requerida.
+INSERT INTO BASE_DISENO_CONSTRUCCION (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, ID_BASEDISENO, CANTIDAD_MATERIAPRIMA) VALUES 
+    (1, 1, 1, 1, 50),
+    (2, 2, 2, 2, 45),
+    (3, 3, 3, 3, 60),
+    (4, 4, 4, 4, 55),
+    (5, 5, 5, 5, 70),
+    (6, 6, 6, 6, 80),
+    (7, 7, 7, 7, 65),
+    (8, 8, 8, 8, 40),
+    (9, 9, 9, 9, 90),
+    (10, 10, 10, 10, 75);
+
+-- TABLA: CLASIFICACION_BASEDISENO 
+-- Conecta el diseño base con su clasificación correspondiente.
+INSERT INTO CLASIFICACION_BASEDISENO (ID_BASEDISENO, ID_CLASIFICACION) VALUES 
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 1),
+    (5, 2),
+    (6, 3),
+    (7, 1),
+    (8, 2),
+    (9, 3),
+    (10, 1);
+
+-- TABLA: BASEDISENO_SETREGALO 
+-- Vincula los diseños base con los sets de regalo disponibles.
+INSERT INTO BASEDISENO_SETREGALO (ID_BASEDISENO, ID_SET_REGALO) VALUES 
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9),
+    (10, 10);
+
+-- TABLA: FASE_DISENO 
+-- Registra la fase de prueba vinculada a los IDs de la base de diseño.
+INSERT INTO FASE_DISENO (BAS_ID_BASEDISENO, ID_PRUEBA, ID_BASEDISENO) VALUES 
+    (1, 1, 1),
+    (2, 2, 2),
+    (3, 3, 3),
+    (4, 4, 4),
+    (5, 5, 5),
+    (6, 6, 6),
+    (7, 7, 7),
+    (8, 8, 8),
+    (9, 9, 9),
+    (10, 10, 10);
+
+-- TABLA: FASE_CARGO
+-- Asigna la cantidad de empleados por cargo requeridos para ejecutar una fase de diseño.
+INSERT INTO FASE_CARGO (BAS_ID_BASEDISENO, ID_PRUEBA, ID_BASEDISENO, ID_CARGO, CANTIDAD_CARGO) VALUES 
+    (1, 1, 1, 1, 2),
+    (2, 2, 2, 2, 3),
+    (3, 3, 3, 3, 1),
+    (4, 4, 4, 4, 4),
+    (5, 5, 5, 5, 2),
+    (6, 6, 6, 6, 5),
+    (7, 7, 7, 7, 1),
+    (8, 8, 8, 8, 3),
+    (9, 9, 9, 9, 2),
+    (10, 10, 10, 10, 4);
+
+-- ========================================================================================
+-- SECCIÓN 2.1: PRODUCCIÓN, EMPLEADOS ASIGNADOS Y PRECIOS
+-- ========================================================================================
+
+-- TABLA: FASE_PRODUCCION 
+-- Registra el cruce gigante de llaves que representan la producción física del producto.
+INSERT INTO FASE_PRODUCCION (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, ID_CARGO, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+    (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2),
+    (3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3),
+    (4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+    (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5),
+    (6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6),
+    (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7),
+    (8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8),
+    (9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9),
+    (10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10);
+
+-- TABLA: FASE_EMPLEADO
+-- Asigna el contrato específico del empleado a la fase de producción.
+INSERT INTO FASE_EMPLEADO (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, FAS_ID_CARGO, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_CARGO, ID_CONTRATO, ID_CONTRATO_CARGO, ID_FASE_EMPLEADO) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+    (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2),
+    (3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3),
+    (4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+    (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5),
+    (6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6),
+    (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7),
+    (8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8),
+    (9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9),
+    (10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10);
+
+-- TABLA: HISTORICO_FASE_PRODUCCION
+-- Historial de estatus por el que ha pasado la producción (Con fechas de inicio y fin).
+INSERT INTO HISTORICO_FASE_PRODUCCION (FAS_BAS_ID_BASEDISENO, ID_PRUEBA, FAS_ID_BASEDISENO, FAS_ID_CARGO, ID_PIEZA, ID_MOLDE, ID_CARGO, ID_CONTRATO, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_FASE_PRODUCCION, ID_CONTRATO_CARGO, ID_FASE_EMPLEADO, ID_ESTATUS_FP, FECHAHORA_INICIO_FASEP, FECHAHORA_FINAL_FASEP) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, '2025-01-05', '2025-01-15'),
+    (2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, '2025-01-10', '2025-01-20'),
+    (3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, '2025-02-01', '2025-02-12'),
+    (4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, '2025-02-15', '2025-02-28'),
+    (5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 2, '2026-05-15', NULL), -- En progreso actual
+    (6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, '2025-03-01', '2025-03-10'),
+    (7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 5, '2025-03-15', '2025-03-25'),
+    (8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, '2026-05-20', NULL), -- Pausado
+    (9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 5, '2025-04-01', '2025-04-10'),
+    (10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 4, '2026-05-25', NULL); -- En revisión
+
+-- TABLA: HISTORICO_PRECIO
+-- Controla la variación de precios en el tiempo.
+-- TIPOS ADMITIDOS POR CHECK: 'DET' (Detal), 'MAYOR' (Mayorista), 'SUB' (Subasta)
+-- Los registros con FECHAFIN en NULL representan los precios actualmente activos.
+INSERT INTO HISTORICO_PRECIO (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ESTATUS_PRECIO, ID_PRECIO, MONTO_PRECIO, FECHAINICIO_HISTORICO_PRECIO, TIPO_PRECIO, FECHAFIN_HISTORICO_PRECIO) VALUES 
+    (1, 1, 1, 1, 1, 1, 2, 1, 25.00, '2025-01-01', 'DET', '2025-12-31'),   -- Inactivo (2)
+    (1, 1, 1, 1, 1, 1, 1, 2, 29.99, '2026-01-01', 'DET', NULL),          -- Activo (1)
+    (2, 2, 2, 2, 2, 2, 1, 3, 19.50, '2025-06-01', 'MAYOR', NULL),        -- Activo al Mayor
+    (3, 3, 3, 3, 3, 3, 1, 4, 150.00, '2026-02-01', 'SUB', NULL),         -- Activo Subasta
+    (4, 4, 4, 4, 4, 4, 1, 5, 35.00, '2026-01-15', 'DET', NULL),          -- Activo
+    (5, 5, 5, 5, 5, 5, 3, 6, 12.00, '2026-05-01', 'MAYOR', '2026-06-01'),-- Promocion
+    (6, 6, 6, 6, 6, 6, 1, 7, 200.00, '2026-03-01', 'SUB', NULL),         -- Activo Subasta
+    (7, 7, 7, 7, 7, 7, 1, 8, 45.99, '2026-04-10', 'DET', NULL),          -- Activo
+    (8, 8, 8, 8, 8, 8, 4, 9, 15.00, '2026-05-15', 'MAYOR', NULL),        -- Liquidacion Mayorista
+    (9, 9, 9, 9, 9, 9, 1, 10, 85.00, '2026-01-01', 'DET', NULL);         -- Activo
+
+-- ========================================================================================
+-- SECCIÓN 2.2: CATÁLOGOS DEPENDIENTES (Tablas que usan IDs de la Sección 1)
+-- ========================================================================================
+
+INSERT INTO TONO_PIEL (ID_TONO_PIEL, ID_COLOR, NOMBRE_TONO_PIEL) VALUES 
+    (1, 1, 'Claro'), 
+    (2, 2, 'Medio'), 
+    (3, 3, 'Bronceado'), 
+    (4, 4, 'Oscuro'), 
+    (5, 5, 'Fantasía');
+
+INSERT INTO COLOR_OJO (ID_COLOR_OJO, ID_COLOR, NOMBRE_COLOR_OJO) VALUES 
+    (1, 1, 'Azul Claro'),
+    (2, 2, 'Marrón Oscuro'),
+    (3, 3, 'Verde Esmeralda'),
+    (4, 4, 'Avellana'),
+    (5, 5, 'Negro Profundo'),
+    (6, 6, 'Gris Pizarra'),
+    (7, 7, 'Ámbar'),
+    (8, 8, 'Azul Zafiro'),
+    (9, 9, 'Marrón Claro'),
+    (10, 10, 'Violeta');
+
+INSERT INTO ERA (ID_ERA, ID_BASEDISENO, NOMBRE_ERA, DESCRIPCION_ERA) VALUES 
+    (1, NULL, 'Vintage', 'Período inicial desde 1959 con molde original'),
+    (2, NULL, 'Mod Era', 'Época de finales de los 60 con colores psicodélicos'),
+    (3, NULL, 'Superstar Era', 'Iniciada en 1977, icónica sonrisa amplia'),
+    (4, NULL, 'Modern Era', 'Abarca los años 90 y principios de los 2000');
+
+
+-- TABLA: CHEQUE
+INSERT INTO CHEQUE (ID_METODO_PAGO, ID_BANCO, NUMERO_CHEQUE) VALUES 
+    (1, 1, '10203040'), -- Banco de Venezuela
+    (2, 2, '25418963'), -- Banesco
+    (3, 3, '55887744'), -- Mercantil
+    (4, 4, '11223344'), -- BBVA Provincial
+    (5, 5, '99887766'), -- Banco del Tesoro
+    (6, 6, '12345678'), -- Banco Bicentenario
+    (7, 7, '87654321'), -- Banco Exterior
+    (8, 8, '56473829'), -- Banco Caroní
+    (9, 9, '10020030'), -- Banco Nacional de Crédito
+    (10, 10, '90080070'); -- Banco Sofitasa
+
+INSERT INTO TRANSFERENCIA_BANCARIA (ID_METODO_PAGO, ID_BANCO) VALUES
+  (1, 1),
+  (2, 2),
+  (3, 3),
+  (4, 4),
+  (5, 5),
+  (6, 6),
+  (7, 7),
+  (8, 8),
+  (9, 9),
+  (10, 10);
+
+INSERT INTO TASA_CAMBIO (ID_TASA_CAMBIO, ID_MONEDA, VALOR_USD_TASA, FECHA_EFECTIVA, FECHAFIN_PRECIO) VALUES 
+    -- Moneda Base (1: USD)
+    (1, 1, 1.00, '2024-01-01', NULL), 
+    -- Historial de Bolívares (2: Bs.) - Expresado en cuántos Bs equivalen a 1 USD
+    (2, 2, 36.20, '2024-01-01', '2024-02-15'), 
+    (3, 2, 38.50, '2024-02-16', '2024-03-31'), 
+    (4, 2, 39.10, '2024-04-01', NULL), 
+    -- Stablecoin (3: USDT) - Paridad 1 a 1 con el dólar
+    (5, 3, 1.00, '2024-01-01', NULL), 
+    -- Historial Bitcoin (4: BTC) - Expresado en valor en USD por 1 BTC
+    (6, 4, 62000.00, '2024-01-01', '2024-03-15'),
+    (7, 4, 67500.00, '2024-03-16', NULL),
+    -- Historial BarbieCoins (5: Digital) - Expresado en valor en USD por 1 BarbieCoin
+    (8, 5, 2.50, '2024-01-01', '2024-02-28'),
+    (9, 5, 5.00, '2024-03-01', '2024-04-15'),
+    (10, 5, 8.50, '2024-04-16', NULL);
+
+
+-- ========================================================================================
+-- SECCIÓN 3: ESTADOS Y ESTATUS (Catálogos para seguimientos)
+-- ========================================================================================
+
+INSERT INTO ESTATUS_PUJA (ID_ESTATUS_PUJA, NOMBRE_ESTATUS_PUJA, DESCRIPCION_ESTATUS_PUJA) VALUES 
+    (1, 'Activa', 'La puja ha sido recibida y está compitiendo actualmente en la subasta.'),
+    (2, 'Superada', 'Otro usuario ha realizado una oferta mayor a esta puja.'),
+    (3, 'Ganadora', 'La puja con el monto más alto al cerrar el tiempo de la subasta.'),
+    (4, 'Retirada', 'La puja fue cancelada o anulada por el administrador del sistema.'),
+    (5, 'Invalida', 'La puja no cumplió con el incremento mínimo requerido para el lote.');
+
+-- TABLA: ESTATUS_SUBASTA
+INSERT INTO ESTATUS_SUBASTA (ID_ESTATUS_SUBASTA, NOMBRE_ESTATUS_SUBASTA, DESCRIPCION_ESTATUS_SUBASTA) VALUES 
+    (1, 'Programada', 'La subasta ha sido creada pero el periodo de pujas aún no inicia.'),
+    (2, 'Activa', 'La subasta está abierta y recibiendo pujas de los usuarios.'),
+    (3, 'Cerrada - En Evaluación', 'El tiempo finalizó, el sistema está validando la puja ganadora.'),
+    (4, 'Adjudicada', 'Se ha declarado un ganador y se generó la orden de subasta.'),
+    (5, 'Desierta', 'La subasta finalizó sin recibir ninguna puja válida.'),
+    (6, 'Cancelada', 'La subasta fue anulada por la administración antes de finalizar.'),
+    (7, 'Suspendida', 'Pausada temporalmente por problemas técnicos o auditoría.'),
+    (8, 'En Disputa', 'Existen reclamos sobre la validez de la puja ganadora.'),
+    (9, 'Finalizada y Pagada', 'El ganador concretó el pago y se cerró el proceso.'),
+    (10, 'Archivada', 'Subasta histórica guardada solo para fines de auditoría.');
+
+-- TABLA: ESTATUS_ORDEN_SUBASTA (Coincide con los estados usados anteriormente)
+INSERT INTO ESTATUS_ORDEN_SUBASTA (ID_ESTATUS_ORDENSUB, NOMBRE_ESTATUS_ORDENSUB, DESC_ESTATUS_ORDENSUB) VALUES 
+    (1, 'Emitida', 'La orden de subasta ha sido generada tras la adjudicación.'),
+    (2, 'Pagada', 'El cliente ha liquidado el monto total de la orden exitosamente.'),
+    (3, 'Entregada', 'El lote físico ha sido entregado o enviado al comprador.'),
+    (4, 'Cancelada por Penalización', 'La orden se anuló debido a una infracción o impago del cliente.'),
+    (5, 'En Preparación', 'El lote está siendo empaquetado para su envío.'),
+    (6, 'En Tránsito', 'El lote ha sido entregado a la empresa de transporte.'),
+    (7, 'Retrasada', 'Existen demoras en el pago o en la entrega por parte de logística.'),
+    (8, 'Rechazada por Banco', 'El intento de pago falló por fondos insuficientes o bloqueo.'),
+    (9, 'En Disputa de Cobro', 'El cliente abrió un reclamo con su institución financiera.'),
+    (10, 'Reembolsada', 'Se ha devuelto el dinero al cliente tras una cancelación justificada.');
+
+-- TABLA: ESTATUS_BACKORDER
+INSERT INTO ESTATUS_BACKORDER (ID_ESTATUS_BACKORDER, NOMBRE_ESTATUS_BACKORDER, DESCRIPCION_ESTATUS_BACKORDER) VALUES 
+    (1, 'Generado', 'El backorder ha sido creado por falta de stock en una orden B2B.'),
+    (2, 'Aprobado para Producción', 'El departamento de manufactura aceptó el requerimiento.'),
+    (3, 'Esperando Materia Prima', 'La producción está detenida por falta de insumos.'),
+    (4, 'En Producción', 'Las piezas solicitadas se encuentran actualmente en fabricación.'),
+    (5, 'Parcialmente Surtido', 'Se ha entregado una parte del lote, pero aún faltan piezas.'),
+    (6, 'Listo para Envío', 'La totalidad del backorder está fabricada y en almacén.'),
+    (7, 'En Tránsito', 'El pedido está en camino a las instalaciones del cliente B2B.'),
+    (8, 'Completado', 'El cliente B2B recibió todas las unidades pendientes del backorder.'),
+    (9, 'Cancelado por Cliente', 'El cliente B2B desistió de esperar el lote faltante.'),
+    (10, 'Cancelado por Fábrica', 'Es imposible producir el lote por descontinuación de moldes.');
+
+-- TABLA: ESTATUS_MEMBRESIA 
+INSERT INTO ESTATUS_MEMBRESIA (ID_ESTATUS_MEMBRESIA, NOMBRE_ESTATUS_MEMBRESIA, DESCRIPCION_ESTATUS_MEMBRESIA) VALUES 
+    (1, 'Activa', 'La membresía está vigente y los pagos están al día.'),
+    (2, 'Inactiva', 'La membresía fue desactivada temporalmente por el usuario.'),
+    (3, 'Suspendida', 'Suspendida por el sistema por infracciones a los términos.'),
+    (4, 'Cancelada', 'Membresía anulada de forma definitiva.'),
+    (5, 'Vencida', 'El tiempo pagado finalizó y no se ha renovado.'),
+    (6, 'Periodo de Gracia', 'Vencida recientemente, con 5 días para pagar sin perder beneficios.'),
+    (7, 'Pendiente de Pago', 'Se intentó cobrar pero la tarjeta fue rechazada.'),
+    (8, 'En Renovación', 'Procesando el cobro del próximo ciclo de facturación.'),
+    (9, 'Prueba Gratuita', 'Usuario gozando de 30 días de cortesía de nivel Gold.'),
+    (10, 'Bloqueada', 'Bloqueo preventivo por sospecha de fraude o reventa ilegal.');
+  
+-- TABLA: ESTATUS_PAGO_MEMBRESIA
+INSERT INTO ESTATUS_PAGO_MEMBRESIA (ID_ESTATUS_PAGO_MEMBRESIA, NOMBRE_ESTATUS_PAGO_MEMBRESIA, DESC_ESTATUS_PAGO_MEMB) VALUES 
+    (1, 'Aprobado', 'El pago fue procesado por la pasarela exitosamente.'),
+    (2, 'Rechazado - Fondos', 'Transacción declinada por fondos insuficientes.'),
+    (3, 'Rechazado - Banco', 'El banco emisor bloqueó la transacción.'),
+    (4, 'Pendiente', 'El pago está en proceso de verificación (ej. transferencias).'),
+    (5, 'Reversado', 'El pago fue devuelto al cliente por error en sistema.'),
+    (6, 'Fraude Sospechoso', 'Bloqueado por el sistema antifraude.'),
+    (7, 'Expirado', 'El tiempo para completar el pago caducó.'),
+    (8, 'Cancelado por Usuario', 'El usuario abortó el pago antes de procesarse.'),
+    (9, 'En Disputa', 'El usuario reportó el cargo (Chargeback).'),
+    (10, 'Reembolsado', 'El pago se completó pero el dinero fue devuelto por solicitud.');
+
+-- TABLA: ESTATUS_FASE_PRODUCCION
+INSERT INTO ESTATUS_FASE_PRODUCCION (ID_ESTATUS_FP, NOMBRE_ESTATUS_FP, DESCRIPCION_ESTATUS_FP) VALUES 
+    (1, 'No Iniciada', 'La fase de producción ha sido programada pero no ha comenzado.'),
+    (2, 'En Progreso', 'Los empleados están trabajando actualmente en esta fase.'),
+    (3, 'Pausada', 'Producción detenida temporalmente por falta de insumos o fallas.'),
+    (4, 'En Revisión QA', 'Fase terminada, a la espera de aprobación de calidad.'),
+    (5, 'Completada', 'Fase finalizada y aprobada con éxito.'),
+    (6, 'Rechazada', 'La fase no pasó los controles de calidad y debe repetirse.'),
+    (7, 'Cancelada', 'Producción abortada permanentemente.'),
+    (8, 'Retrasada', 'La fase superó el tiempo estimado de finalización.'),
+    (9, 'Mantenimiento', 'Maquinaria en mantenimiento durante esta fase.'),
+    (10, 'Empaquetado', 'Fase final de embalaje del producto.');
+
+-- TABLA: ESTATUS_PRECIO 
+-- Nota: Se debe cambiar el nombre de NOMBRE_ESATUS_PRECIO a como está acá.
+INSERT INTO ESTATUS_PRECIO (ID_ESTATUS_PRECIO, NOMBRE_ESTATUS_PRECIO, DESCRIPCION_ESTATUS_PRECIO) VALUES 
+    (1, 'Activo', 'El precio actual vigente para el producto.'),
+    (2, 'Inactivo', 'Precio obsoleto, reemplazado por uno nuevo.'),
+    (3, 'Promoción', 'Precio reducido temporalmente por campaña publicitaria.'),
+    (4, 'Liquidación', 'Precio de remate para agotar inventario restante.'),
+    (5, 'Preventa', 'Precio especial para órdenes anticipadas antes del lanzamiento.'),
+    (6, 'Descontinuado', 'Precio de un producto que ya no se fabrica.'),
+    (7, 'Suscripción', 'Precio bloqueado para usuarios con membresía activa.'),
+    (8, 'Oferta Relámpago', 'Descuento válido únicamente por pocas horas.'),
+    (9, 'Mayorista VIP', 'Precio preferencial para compradores de gran volumen.'),
+    (10, 'Subasta Base', 'Precio inicial de arranque para un evento de subasta.');
+
+-- TABLA: ESTATUS_INVENTARIO
+INSERT INTO ESTATUS_INVENTARIO (ID_ESTATUS_INVENTARIO, NOMBRE_ESTATUS_INVENTARIO, DESCRIPCION_ESTATUS_INVENTARIO) VALUES 
+    (1, 'Disponible', 'Producto almacenado y listo para la venta B2B o B2C.'),
+    (2, 'Reservado', 'Apartado temporalmente en el carrito de un cliente.'),
+    (3, 'En Tránsito', 'En movimiento físico entre una sede y otra (o en océano).'),
+    (4, 'Vendido', 'Producto facturado y despachado al cliente.'),
+    (5, 'En Subasta', 'Inventario bloqueado porque pertenece a una subasta activa.'),
+    (6, 'Devuelto', 'Producto retornado por el cliente, pendiente de revisión.'),
+    (7, 'Dañado / Merma', 'Producto con daños de fábrica o transporte, no apto para venta.'),
+    (8, 'Extraviado', 'Pérdida desconocida detectada en auditoría de almacén.'),
+    (9, 'En Cuarentena', 'Retenido por controles de calidad (QA).'),
+    (10, 'Liquidación', 'Apartado para ventas de remate a bajo costo.');
+
 INSERT INTO estatus_orden_compra_b2c (nombre_estatus_orden_b2c,descripcion_estatus_orden_b2c)
 VALUES
     ('Emitida', 'La orden fue creada pero no validada'),
@@ -3015,3 +3615,594 @@ VALUES
     ('Cobrada', 'El dinero ingresó a la cuenta de MATTELUCAB'),
     ('Cancelada', 'Solo es posible si la orden no ha entrado en estado despachada'),
     ('Devuelta', 'Proceso de logística inversa por defectos de la calidad');
+
+-- ========================================================================================
+-- SECCIÓN 4: MÓDULO DE SUBASTAS (Creación, Órdenes, Pujas, Adjudicación e Historiales)
+-- ========================================================================================
+
+INSERT INTO SUBASTA (ID_SUBASTA, ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, NOMBRE_SUBASTA, FECHAHORA_INICIO_SUBASTA, FECHAHORA_FIN_SUBASTA, PRECIO_BASE_SUBASTA, INCREMENTO_MINIMO_SUBASTA) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 1, 'Subasta de Arte Moderno Escaso', '2026-05-01', '2026-05-10', 100.00, 10.00),
+    (2, 2, 2, 2, 2, 2, 2, 2, 'Colección de Esculturas de Resina', '2026-05-05', '2026-05-15', 300.00, 25.00),
+    (3, 3, 3, 3, 3, 3, 3, 3, 'Edición Limitada Prototipos ADN', '2026-05-10', '2026-05-18', 800.00, 50.00),
+    (4, 4, 4, 4, 4, 4, 4, 4, 'Modelos Vintage de Lujo', '2026-05-12', '2026-05-20', 250.00, 20.00),
+    (5, 5, 5, 5, 5, 5, 5, 5, 'Lote Especial BarbieCoins Digital', '2026-05-15', '2026-05-22', 5.00, 1.00),
+    (6, 6, 6, 6, 6, 6, 6, 6, 'Subasta Conmemorativa Platino', '2026-05-18', '2026-05-25', 1200.00, 100.00),
+    (7, 7, 7, 7, 7, 7, 7, 7, 'Figuras de Colección Cristal', '2026-05-20', '2026-05-28', 450.00, 30.00),
+    (8, 8, 8, 8, 8, 8, 8, 8, 'Miniaturas de Aleación Metálica', '2026-05-22', '2026-05-29', 150.00, 15.00),
+    (9, 9, 9, 9, 9, 9, 9, 9, 'Modelos de Porcelana Fina', '2026-05-24', '2026-05-30', 600.00, 40.00),
+    (10, 10, 10, 10, 10, 10, 10, 10, 'Subasta Clausura Temporada Oro', '2026-05-25', '2026-05-31', 2000.00, 150.00);
+
+-- Se insertan inicialmente con ID_PENALIZACION en NULL
+INSERT INTO ORDEN_SUBASTA (ID_ORDEN_SUBASTA, ID_PENALIZACION, ID_ADJUDICACION, FECHAHORA_ORDEN_VENTA, N_FACTURA_SUBASTA, TOTAL_ORDEN_SUBASTA) VALUES 
+    (1, NULL, 1, '2026-05-01', 'FAC-SUB-2026-001', 220.00),
+    (2, NULL, 2, '2026-05-02', 'FAC-SUB-2026-002', 1050.00),
+    (3, NULL, 3, '2026-05-03', 'FAC-SUB-2026-003', 4800.00),
+    (4, NULL, 4, '2026-05-04', 'FAC-SUB-2026-004', 45.00),
+    (5, NULL, 5, '2026-05-05', 'FAC-SUB-2026-005', 350.00),
+    (6, NULL, 6, '2026-05-06', 'FAC-SUB-2026-006', 780.00),
+    (7, NULL, 7, '2026-05-07', 'FAC-SUB-2026-007', 1500.00),
+    (8, NULL, 8, '2026-05-08', 'FAC-SUB-2026-008', 920.00),
+    (9, NULL, 9, '2026-05-09', 'FAC-SUB-2026-009', 410.00),
+    (10, NULL, 10, '2026-05-10', 'FAC-SUB-2026-010', 2050.00);
+
+-- Cada una apunta a una de las 10 órdenes creadas
+INSERT INTO PENALIZACION (ID_PENALIZACION, ID_ORDEN_SUBASTA, NOMBRE_PENALIZACION, DESCRIPCION_PENALIZACION, ESTADO_PENALIZACION, FECHA_PENALIZACION) VALUES 
+    (1, 1, 'Multa por Pago Tardío', 'El cliente realizó el pago 24 horas después del límite establecido en las políticas de la subasta.', 'Pagada', '2026-05-04'),
+    (2, 2, 'Incumplimiento de Retiro', 'El cliente no retiró el lote físico del almacén en el plazo de 5 días hábiles.', 'Aplicada', '2026-05-08'),
+    (3, 3, 'Intento de Fraude', 'Reversión del pago mediante tarjeta de crédito sin autorización previa ni justificación.', 'En Disputa', '2026-05-05'),
+    (4, 4, 'Abandono de Subasta', 'El usuario ganador no se presentó a concretar la compra ni respondió correos.', 'Aplicada', '2026-05-07'),
+    (5, 5, 'Uso de Cuenta de Terceros', 'El pago provino de una cuenta bancaria no verificada ni a nombre del titular del perfil.', 'En Revisión', '2026-05-08'),
+    (6, 6, 'Uso de Bots', 'Se detectó el uso de software automatizado para inflar las pujas repetitivamente.', 'Aplicada', '2026-05-07'),
+    (7, 7, 'Retraso en Documentación', 'Falta de envío de documentos KYC (Conoce a tu Cliente) para una compra de alto valor.', 'Pendiente', '2026-05-12'),
+    (8, 8, 'Cancelación Injustificada', 'El cliente solicitó cancelar la compra sin un motivo válido amparado en los términos.', 'Aplicada', '2026-05-10'),
+    (9, 9, 'Pago Incompleto', 'El cliente transfirió el costo del lote pero omitió el pago de la comisión de la casa de subastas.', 'Pendiente de Pago', '2026-05-11'),
+    (10, 10, 'Comportamiento Abusivo', 'Faltas de respeto al personal de soporte tras ganar la puja e inconformidad con el envío.', 'Aplicada', '2026-05-12');
+
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 1 WHERE ID_ORDEN_SUBASTA = 1;
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 2 WHERE ID_ORDEN_SUBASTA = 2;
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 3 WHERE ID_ORDEN_SUBASTA = 3;
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 4 WHERE ID_ORDEN_SUBASTA = 4;
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 5 WHERE ID_ORDEN_SUBASTA = 5;
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 6 WHERE ID_ORDEN_SUBASTA = 6;
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 7 WHERE ID_ORDEN_SUBASTA = 7;
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 8 WHERE ID_ORDEN_SUBASTA = 8;
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 9 WHERE ID_ORDEN_SUBASTA = 9;
+UPDATE ORDEN_SUBASTA SET ID_PENALIZACION = 10 WHERE ID_ORDEN_SUBASTA = 10;
+
+-- Nota: ID_ADJUDICACION se coloca simulando registros enlazados. 
+-- Solo las pujas 'Ganadoras' (Estatus 3) suelen tener adjudicación asignada.
+INSERT INTO PUJA (ID_PUJA, ID_ADJUDICACION, ID_MONEDA, ID_ESTATUS_PUJA, ID_USUARIO, ID_SUBASTA, MONTO_PUJA, FECHAHORA_OFERTADA_PUJA) VALUES 
+    (1, NULL, 1, 2, 3, 1, 150.00, '2026-05-10'), -- Superada (Moneda 1: USD)
+    (2, NULL, 1, 2, 5, 1, 180.00, '2026-05-10'), -- Superada
+    (3, 1,    1, 3, 3, 1, 220.00, '2026-05-10'), -- Ganadora e Historial Adjudicación 1
+    (4, NULL, 1, 1, 2, 2, 500.00, '2026-05-15'), -- Activa en subasta 2
+    (5, NULL, 3, 4, 8, 2, 550.00, '2026-05-15'), -- Retirada (Moneda 3: USDT)
+    (6, 2,    1, 3, 4, 3, 1050.00, '2026-05-18'),-- Ganadora e Historial Adjudicación 2
+    (7, NULL, 2, 2, 1, 4, 4500.00, '2026-05-20'),-- Superada (Moneda 2: Bs)
+    (8, 3,    2, 3, 7, 4, 4800.00, '2026-05-20'),-- Ganadora e Historial Adjudicación 3
+    (9, NULL, 5, 5, 9, 5, 10.00, '2026-05-22'),  -- Inválida (Moneda 5: BarbieCoins)
+    (10, 4,   5, 3, 9, 5, 45.00, '2026-05-22');  -- Ganadora e Historial Adjudicación 4
+
+-- Vincula las Pujas ganadoras y las Órdenes de Subasta creadas antes.
+INSERT INTO ADJUDICACION (ID_ADJUDICACION, ID_PUJA, ID_ORDEN_VENTA, FECHAHORA_GANADOR, MONTO_FINAL_ADJUDICACION) VALUES 
+    (1, 3, 1, '2026-05-10', 220.00),
+    (2, 6, 2, '2026-05-18', 1050.00),
+    (3, 8, 3, '2026-05-20', 4800.00),
+    (4, 10, 4, '2026-05-22', 45.00),
+    (5, 5, 5, '2026-05-15', 350.00),  -- Asumiendo IDs consecutivos de pujas de prueba
+    (6, 6, 6, '2026-05-25', 780.00),
+    (7, 7, 7, '2026-05-28', 1500.00),
+    (8, 8, 8, '2026-05-29', 920.00),
+    (9, 9, 9, '2026-05-30', 410.00),
+    (10, 10, 10, '2026-05-31', 2050.00);
+
+-- TABLA: HISTORICO_SUBASTA 
+-- Relaciona las subastas (del 1 al 10) con sus estados. 
+-- El registro con FECHAFIN en NULL es el estado actual de esa subasta.
+INSERT INTO HISTORICO_SUBASTA (ID_ESTATUS_SUBASTA, ID_SUBASTA, FECHAINICIO_ESTATUS_SUBASTA, FECHAFIN_ESTATUS_SUBASTA) VALUES 
+    (1, 1, '2026-04-25', '2026-05-01'), -- Estuvo programada
+    (2, 1, '2026-05-01', '2026-05-10'), -- Estuvo activa
+    (4, 1, '2026-05-10', NULL),         -- Actualmente Adjudicada
+
+    (1, 2, '2026-05-01', '2026-05-05'), 
+    (2, 2, '2026-05-05', '2026-05-15'), 
+    (4, 2, '2026-05-15', NULL),         
+
+    (2, 5, '2026-05-15', '2026-05-22'), 
+    (4, 5, '2026-05-22', NULL),         
+
+    (2, 10, '2026-05-25', NULL),        -- Subasta 10 actualmente Activa
+    (6, 4, '2026-05-12', NULL);         -- Subasta 4 fue Cancelada
+
+-- Registra los cambios de estatus por los que pasa cada orden.
+-- Los registros con NULL en FECHAHORAFIN_ORDSUBASTA indican el estado actual.
+INSERT INTO HISTORICO_EST_ORD_SUBASTA (ID_ESTATUS_ORDENSUB, ID_ORDEN_VENTA, FECHAHORAINICIO_ORDSUBASTA, FECHAHORAFIN_ORDSUBASTA) VALUES 
+    -- Historial de la Orden 1: Pasó de Emitida a Pagada
+    (1, 1, '2026-05-10', '2026-05-11'),
+    (2, 1, '2026-05-11', NULL), 
+
+    -- Historial de la Orden 2: Pasó de Emitida a Entregada
+    (1, 2, '2026-05-18', '2026-05-19'),
+    (3, 2, '2026-05-19', NULL),
+
+    -- Historial de la Orden 3: Sigue en procesamiento inicial
+    (1, 3, '2026-05-20', NULL),
+
+    -- Historial de la Orden 4: Pasó de Emitida a Cancelada por Penalización
+    (1, 4, '2026-05-22', '2026-05-23'),
+    (4, 4, '2026-05-23', NULL),
+
+    -- Órdenes del 5 al 10 en su estado inicial activo
+    (1, 5, '2026-05-15', NULL),
+    (1, 6, '2026-05-25', NULL),
+    (1, 7, '2026-05-28', NULL),
+    (1, 8, '2026-05-29', NULL);
+
+-- ========================================================================================
+-- SECCIÓN 5: MÓDULO DE VENTAS (Órdenes B2B/B2C, Detalles, Descuentos y Backorders)
+-- ========================================================================================
+
+-- Nota: CONDICION_PAGO solo admite 30, 60 o 90.
+INSERT INTO ORDEN_COMPRA_B2B (ID_ORDEN_COMPRA_B2B, ID_USUARIO, ID_CONTRATO, FECHAHORA_ORDEN_COMPRA_B2B, CONDICION_PAGO, N_FACTURA_COMPRA_B2B, SUBTOTAL_ORDEN_COMPRA_B2B, TOTAL_ORDEN_COMPRA_B2B) VALUES 
+    (1, 1, 1, '2026-05-01', 30, 2026001, 5000.00, 5600.00),
+    (2, 2, 2, '2026-05-02', 60, 2026002, 12000.00, 13440.00),
+    (3, 3, 3, '2026-05-03', 90, 2026003, 8500.00, 9520.00),
+    (4, 4, 4, '2026-05-04', 30, 2026004, 3200.00, 3584.00),
+    (5, 5, 5, '2026-05-05', 60, 2026005, 15000.00, 16800.00),
+    (6, 6, 6, '2026-05-06', 30, 2026006, 4100.00, 4592.00),
+    (7, 7, 7, '2026-05-07', 90, 2026007, 22000.00, 24640.00),
+    (8, 8, 8, '2026-05-08', 30, 2026008, 9300.00, 10416.00),
+    (9, 9, 9, '2026-05-09', 60, 2026009, 6700.00, 7504.00),
+    (10, 10, 10, '2026-05-10', 30, 2026010, 11000.00, 12320.00);
+
+INSERT INTO ORDEN_COMPRA_B2C (ID_ORDEN_COMPRA_B2C, ID_ENVIO_B2C, ID_USUARIO, ID_CONTRATO, FECHAHORA_ORDEN_COMPRA_B2C, N_FACTURA_COMPRA_B2C, SUBTOTAL_ORDEN_COMPRA_B2C, TOTAL_ORDEN_COMPRA_B2C) VALUES 
+    (1, 1, 11, 11, '2026-05-01', 2026101, 150.00, 168.00),
+    (2, 2, 12, 12, '2026-05-02', 2026102, 320.00, 358.40),
+    (3, NULL, 13, 13, '2026-05-03', 2026103, 85.00, 95.20), -- Compra digital o retiro en tienda
+    (4, 4, 14, 14, '2026-05-04', 2026104, 500.00, 560.00),
+    (5, NULL, 15, 15, '2026-05-05', 2026105, 45.00, 50.40),
+    (6, 6, 16, 16, '2026-05-06', 2026106, 210.00, 235.20),
+    (7, 7, 17, 17, '2026-05-07', 2026107, 600.00, 672.00),
+    (8, NULL, 18, 18, '2026-05-08', 2026108, 125.00, 140.00),
+    (9, 9, 19, 19, '2026-05-09', 2026109, 340.00, 380.80),
+    (10, 10, 20, 20, '2026-05-10', 2026110, 890.00, 996.80);
+
+-- Contiene las 7 llaves foráneas compuestas que definen al producto
+INSERT INTO DETALLE_ORDEN_B2B (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2B, CANTIDADSOLICITAD_ORDEN_B2B, CANTIDAD_DESPACHADA, PRECIO_UNITARIO_DETALLE_B2B) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 1000, 1000, 5.00),
+    (2, 2, 2, 2, 2, 2, 2, 500, 500, 24.00),
+    (3, 3, 3, 3, 3, 3, 3, 200, 150, 42.50), -- Despacho parcial (genera backorder)
+    (4, 4, 4, 4, 4, 4, 4, 800, 800, 4.00),
+    (5, 5, 5, 5, 5, 5, 5, 1500, NULL, 10.00), -- Aún no despachado
+    (6, 6, 6, 6, 6, 6, 6, 300, 300, 13.66),
+    (7, 7, 7, 7, 7, 7, 7, 2000, 2000, 11.00),
+    (8, 8, 8, 8, 8, 8, 8, 600, 600, 15.50),
+    (9, 9, 9, 9, 9, 9, 9, 100, 50, 67.00),  -- Despacho parcial
+    (10, 10, 10, 10, 10, 10, 10, 2500, 2500, 4.40);
+
+INSERT INTO DETALLE_ORDEN_B2C (ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2C, CANTIDAD_ORDEN_B2C, PRECIO_UNITARIO_B2C) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 2, 75.00),
+    (2, 2, 2, 2, 2, 2, 2, 1, 320.00),
+    (3, 3, 3, 3, 3, 3, 3, 5, 17.00),
+    (4, 4, 4, 4, 4, 4, 4, 10, 50.00),
+    (5, 5, 5, 5, 5, 5, 5, 1, 45.00),
+    (6, 6, 6, 6, 6, 6, 6, 3, 70.00),
+    (7, 7, 7, 7, 7, 7, 7, 4, 150.00),
+    (8, 8, 8, 8, 8, 8, 8, 5, 25.00),
+    (9, 9, 9, 9, 9, 9, 9, 2, 170.00),
+    (10, 10, 10, 10, 10, 10, 10, 1, 890.00);
+
+-- Vincula qué descuentos se aplicaron a cada orden mayorista
+INSERT INTO DESCUENTO_ORDEN_B2B (ID_ORDEN_COMPRA_B2B, ID_DESCUENTO) VALUES 
+    (1, 1),  -- Orden 1 tiene el descuento 1
+    (2, 2),  
+    (3, 3),
+    (4, 4),
+    (5, 1),  -- Orden 5 también tiene el descuento 1
+    (6, 5),
+    (7, 6),
+    (8, 7),
+    (9, 8),
+    (10, 9);
+
+-- Vincula qué cupones o descuentos se aplicaron a cada orden minorista
+INSERT INTO DESCUENTO_ORDEN_B2C (ID_ORDEN_COMPRA_B2C, ID_DESCUENTO) VALUES 
+    (1, 10),
+    (2, 11),
+    (3, 12),
+    (4, 10), -- Varias órdenes pueden usar el mismo descuento
+    (5, 13),
+    (6, 14),
+    (7, 15),
+    (8, 16),
+    (9, 17),
+    (10, 18);
+
+-- Asignamos cantidades faltantes ficticias para órdenes de compra B2B
+INSERT INTO BACKORDER (ID_BACKORDER, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ORDEN_COMPRA_B2B, CANTIDAD_PENDIENTE_BACK, FECHAINICIO_BACKORDER) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 1, 500, '2026-04-15'),
+    (2, 2, 2, 2, 2, 2, 2, 2, 1200, '2026-04-18'),
+    (3, 3, 3, 3, 3, 3, 3, 3, 300, '2026-04-20'),
+    (4, 4, 4, 4, 4, 4, 4, 4, 850, '2026-04-22'),
+    (5, 5, 5, 5, 5, 5, 5, 5, 150, '2026-04-25'),
+    (6, 6, 6, 6, 6, 6, 6, 6, 2000, '2026-05-01'),
+    (7, 7, 7, 7, 7, 7, 7, 7, 75, '2026-05-05'),
+    (8, 8, 8, 8, 8, 8, 8, 8, 400, '2026-05-10'),
+    (9, 9, 9, 9, 9, 9, 9, 9, 620, '2026-05-12'),
+    (10, 10, 10, 10, 10, 10, 10, 10, 1000, '2026-05-15');
+
+-- Traza la línea de tiempo de los estados de un backorder.
+INSERT INTO HISTORICO_BACKORDER (ID_ESTATUS_BACKORDER, ID_BACKORDER, FECHAHORA_INICIO_BACKORDER, FECHAHORA_FIN_BACKORDER) VALUES 
+    (1, 1, '2026-04-15', '2026-04-16'), -- Generado
+    (2, 1, '2026-04-16', '2026-04-20'), -- Aprobado
+    (4, 1, '2026-04-20', NULL),         -- Actualmente en Producción
+
+    (1, 2, '2026-04-18', '2026-04-25'),
+    (3, 2, '2026-04-25', NULL),         -- Actualmente esperando Materia Prima
+
+    (1, 6, '2026-05-01', '2026-05-05'),
+    (8, 6, '2026-05-05', NULL),         -- Ya Completado
+
+    (1, 10, '2026-05-15', NULL),        -- Recién Generado
+    (9, 7, '2026-05-05', NULL);         -- Cancelado por Cliente B2B
+
+
+INSERT INTO HISTORICO_ORDEN_COMPRA_B2B (ID_ESTATUS_ORDEN_B2B, ID_ORDEN_COMPRA_B2B, FECHAHORA_INICIO_COMPRA_B2B, FECHAHORA_FIN_COMPRA_B2B) VALUES 
+    (1, 1, '2026-05-01', NULL),
+    (1, 2, '2026-05-02', NULL),
+    (1, 3, '2026-05-03', NULL),
+    (1, 4, '2026-05-04', NULL),
+    (1, 5, '2026-05-05', NULL),
+    (1, 6, '2026-05-06', NULL),
+    (1, 7, '2026-05-07', NULL),
+    (1, 8, '2026-05-08', NULL),
+    (1, 9, '2026-05-09', NULL),
+    (1, 10, '2026-05-10', NULL);
+
+-- Registramos el historial asumiendo el estatus 1 (Emitida) para las 10 órdenes creadas.
+INSERT INTO HISTORICO_ORDEN_COMPRA_B2C (ID_ESTATUS_B2C, ID_ORDEN_COMPRA_B2C, FECHAHORA_INICIO_COMPRA_B2C, FECHAHORA_FIN_COMPRA_B2C) VALUES 
+    (1, 1, '2026-05-01', '2026-05-02'),
+    (1, 2, '2026-05-02', '2026-05-03'),
+    (1, 3, '2026-05-03', '2026-05-04'),
+    (1, 4, '2026-05-04', '2026-05-05'),
+    (1, 5, '2026-05-05', '2026-05-06'),
+    (1, 6, '2026-05-06', '2026-05-07'),
+    (1, 7, '2026-05-07', '2026-05-08'),
+    (1, 8, '2026-05-08', '2026-05-09'),
+    (1, 9, '2026-05-09', '2026-05-10'),
+    (1, 10, '2026-05-10', NULL);
+
+-- Los montos coinciden exactamente con el TOTAL_ORDEN_COMPRA_B2B
+INSERT INTO PAGO_B2B (CHE_ID_METODO_PAGO, ID_METODO_PAGO, ID_MONEDA, MONTO_PAGO_B2B, FECHAHORA_PAGO_B2B) VALUES 
+    (1, 1, 1, 5600.00, '2026-05-02'),
+    (2, 2, 1, 13440.00, '2026-05-03'),
+    (3, 3, 1, 9520.00, '2026-05-04'),
+    (4, 4, 1, 3584.00, '2026-05-05'),
+    (5, 5, 1, 16800.00, '2026-05-06'),
+    (6, 6, 1, 4592.00, '2026-05-07'),
+    (7, 7, 1, 24640.00, '2026-05-08'),
+    (8, 8, 1, 10416.00, '2026-05-09'),
+    (9, 9, 1, 7504.00, '2026-05-10'),
+    (10, 10, 1, 12320.00, '2026-05-11');
+
+-- Los montos coinciden exactamente con el TOTAL_ORDEN_COMPRA_B2C
+INSERT INTO PAGO_B2C (ID_ORDEN_COMPRA_B2C, PAY_ID_METODO_PAGO, ID_METODO_PAGO, TAR_ID_METODO_PAGO, TAR_ID_METODO_PAGO2, ID_MONEDA, MONTO_PAGO_B2C, FECHAHORA_PAGO_B2C) VALUES 
+    (1, 1, 1, 1, 1, 1, 168.00, '2026-05-01'),
+    (2, 2, 2, 2, 2, 1, 358.40, '2026-05-02'),
+    (3, 3, 3, 3, 3, 1, 95.20, '2026-05-03'),
+    (4, 4, 4, 4, 4, 1, 560.00, '2026-05-04'),
+    (5, 5, 5, 5, 5, 1, 50.40, '2026-05-05'),
+    (6, 6, 6, 6, 6, 1, 235.20, '2026-05-06'),
+    (7, 7, 7, 7, 7, 1, 672.00, '2026-05-07'),
+    (8, 8, 8, 8, 8, 1, 140.00, '2026-05-08'),
+    (9, 9, 9, 9, 9, 1, 380.80, '2026-05-09'),
+    (10, 10, 10, 10, 10, 1, 996.80, '2026-05-10');
+
+-- ========================================================================================
+-- SECCIÓN 6: LOGÍSTICA Y ENVÍOS (Transporte, Manifiestos y Envíos B2C) (Tipo_Transporte está más arriba)
+-- ========================================================================================
+
+-- Asignamos vehículos físicos a los 10 Tipos de Transporte (ID_TIPO_TRANSPORTE) que ya existen.
+INSERT INTO TRANSPORTE (ID_TRANSPORTE, ID_TIPO_TRANSPORTE, NOMBRE_TRANSPORTE) VALUES 
+    (1, 1, 'Gándola Mack Titan 001'),
+    (2, 2, 'Furgoneta Mercedes Sprinter 02'),
+    (3, 3, 'Buque de Carga MSC Rosalind'),
+    (4, 4, 'Avión de Carga Boeing 767F'),
+    (5, 5, 'Camión Volvo FH 05'),
+    (6, 6, 'Moto de Carga Rápida 06'),
+    (7, 7, 'Tren de Carga Multimodal 07'),
+    (8, 8, 'Camión Refrigerado ThermoKing 08'),
+    (9, 9, 'Camión Ligero Isuzu 09'),
+    (10, 10, 'Furgón Comercial POP 10');
+
+-- Envíos de las órdenes minoristas (ID_COURIER del 1 al 4: DHL, FedEx, Zoom, MRW)
+INSERT INTO ENVIO_B2C (ID_ENVIO_B2C, ID_COURIER, ID_ORDEN_COMPRA_B2C, ID_LUGAR, LUG_ID_LUGAR, NUMERO_TRACKING, FECHA_ENVIO_B2C, COSTO_ENVIO_B2C, DIRECCION_ENVIO_B2C, DIRECCION_ORIGEN_B2C) VALUES 
+    (1, 1, 1, 1, 1, 80001001, '2026-05-02', 15.50, 'Av. Francisco de Miranda, Edif. Centro, Piso 4, Caracas', 'Almacén Principal, Planta Guarenas'),
+    (2, 2, 2, 2, 2, 80001002, '2026-05-03', 22.00, 'Urb. El Viñedo, Calle 140, Valencia', 'Almacén Principal, Planta Guarenas'),
+    (3, 3, 3, 3, 3, 80001003, '2026-05-04', 12.00, 'Sector Alta Vista, Carrera Principal, Puerto Ordaz', 'Almacén Principal, Planta Guarenas'),
+    (4, 4, 4, 4, 4, 80001004, '2026-05-05', 18.50, 'Av. Las Delicias, Centro Empresarial, Maracay', 'Almacén Principal, Planta Guarenas'),
+    (5, 1, 5, 5, 5, 80001005, '2026-05-06', 10.00, 'Urb. La Trigaleña, Residencias Sol, Valencia', 'Almacén Principal, Planta Guarenas'),
+    (6, 2, 6, 6, 6, 80001006, '2026-05-07', 25.00, 'Barrio Obrero, Carrera 20, San Cristóbal', 'Almacén Principal, Planta Guarenas'),
+    (7, 3, 7, 7, 7, 80001007, '2026-05-08', 14.50, 'Av. 5 de Julio, Local 45, Maracaibo', 'Almacén Principal, Planta Guarenas'),
+    (8, 4, 8, 8, 8, 80001008, '2026-05-09', 11.00, 'Urb. Fundalara, Avenida Capanaparo, Barquisimeto', 'Almacén Principal, Planta Guarenas'),
+    (9, 1, 9, 9, 9, 80001009, '2026-05-10', 30.00, 'Av. Bella Vista, Centro Comercial, Maracaibo', 'Almacén Principal, Planta Guarenas'),
+    (10, 2, 10, 10, 10, 80001010, '2026-05-11', 19.99, 'Urb. Los Mangos, Torre A, Piso 2, Caracas', 'Almacén Principal, Planta Guarenas');
+
+-- Documento legal que ampara el traslado masivo de mercancía B2B en un Transporte.
+INSERT INTO MANIFIESTO_CARGO (ID_MANIFIESTOCARGO, ID_TRANSPORTE, ID_LUGAR, LUG_ID_LUGAR, FECHAHORA_EMISION_MANIFIESTO, DIR_DESTINO_MANIFIESTO, DIR_ORIGEN_MANIFIESTO) VALUES 
+    (1, 1, 1, 1, '2026-05-02', 'Centro de Distribución Cadenas, Caracas', 'Almacén Central B2B, Guarenas'),
+    (2, 2, 2, 2, '2026-05-03', 'Hub Logístico Occidente, Barquisimeto', 'Almacén Central B2B, Guarenas'),
+    (3, 3, 3, 3, '2026-05-04', 'Puerto Internacional, La Guaira', 'Almacén Central B2B, Guarenas'),
+    (4, 4, 4, 4, '2026-05-05', 'Aeropuerto Internacional, Maiquetía', 'Almacén Central B2B, Guarenas'),
+    (5, 5, 5, 5, '2026-05-06', 'Centro Comercial Mayorista, Valencia', 'Almacén Central B2B, Guarenas'),
+    (6, 6, 6, 6, '2026-05-07', 'Depósito Regional Andes, San Cristóbal', 'Almacén Central B2B, Guarenas'),
+    (7, 7, 7, 7, '2026-05-08', 'Estación de Transferencia, Maracay', 'Almacén Central B2B, Guarenas'),
+    (8, 8, 8, 8, '2026-05-09', 'Almacén Controlado Clima, Maracaibo', 'Almacén Central B2B, Guarenas'),
+    (9, 9, 9, 9, '2026-05-10', 'Zona Industrial Matanzas, Puerto Ordaz', 'Almacén Central B2B, Guarenas'),
+    (10, 10, 10, 10, '2026-05-11', 'Distribuidora Oriente, Lechería', 'Almacén Central B2B, Guarenas');
+
+-- Relaciona el manifiesto con las órdenes B2B y la cantidad de piezas enviadas.
+-- Las cantidades coinciden con las despachadas en DETALLE_ORDEN_B2B previamente.
+INSERT INTO DETALLE_MANIFIESTO_CRAGO (ID_MANIFIESTOCARGO, ID_ORDEN_COMPRA_B2B, CANTIDAD_DESPACHADA_MC) VALUES 
+    (1, 1, 1000),
+    (2, 2, 500),
+    (3, 3, 150),  -- Esta tuvo un despacho parcial
+    (4, 4, 800),
+    (5, 5, 0),    -- Esta no se ha despachado aún
+    (6, 6, 300),
+    (7, 7, 2000),
+    (8, 8, 600),
+    (9, 9, 50),   -- Despacho parcial
+    (10, 10, 2500);
+
+-- ========================================================================================
+-- SECCIÓN 7: ESTRUCTURA ORGANIZATIVA Y METAS (Sedes, Inventario Base y Metas)
+-- ========================================================================================
+
+--(4 Registros - Especificación del proyecto)
+-- Incluye las 3 sedes físicas y 1 sede virtual de tránsito
+INSERT INTO SEDE (ID_SEDE, ID_LUGAR, NOMBRE_SEDE, DIRECCION_SEDE) VALUES 
+    (1, 1, 'Fábrica de Origen (Nacimiento de Stock)', 'Valencia, Estado Carabobo'),
+    (2, 2, 'Hub La Guaira (Distribución LATAM)', 'Puerto de La Guaira, La Guaira'),
+    (3, 3, 'Hub Maracaibo (Distribución Europa)', 'Puerto de Maracaibo, Zulia'),
+    (4, 4, 'Sede Transcontinental (Tránsito)', 'Ubicación Virtual - Contenedores en Océano');
+
+-- Repartidos lógicamente entre las 4 sedes del sistema.
+INSERT INTO INVENTARIO_MATERIAPRIMA (ID_SEDE, ID_MATERIAPRIMA) VALUES 
+    (1, 1), -- Fábrica Valencia
+    (1, 2), -- Fábrica Valencia
+    (1, 3), -- Fábrica Valencia
+    (2, 4), -- Hub La Guaira
+    (2, 5), -- Hub La Guaira
+    (3, 6), -- Hub Maracaibo
+    (3, 7), -- Hub Maracaibo
+    (4, 8), -- Tránsito Oceánico
+    (4, 9), -- Tránsito Oceánico
+    (4, 10);-- Tránsito Oceánico
+
+
+-- Establecemos metas monetarias de ventas/producción para los primeros 10 meses de 2026.
+INSERT INTO META_MENSUAL (ID_META_MENSUAL, FECHAINICIO_META, FECHAFIN_META, MONTO_META) VALUES 
+    (1, '2026-01-01', '2026-01-31', 150000.00),
+    (2, '2026-02-01', '2026-02-28', 165000.00),
+    (3, '2026-03-01', '2026-03-31', 180000.00),
+    (4, '2026-04-01', '2026-04-30', 175000.00),
+    (5, '2026-05-01', '2026-05-31', 200000.00),
+    (6, '2026-06-01', '2026-06-30', 210000.00),
+    (7, '2026-07-01', '2026-07-31', 190000.00),
+    (8, '2026-08-01', '2026-08-31', 220000.00),
+    (9, '2026-09-01', '2026-09-30', 250000.00),
+    (10, '2026-10-01', '2026-10-31', 300000.00);
+
+-- ========================================================================================
+-- SECCIÓN 8: RECURSOS HUMANOS Y CONTRATOS (Contratos, Asistencias y Beneficios)
+-- ========================================================================================
+
+-- TABLA: EMPLEADO 
+-- Representan a las personas naturales (ID_PERSONA_NATURAL del 1 al 10) que laboran en MattelUCAB.
+INSERT INTO EMPLEADO (ID_PERSONA_NATURAL, ID_CONTRATO, ID_LUGAR, RIF_PERSONA_NATURAL, DIRECCION_PERSONA_NATURAL, CEDULA_PERSONA_NATURAL, P_NOMBRE_PERSONA_NATURAL, S_NOMBRE_PERSONA_NATURAL, P_APELLIDO_PERSONA_NATURAL, S_APELLIDO_PERSONA_NATURAL, FECHA_NAC_PERSONA_NATURAL) VALUES 
+    (1, 1, 1, 'V-12345678-9', 'Av. Francisco de Miranda, Edif. Centro, Caracas', 'V-12345678', 'Carlos', 'Luis', 'Pérez', 'Gómez', '1985-04-12'),
+    (2, 2, 2, 'V-18765432-1', 'Urb. La Viña, Calle 14, Valencia', 'V-18765432', 'María', 'Alejandra', 'Rodríguez', 'López', '1990-08-25'),
+    (3, 3, 3, 'V-20123456-0', 'Sector 18 de Octubre, Av. 2, Maracaibo', 'V-20123456', 'Juan', 'Carlos', 'Martínez', 'Ruiz', '1992-11-03'),
+    (4, 4, 4, 'V-15987654-3', 'Centro, Carrera 19 con Calle 25, Barquisimeto', 'V-15987654', 'Ana', 'Karina', 'González', 'Fernández', '1988-01-15'),
+    (5, 5, 5, 'V-19345678-2', 'Alta Vista, Torre A, Puerto Ordaz', 'V-19345678', 'Luis', 'Eduardo', 'Díaz', 'Silva', '1991-05-20'),
+    (6, 6, 6, 'V-14567890-5', 'Barrio Obrero, Carrera 20, San Cristóbal', 'V-14567890', 'Pedro', 'José', 'García', 'Mendoza', '1982-09-30'),
+    (7, 7, 7, 'V-21098765-4', 'Av. Las Delicias, Maracay', 'V-21098765', 'Laura', 'Victoria', 'Hernández', 'Rojas', '1994-12-10'),
+    (8, 8, 8, 'V-17654321-8', 'Sector Las Garzas, Lechería', 'V-17654321', 'Diego', 'Alejandro', 'Torres', 'Castillo', '1989-07-08'),
+    (9, 9, 9, 'V-22334455-6', 'Urb. Miranda, Guarenas', 'V-22334455', 'Carmen', 'Alicia', 'Flores', 'Pineda', '1995-02-18'),
+    (10, 10, 10, 'V-11223344-7', 'Av. 4 de Mayo, Porlamar', 'V-11223344', 'José', 'Gregorio', 'Romero', 'Vargas', '1979-10-05');
+
+-- Asignamos las metas mensuales (ID_META_MENSUAL) a algunos, y NULL a quienes no tienen metas de ventas/producción.
+INSERT INTO CONTRATO_PERSONAL (ID_CONTRATO, ID_META_MENSUAL, ID_PERSONA_NATURAL, CONTRATO_FECHA_INICIO, CONTRATO_FECHA_FIN) VALUES 
+    (1, 1, 1, '2024-01-15', NULL),          -- Contrato indefinido (Activo)
+    (2, 2, 2, '2024-02-01', NULL),          
+    (3, 3, 3, '2024-03-10', NULL),
+    (4, NULL, 4, '2025-01-10', '2025-12-31'), -- Contrato a tiempo determinado (Finalizado)
+    (5, 5, 5, '2025-06-01', NULL),
+    (6, NULL, 6, '2025-08-15', NULL),
+    (7, 7, 7, '2026-01-05', NULL),
+    (8, 8, 8, '2026-02-20', NULL),
+    (9, NULL, 9, '2026-03-01', NULL),
+    (10, 10, 10, '2026-04-10', NULL);
+
+-- Relaciona el contrato del empleado con los ID_HORARIO (1 al 10) que creamos en la Sección 1.
+INSERT INTO CONTRATO_HORARIO (ID_CONTRATO, ID_HORARIO) VALUES 
+    (1, 1),  -- Empleado 1: Turno Diurno L-V
+    (2, 2),  -- Empleado 2: Turno Vespertino L-V
+    (3, 3),  -- Empleado 3: Turno Nocturno L-V
+    (4, 10), -- Empleado 4: Staff Administrativo
+    (5, 10), -- Empleado 5: Staff Administrativo
+    (6, 4),  -- Empleado 6: Turno Diurno Fines de Semana
+    (7, 5),  -- Empleado 7: Turno Vespertino Fines de Semana
+    (8, 1),  -- Empleado 8: Turno Diurno L-V
+    (9, 2),  -- Empleado 9: Turno Vespertino L-V
+    (10, 3); -- Empleado 10: Turno Nocturno L-V
+
+-- Registra las entradas y salidas. El formato es DATE según el create.
+INSERT INTO ASISTENCIA (ID_ASISTENCIA, ID_CONTRATO, FECHA_HORA_ENTRADA_ASISTENCIA, FECHA_HORA_SALIDA_ASISTENCIA) VALUES 
+    (1, 1, '2026-05-02', '2026-05-02'),
+    (2, 2, '2026-05-02', '2026-05-02'),
+    (3, 3, '2026-05-02', '2026-05-03'), -- Turno nocturno (sale al día siguiente)
+    (4, 4, '2026-05-02', '2026-05-02'),
+    (5, 5, '2026-05-02', '2026-05-02'),
+    (6, 6, '2026-05-03', '2026-05-03'), -- Fin de semana
+    (7, 7, '2026-05-03', '2026-05-03'), -- Fin de semana
+    (8, 8, '2026-05-04', '2026-05-04'),
+    (9, 9, '2026-05-04', '2026-05-04'),
+    (10, 10, '2026-05-04', '2026-05-05');
+
+-- Relaciona el contrato con los ID_BENEFICIO creados en la Sección 1.
+INSERT INTO CONTRATO_BENEFICIO (ID_CONTRATO, ID_BENEFICIO, MONTO_CONTRATO_BENEFICIO, CANTIDAD_INCIDENCIAS) VALUES 
+    (1, 8, 150.00, 1),   -- Empleado 1 recibe Seguro HCM
+    (1, 9, 40.00, 1),    -- Empleado 1 recibe Bono de Alimentación
+    (2, 1, 25.50, 5),    -- Empleado 2 recibe Recargo Nocturno (5 incidencias)
+    (3, 1, 45.00, 10),   -- Empleado 3 recibe Recargo Nocturno (10 incidencias)
+    (4, 8, 150.00, 1),   -- Empleado 4 recibe Seguro HCM
+    (5, 4, 300.00, 1),   -- Empleado 5 recibe Bono Cumplimiento Metas
+    (6, 2, 50.00, 2),    -- Empleado 6 recibe Prima Feriado/Descanso
+    (7, 2, 50.00, 2),    -- Empleado 7 recibe Prima Feriado/Descanso
+    (8, 7, 100.00, 1),   -- Empleado 8 recibe Bono Eficiencia
+    (10, 5, 500.00, 1);  -- Empleado 10 recibe Regalía de Diseño (I+D)
+
+-- TABLA: CARGO (10 Registros)
+-- Cruza los ID del Tabulador Salarial (1 al 10) con los ID de Departamentos (1 al 10).
+INSERT INTO CARGO (ID_CARGO, ID_TABULADOR, ID_DEPARTAMENTO, NOMBRE_CARGO, DESCRIPCION_CARGO) VALUES 
+    (1, 1, 3, 'Operador de Inyección', 'Encargado de operar las máquinas inyectoras de polímeros ABS y PVC.'),
+    (2, 2, 4, 'Pintor Facial Especializado', 'Aplica tampografía y pintura detallada en los rostros de las piezas.'),
+    (3, 3, 3, 'Supervisor de Manufactura', 'Supervisa la línea de ensamblaje en la planta principal.'),
+    (4, 4, 7, 'Ejecutivo de Cuentas B2B', 'Atiende a distribuidores mayoristas de nivel de entrada.'),
+    (5, 5, 7, 'Key Account Manager', 'Gestiona grandes cadenas de jugueterías y supermercados.'),
+    (6, 6, 1, 'Escultor de Prototipos 3D', 'Moldea en software 3D los nuevos conceptos de la marca.'),
+    (7, 7, 2, 'Diseñador de Modas Senior', 'Crea los patrones textiles para la línea Signature y Black Label.'),
+    (8, 8, 5, 'Ingeniero de Calidad (QA)', 'Ejecuta pruebas de estrés, toxicidad y caída libre a las piezas.'),
+    (9, 9, 7, 'Gerente Nacional B2B', 'Dirige toda la estrategia de ventas corporativas a nivel nacional.'),
+    (10, 10, 9, 'Director Financiero (CFO)', 'Administra el presupuesto, márgenes de rentabilidad y cuentas.');
+
+-- TABLA: CONTRATO_CARGO (10 Registros)
+-- Asigna el cargo al contrato. ID_CONTRATO_CARGO es un SERIAL que dejamos explícito (1-10) por ser llave primaria compuesta.
+INSERT INTO CONTRATO_CARGO (ID_CARGO, ID_CONTRATO, ID_CONTRATO_CARGO, FECHA_INICIO_CONTRATO_CARGO, FECHA_FIN_CONTRATO_CARGO, HORAS_SEMANALES_CC, MOTIVO_CAMBIO_CARGO) VALUES 
+    (1, 1, 1, '2024-01-15', NULL, 40, 'Asignación Inicial'),
+    (2, 2, 2, '2024-02-01', NULL, 40, 'Asignación Inicial'),
+    (3, 3, 3, '2024-03-10', NULL, 40, 'Asignación Inicial'),
+    (4, 4, 4, '2025-01-10', '2025-12-31', 40, 'Contrato por Tiempo Determinado'),
+    (5, 5, 5, '2025-06-01', NULL, 40, 'Promoción por Cumplimiento de Metas'),
+    (6, 6, 6, '2025-08-15', NULL, 24, 'Medio Tiempo Fines de Semana'),
+    (7, 7, 7, '2026-01-05', NULL, 24, 'Medio Tiempo Fines de Semana'),
+    (8, 8, 8, '2026-02-20', NULL, 40, 'Asignación Inicial'),
+    (9, 9, 9, '2026-03-01', NULL, 40, 'Asignación Inicial'),
+    (10, 10, 10, '2026-04-10', NULL, 40, 'Contratación Ejecutiva Directa');
+
+-- ========================================================================================
+-- SECCIÓN 9: CLIENTES Y MEMBRESÍAS (Planes y Suscripciones B2C)
+-- ========================================================================================
+
+-- TABLA: MEMBRESIA_CLIENTE_B2C 
+-- Usa los ID_MEMBRESIA (1: Gold Men, 2: Gold Anual, 3: Plat Men, 4: Plat Anual)
+-- Usa ID_PERSONA_NATURAL del 11 al 20, asumiendo que representan clientes B2C finales.
+INSERT INTO MEMBRESIA_CLIENTE_B2C (ID_MEMBRESIA, ID_PERSONA_NATURAL) VALUES 
+    (1, 11), -- Persona 11 tiene Gold Mensual
+    (2, 12), -- Persona 12 tiene Gold Anual
+    (3, 13), -- Persona 13 tiene Platinum Mensual
+    (4, 14), -- Persona 14 tiene Platinum Anual
+    (1, 15),
+    (2, 16),
+    (3, 17),
+    (4, 18),
+    (1, 19),
+    (4, 20);
+
+-- TABLA: HISTORICO_MEMBRESIA 
+-- Todas inician en un estatus activo o pendiente de pago. 
+INSERT INTO HISTORICO_MEMBRESIA (ID_MEMBRESIA, ID_PERSONA_NATURAL, ID_ESTATUS_MEMBRESIA, MEMBRESIA_FECHA_INICIO, MEMBRESIA_FECHA_FIN) VALUES 
+    (1, 11, 1, '2026-01-01', NULL),
+    (2, 12, 1, '2026-01-15', NULL),
+    (3, 13, 1, '2026-02-01', NULL),
+    (4, 14, 1, '2026-02-15', NULL),
+    (1, 15, 5, '2026-03-01', '2026-04-01'), -- Esta ya se encuentra vencida
+    (2, 16, 1, '2026-03-15', NULL),
+    (3, 17, 7, '2026-04-01', NULL),         -- Esta está pendiente de pago
+    (4, 18, 1, '2026-04-10', NULL),
+    (1, 19, 1, '2026-05-01', NULL),
+    (4, 20, 1, '2026-05-05', NULL);
+
+-- ========================================================================================
+-- SECCIÓN 10: PAGOS Y TRANSACCIONES FINANCIERAS (CORREGIDO CON LOGICA XOR)
+-- ========================================================================================
+
+-- TABLA: USUARIO_METODO_PAGO
+-- Los primeros 5 usan Tarjeta de Crédito (TAR_ID_METODO_PAGO tiene valor, ID_METODO_PAGO es NULL).
+-- Los últimos 5 usan Tarjeta de Débito (TAR_ID_METODO_PAGO es NULL, ID_METODO_PAGO tiene valor).
+INSERT INTO USUARIO_METODO_PAGO (ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO, ES_VALIDADO, FECHA_REGISTRO) VALUES 
+    (1, 1, NULL, 1, true, '2026-01-10'),
+    (2, 2, NULL, 2, true, '2026-01-12'),
+    (3, 3, NULL, 3, true, '2026-01-15'),
+    (4, 4, NULL, 4, true, '2026-01-18'),
+    (5, 5, NULL, 5, true, '2026-02-01'),
+    (6, NULL, 6, 6, true, '2026-02-05'),
+    (7, NULL, 7, 7, true, '2026-02-10'),
+    (8, NULL, 8, 8, true, '2026-02-20'),
+    (9, NULL, 9, 9, true, '2026-03-05'),
+    (10, NULL, 10, 10, true, '2026-03-10');
+
+
+-- TABLA: PAGO_SUBASTA
+-- Reflejamos exactamente la misma lógica de los métodos de pago (NULLs incluidos).
+INSERT INTO PAGO_SUBASTA (ID_ORDEN_VENTA, ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO, ID_PAGO_SUBASTA, ID_MONEDA, MONTO_PAGO, FECHAHORA_PAGO) VALUES 
+    (1, 1, 1, NULL, 1, 1, 1, 1500.00, '2026-05-01'),
+    (2, 2, 2, NULL, 2, 2, 1, 2300.50, '2026-05-02'),
+    (3, 3, 3, NULL, 3, 3, 2, 850.00, '2026-05-03'),
+    (4, 4, 4, NULL, 4, 4, 1, 4100.00, '2026-05-04'),
+    (5, 5, 5, NULL, 5, 5, 3, 300.00, '2026-05-05'),
+    (6, 6, NULL, 6, 6, 6, 1, 5500.00, '2026-05-06'),
+    (7, 7, NULL, 7, 7, 7, 2, 1200.75, '2026-05-07'),
+    (8, 8, NULL, 8, 8, 8, 1, 980.00, '2026-05-08'),
+    (9, 9, NULL, 9, 9, 9, 3, 670.00, '2026-05-09'),
+    (10, 10, NULL, 10, 10, 10, 1, 3200.00, '2026-05-10');
+
+-- TABLA: PAGO_MEMBRESIA
+-- Reflejamos exactamente la misma lógica de los métodos de pago (NULLs incluidos).
+INSERT INTO PAGO_MEMBRESIA (ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO, ID_MEMBRESIA, ID_PAGO_MEMBRESIA, ID_ESTATUS_PAGO_MEMBRESIA, ID_MONEDA, FECHA_PAGO_MEMBRESIA, MONTO_PAGO_MEMBRESIA) VALUES 
+    (1, 1, NULL, 1, 1, 1, 1, 1, '2026-01-01', 9.99),
+    (2, 2, NULL, 2, 2, 2, 1, 1, '2026-01-15', 99.99),
+    (3, 3, NULL, 3, 3, 3, 1, 1, '2026-02-01', 14.99),
+    (4, 4, NULL, 4, 4, 4, 1, 1, '2026-02-15', 149.99),
+    (5, 5, NULL, 5, 1, 5, 2, 1, '2026-03-01', 9.99),
+    (6, NULL, 6, 6, 2, 6, 1, 1, '2026-03-15', 99.99),
+    (7, NULL, 7, 7, 3, 7, 4, 1, '2026-04-01', 14.99),
+    (8, NULL, 8, 8, 4, 8, 1, 1, '2026-04-10', 149.99),
+    (9, NULL, 9, 9, 1, 9, 1, 1, '2026-05-01', 9.99),
+    (10, NULL, 10, 10, 4, 10, 1, 1, '2026-05-05', 149.99);
+
+-- ========================================================================================
+-- SECCIÓN 7.5: INVENTARIO DE PRODUCTOS FINALES
+-- ========================================================================================
+
+-- TABLA: INVENTARIO_PRODUCTO
+-- Distribuimos los 10 productos entre las 4 Sedes (ID_SEDE del 1 al 4).
+-- Algunos productos premium (ej: 3, 6, 9) se asignaron a una Subasta (ID_SUBASTA), el resto en NULL (venta normal).
+INSERT INTO INVENTARIO_PRODUCTO (ID_SEDE, ID_PIEZA, ID_MOLDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_SUBASTA) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, NULL), -- Sede Valencia
+    (2, 2, 2, 2, 2, 2, 2, NULL), -- Hub La Guaira
+    (3, 3, 3, 3, 3, 3, 3, 1),    -- Hub Maracaibo (En Subasta 1)
+    (4, 4, 4, 4, 4, 4, 4, NULL), -- Tránsito Oceánico
+    (1, 5, 5, 5, 5, 5, 5, NULL), -- Sede Valencia
+    (2, 6, 6, 6, 6, 6, 6, 2),    -- Hub La Guaira (En Subasta 2)
+    (3, 7, 7, 7, 7, 7, 7, NULL), -- Hub Maracaibo
+    (4, 8, 8, 8, 8, 8, 8, NULL), -- Tránsito Oceánico
+    (1, 9, 9, 9, 9, 9, 9, 3),    -- Sede Valencia (En Subasta 3)
+    (2, 10, 10, 10, 10, 10, 10, NULL); -- Hub La Guaira
+
+-- TABLA: HISTORICO_INV_PRODUCTO 
+-- Registra el estado inicial en el almacén.
+-- Nota: CHAR(10) para las fechas ('YYYY-MM-DD')? y modificar a PRODUCTO_FECHA_INICIO.
+INSERT INTO HISTORICO_INV_PRODUCTO (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ESTATUS_INVENTARIO, PRODUCTO_FECHA_INCIO, PRODUCTO_FECHA_FIN) VALUES 
+    (1, 1, 1, 1, 1, 1, 1, 1, '2026-05-01', NULL), -- Disponible
+    (2, 2, 2, 2, 2, 2, 2, 1, '2026-05-02', NULL), -- Disponible
+    (3, 3, 3, 3, 3, 3, 3, 5, '2026-05-03', NULL), -- En Subasta
+    (4, 4, 4, 4, 4, 4, 4, 3, '2026-05-04', NULL), -- En Tránsito
+    (5, 5, 1, 5, 5, 5, 5, 1, '2026-05-05', NULL), -- Disponible
+    (6, 6, 2, 6, 6, 6, 6, 5, '2026-05-06', NULL), -- En Subasta
+    (7, 7, 3, 7, 7, 7, 7, 1, '2026-05-07', NULL), -- Disponible
+    (8, 8, 4, 8, 8, 8, 8, 3, '2026-05-08', NULL), -- En Tránsito
+    (9, 9, 1, 9, 9, 9, 9, 5, '2026-05-09', NULL), -- En Subasta
+    (10, 10, 2, 10, 10, 10, 10, 1, '2026-05-10', NULL); -- Disponible
