@@ -2992,31 +2992,6 @@ VALUES
   ('LA VICTORIA', 'parroquia', 359),
   ('RAFAEL URDANETA', 'parroquia', 359);
 
-INSERT INTO estatus_orden_compra_b2c (nombre_estatus_orden_b2c,descripcion_estatus_orden_b2c)
-VALUES
-    ('Emitida', 'La orden fue creada pero no validada'),
-    ('Validada', 'La pasarela de pago confirmó la transacción'),
-    ('En preparación ', 'El almacén está preparando el pedido para su envío'),
-    ('Despachada', 'El paquete fue entregado al courier'),
-    ('Entregada', 'Confirmación de recepción final'),
-    ('Facturada', 'Documento fiscal generado'),
-    ('Cobrada', 'El dinero ingresó a la cuenta de MATTELUCAB'),
-    ('Cancelada', 'Solo es posible si la orden no ha entrado en estado despachada'),
-    ('Devuelta', 'Proceso de logística inversa por defectos de la calidad');
-
-INSERT INTO estatus_orden_b2b (nombre_estatus_orden_b2b,descripcion_orden_b2b)
-VALUES
-    ('Emitida', 'La orden fue creada pero no validada'),
-    ('Validada', 'Se verificó el credito del cliente'),
-    ('En preparación ', 'El almacén está preparando el pedido para su envío'),
-    ('Despachada', 'El paquete fue entregado al courier'),
-    ('Entregada', 'Confirmación de recepción final'),
-    ('Facturada', 'Documento fiscal generado'),
-    ('Cobrada', 'El dinero ingresó a la cuenta de MATTELUCAB'),
-    ('Cancelada', 'Solo es posible si la orden no ha entrado en estado despachada'),
-    ('Devuelta', 'Proceso de logística inversa por defectos de la calidad');
-
-
 -- ============================================================================
 -- 400 CLIENTES + PERFIL (Mathias) — IDs EXPLICITOS
 -- 200 CLIENTE_B2C (id 1..200) + 200 PERSONA_JURIDICA (id 1..200) + perfil a 10 c/u.
