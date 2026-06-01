@@ -4,8 +4,8 @@ alter table ADJUDICACION
       on delete restrict on update restrict;
 
 alter table ADJUDICACION
-   add constraint FK_ADJUDICA_GENERA_ORDEN_SU foreign key (ID_ORDEN_VENTA)
-      references ORDEN_SUBASTA (ID_ORDEN_VENTA)
+   add constraint FK_ADJUDICA_GENERA_ORDEN_SU foreign key (ID_ORDEN_SUBASTA)
+      references ORDEN_SUBASTA (ID_ORDEN_SUBASTA)
       on delete restrict on update restrict;
 
 alter table ASISTENCIA
@@ -24,8 +24,8 @@ alter table BASEDISENO_PRUEBA
       on delete restrict on update restrict;
 
 alter table BASEDISENO_PRUEBA
-   add constraint FK_BASEDISE_PRUEBA_PUEBRA foreign key (ID_PRUEBA)
-      references PUEBRA (ID_PRUEBA)
+   add constraint FK_BASEDISE_PRUEBA_PRUEBA foreign key (ID_PRUEBA)
+      references PRUEBA (ID_PRUEBA)
       on delete restrict on update restrict;
 
 alter table BASEDISENO_SETREGALO
@@ -99,8 +99,8 @@ alter table CARACTERISTICA_BASEDISENO
       on delete restrict on update restrict;
 
 alter table CARGO
-   add constraint FK_CARGO_ES_ASIGNA_TABULADO foreign key (ID_TABULAR_SALARIAL)
-      references TABULADOR_SALARIAL (ID_TABULAR_SALARIAL)
+   add constraint FK_CARGO_ES_ASIGNA_TABULADO foreign key (ID_TABULADOR_SALARIAL)
+      references TABULADOR_SALARIAL (ID_TABULADOR_SALARIAL)
       on delete restrict on update restrict;
 
 alter table CARGO
@@ -379,8 +379,8 @@ alter table HISTORICO_EST_ORD_SUBASTA
       on delete restrict on update restrict;
 
 alter table HISTORICO_EST_ORD_SUBASTA
-   add constraint FK_HISTORIC_SE_DESCRI_ORDEN_SU foreign key (ID_ORDEN_VENTA)
-      references ORDEN_SUBASTA (ID_ORDEN_VENTA)
+   add constraint FK_HISTORIC_SE_DESCRI_ORDEN_SU foreign key (ID_ORDEN_SUBASTA)
+      references ORDEN_SUBASTA (ID_ORDEN_SUBASTA)
       on delete restrict on update restrict;
 
 alter table HISTORICO_FASE_PRODUCCION
@@ -519,13 +519,13 @@ alter table MONEDA
       on delete restrict on update restrict;
 
 alter table MONEDA
-   add constraint FK_MONEDA_ES_REALIZ_PAGO_SUB foreign key (ID_ORDEN_VENTA, ID_USUARIO, PAG_TAR_ID_METODO_PAGO, PAG_ID_METODO_PAGO3, PAG_ID_USUARIO_METODO_PAGO, ID_PAGO_SUBASTA)
-      references PAGO_SUBASTA (ID_ORDEN_VENTA, ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO, ID_PAGO_SUBASTA)
+   add constraint FK_MONEDA_ES_REALIZ_PAGO_SUB foreign key (ID_PAGO_SUBASTA)
+      references PAGO_SUBASTA (ID_PAGO_SUBASTA)
       on delete restrict on update restrict;
 
 alter table MONEDA
-   add constraint FK_MONEDA_SE_PAGA_M_PAGO_MEM foreign key (PAG_ID_USUARIO, PAG_TAR_ID_METODO_PAGO2, PAG_ID_METODO_PAGO2, ID_USUARIO_METODO_PAGO, ID_MEMBRESIA, ID_PAGO_MEMBRESIA)
-      references PAGO_MEMBRESIA (ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO, ID_MEMBRESIA, ID_PAGO_MEMBRESIA)
+   add constraint FK_MONEDA_SE_PAGA_M_PAGO_MEM foreign key (ID_PAGO_MEMBRESIA)
+      references PAGO_MEMBRESIA (ID_PAGO_MEMBRESIA)
       on delete restrict on update restrict;
 
 alter table MONEDA
@@ -634,8 +634,8 @@ alter table PAGO_MEMBRESIA
       on delete restrict on update restrict;
 
 alter table PAGO_SUBASTA
-   add constraint FK_PAGO_SUB_ES_PAGADO_ORDEN_SU foreign key (ID_ORDEN_VENTA)
-      references ORDEN_SUBASTA (ID_ORDEN_VENTA)
+   add constraint FK_PAGO_SUB_ES_PAGADO_ORDEN_SU foreign key (ID_ORDEN_SUBASTA)
+      references ORDEN_SUBASTA (ID_ORDEN_SUBASTA)
       on delete restrict on update restrict;
 
 alter table PAGO_SUBASTA
@@ -654,8 +654,8 @@ alter table PAYPAL
       on delete restrict on update restrict;
 
 alter table PENALIZACION
-   add constraint FK_PENALIZA_ES_PENALI_ORDEN_SU foreign key (ID_ORDEN_VENTA)
-      references ORDEN_SUBASTA (ID_ORDEN_VENTA)
+   add constraint FK_PENALIZA_ES_PENALI_ORDEN_SU foreign key (ID_ORDEN_SUBASTA)
+      references ORDEN_SUBASTA (ID_ORDEN_SUBASTA)
       on delete restrict on update restrict;
 
 alter table PERSONA_JURIDICA

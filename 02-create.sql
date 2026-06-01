@@ -4,7 +4,7 @@
 create table ADJUDICACION (
    ID_ADJUDICACION      SERIAL               not null,
    ID_PUJA              INT4                 not null,
-   ID_ORDEN_VENTA       INT4                 null,
+   ID_ORDEN_SUBASTA       INT4                 null,
    FECHAHORA_GANADOR    DATE                 not null,
    MONTO_FINAL_ADJUDICACION DECIMAL(20,2)        not null,
    constraint PK_ADJUDICACION primary key (ID_ADJUDICACION)
@@ -28,7 +28,7 @@ ID_PUJA
 /* Index: GENERA_FK                                             */
 /*==============================================================*/
 create  index GENERA_FK on ADJUDICACION (
-ID_ORDEN_VENTA
+ID_ORDEN_SUBASTA
 );
 
 /*==============================================================*/
@@ -360,7 +360,7 @@ ID_CARACTERISTICA
 /*==============================================================*/
 create table CARGO (
    ID_CARGO             SERIAL               not null,
-   ID_TABULAR_SALARIAL  INT4                 not null,
+   ID_TABULADOR_SALARIAL  INT4                 not null,
    ID_DEPARTAMENTO      INT4                 not null,
    NOMBRE_CARGO         VARCHAR(50)          not null,
    DESCRIPCION_CARGO    VARCHAR(200)         not null,
@@ -385,7 +385,7 @@ ID_DEPARTAMENTO
 /* Index: ES_ASIGNADO_POR_FK                                    */
 /*==============================================================*/
 create  index ES_ASIGNADO_POR_FK on CARGO (
-ID_TABULAR_SALARIAL
+ID_TABULADOR_SALARIAL
 );
 
 /*==============================================================*/
@@ -1374,7 +1374,7 @@ ID_ESTATUS_PAGO_MEMBRESIA
 /*==============================================================*/
 create table ESTATUS_PRECIO (
    ID_ESTATUS_PRECIO    SERIAL               not null,
-   NOMBRE_ESATUS_PRECIO VARCHAR(50)          not null,
+   NOMBRE_ESTATUS_PRECIO VARCHAR(50)          not null,
    DESCRIPCION_ESTATUS_PRECIO VARCHAR(200)         not null,
    constraint PK_ESTATUS_PRECIO primary key (ID_ESTATUS_PRECIO)
 );
@@ -1656,10 +1656,10 @@ ID_BACKORDER
 /*==============================================================*/
 create table HISTORICO_EST_ORD_SUBASTA (
    ID_ESTATUS_ORDENSUB  INT4                 not null,
-   ID_ORDEN_VENTA       INT4                 not null,
+   ID_ORDEN_SUBASTA       INT4                 not null,
    FECHAHORAINICIO_ORDSUBASTA DATE                 not null,
    FECHAHORAFIN_ORDSUBASTA DATE                 null,
-   constraint PK_HISTORICO_EST_ORD_SUBASTA primary key (ID_ESTATUS_ORDENSUB, ID_ORDEN_VENTA)
+   constraint PK_HISTORICO_EST_ORD_SUBASTA primary key (ID_ESTATUS_ORDENSUB, ID_ORDEN_SUBASTA)
 );
 
 /*==============================================================*/
@@ -1667,7 +1667,7 @@ create table HISTORICO_EST_ORD_SUBASTA (
 /*==============================================================*/
 create unique index HISTORICO_EST_ORD_SUBASTA_PK on HISTORICO_EST_ORD_SUBASTA (
 ID_ESTATUS_ORDENSUB,
-ID_ORDEN_VENTA
+ID_ORDEN_SUBASTA
 );
 
 /*==============================================================*/
@@ -1681,7 +1681,7 @@ ID_ESTATUS_ORDENSUB
 /* Index: SE_DESCRIBE_FK                                        */
 /*==============================================================*/
 create  index SE_DESCRIBE_FK on HISTORICO_EST_ORD_SUBASTA (
-ID_ORDEN_VENTA
+ID_ORDEN_SUBASTA
 );
 
 /*==============================================================*/
@@ -1771,8 +1771,8 @@ create table HISTORICO_INV_PRODUCTO (
    ID_BASEDISENO        INT4                 not null,
    ID_PRODUCTO          INT4                 not null,
    ID_ESTATUS_INVENTARIO INT4                 not null,
-   PRODUCTO_FECHA_INCIO CHAR(10)             not null,
-   PRODUCTO_FECHA_FIN   CHAR(10)             null,
+   PRODUCTO_FECHA_INICIO DATE                 not null,
+   PRODUCTO_FECHA_FIN   DATE                 null,
    constraint PK_HISTORICO_INV_PRODUCTO primary key (ID_PIEZA, ID_MOLDE, ID_SEDE, ID_MATERIAPRIMA, BAS_ID_BASEDISENO, ID_BASEDISENO, ID_PRODUCTO, ID_ESTATUS_INVENTARIO)
 );
 
@@ -1817,7 +1817,7 @@ create table HISTORICO_MEMBRESIA (
    ID_MEMBRESIA         INT4                 not null,
    ID_PERSONA_NATURAL   INT4                 not null,
    ID_ESTATUS_MEMBRESIA INT4                 not null,
-   MEBRESIA_FECHA_INICIO DATE                 not null,
+   MEMBRESIA_FECHA_INICIO DATE                 not null,
    MEMBRESIA_FECHA_FIN  DATE                 null,
    constraint PK_HISTORICO_MEMBRESIA primary key (ID_MEMBRESIA, ID_PERSONA_NATURAL, ID_ESTATUS_MEMBRESIA)
 );
@@ -1854,14 +1854,15 @@ create table HISTORICO_ORDEN_COMPRA_B2B (
    ID_ORDEN_COMPRA_B2B  INT4                 not null,
    FECHAHORA_INICIO_COMPRA_B2B DATE                 not null,
    FECHAHORA_FIN_COMPRA_B2B DATE                 null,
-   constraint PK_HISTORICO_ORDEN_COMPRA_B2B primary key (ID_ESTATUS_ORDEN_B2B)
+   constraint PK_HISTORICO_ORDEN_COMPRA_B2B primary key (ID_ESTATUS_ORDEN_B2B, ID_ORDEN_COMPRA_B2B)
 );
 
 /*==============================================================*/
 /* Index: HISTORICO_ORDEN_COMPRA_B2B_PK                         */
 /*==============================================================*/
 create unique index HISTORICO_ORDEN_COMPRA_B2B_PK on HISTORICO_ORDEN_COMPRA_B2B (
-ID_ESTATUS_ORDEN_B2B
+ID_ESTATUS_ORDEN_B2B,
+ID_ORDEN_COMPRA_B2B
 );
 
 /*==============================================================*/
@@ -2291,7 +2292,7 @@ ID_MOLDE
 /*==============================================================*/
 create table MONEDA (
    ID_MONEDA            SERIAL               not null,
-   ID_ORDEN_VENTA       INT4                 null,
+   ID_ORDEN_SUBASTA       INT4                 null,
    ID_USUARIO           INT4                 null,
    PAG_TAR_ID_METODO_PAGO INT4                 null,
    PAG_ID_METODO_PAGO3  INT4                 null,
@@ -2327,7 +2328,7 @@ ID_MONEDA
 /* Index: ES_REALIZADO_EL_PAGO_FK                               */
 /*==============================================================*/
 create  index ES_REALIZADO_EL_PAGO_FK on MONEDA (
-ID_ORDEN_VENTA,
+ID_ORDEN_SUBASTA,
 ID_USUARIO,
 PAG_TAR_ID_METODO_PAGO,
 PAG_ID_METODO_PAGO3,
@@ -2450,20 +2451,20 @@ ID_CONTRATO
 /* Table: ORDEN_SUBASTA                                         */
 /*==============================================================*/
 create table ORDEN_SUBASTA (
-   ID_ORDEN_VENTA       SERIAL               not null,
+   ID_ORDEN_SUBASTA       SERIAL               not null,
    ID_PENALIZACION      INT4                 null,
    ID_ADJUDICACION      INT4                 not null,
-   FECHAHORA_ORDEN_VENTA DATE                 not null,
+   FECHAHORA_ORDEN_SUBASTA DATE                 not null,
    N_FACTURA_SUBASTA    VARCHAR(30)          not null,
    TOTAL_ORDEN_SUBASTA  DECIMAL(20,2)        not null,
-   constraint PK_ORDEN_SUBASTA primary key (ID_ORDEN_VENTA)
+   constraint PK_ORDEN_SUBASTA primary key (ID_ORDEN_SUBASTA)
 );
 
 /*==============================================================*/
 /* Index: ORDEN_SUBASTA_PK                                      */
 /*==============================================================*/
 create unique index ORDEN_SUBASTA_PK on ORDEN_SUBASTA (
-ID_ORDEN_VENTA
+ID_ORDEN_SUBASTA
 );
 
 /*==============================================================*/
@@ -2594,8 +2595,8 @@ ID_MONEDA
 /*==============================================================*/
 create table PAGO_MEMBRESIA (
    ID_USUARIO           INT4                 not null,
-   TAR_ID_METODO_PAGO   INT4                 not null,
-   ID_METODO_PAGO       INT4                 not null,
+   TAR_ID_METODO_PAGO   INT4                 null,
+   ID_METODO_PAGO       INT4                 null,
    ID_USUARIO_METODO_PAGO INT4                 not null,
    ID_MEMBRESIA         INT4                 not null,
    ID_PAGO_MEMBRESIA    SERIAL               not null,
@@ -2603,18 +2604,13 @@ create table PAGO_MEMBRESIA (
    ID_MONEDA            INT4                 not null,
    FECHA_PAGO_MEMBRESIA DATE                 not null,
    MONTO_PAGO_MEMBRESIA DECIMAL(20,2)        not null,
-   constraint PK_PAGO_MEMBRESIA primary key (ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO, ID_MEMBRESIA, ID_PAGO_MEMBRESIA)
+   constraint PK_PAGO_MEMBRESIA primary key (ID_PAGO_MEMBRESIA)
 );
 
 /*==============================================================*/
 /* Index: PAGO_MEMBRESIA_PK                                     */
 /*==============================================================*/
 create unique index PAGO_MEMBRESIA_PK on PAGO_MEMBRESIA (
-ID_USUARIO,
-TAR_ID_METODO_PAGO,
-ID_METODO_PAGO,
-ID_USUARIO_METODO_PAGO,
-ID_MEMBRESIA,
 ID_PAGO_MEMBRESIA
 );
 
@@ -2653,27 +2649,22 @@ ID_MONEDA
 /* Table: PAGO_SUBASTA                                          */
 /*==============================================================*/
 create table PAGO_SUBASTA (
-   ID_ORDEN_VENTA       INT4                 not null,
+   ID_ORDEN_SUBASTA       INT4                 not null,
    ID_USUARIO           INT4                 not null,
-   TAR_ID_METODO_PAGO   INT4                 not null,
-   ID_METODO_PAGO       INT4                 not null,
+   TAR_ID_METODO_PAGO   INT4                 null,
+   ID_METODO_PAGO       INT4                 null,
    ID_USUARIO_METODO_PAGO INT4                 not null,
    ID_PAGO_SUBASTA      SERIAL               not null,
    ID_MONEDA            INT4                 not null,
    MONTO_PAGO           DECIMAL(20,2)        not null,
    FECHAHORA_PAGO       DATE                 not null,
-   constraint PK_PAGO_SUBASTA primary key (ID_ORDEN_VENTA, ID_USUARIO, TAR_ID_METODO_PAGO, ID_METODO_PAGO, ID_USUARIO_METODO_PAGO, ID_PAGO_SUBASTA)
+   constraint PK_PAGO_SUBASTA primary key (ID_PAGO_SUBASTA)
 );
 
 /*==============================================================*/
 /* Index: PAGO_SUBASTA_PK                                       */
 /*==============================================================*/
 create unique index PAGO_SUBASTA_PK on PAGO_SUBASTA (
-ID_ORDEN_VENTA,
-ID_USUARIO,
-TAR_ID_METODO_PAGO,
-ID_METODO_PAGO,
-ID_USUARIO_METODO_PAGO,
 ID_PAGO_SUBASTA
 );
 
@@ -2681,7 +2672,7 @@ ID_PAGO_SUBASTA
 /* Index: ES_PAGADO_FK                                          */
 /*==============================================================*/
 create  index ES_PAGADO_FK on PAGO_SUBASTA (
-ID_ORDEN_VENTA
+ID_ORDEN_SUBASTA
 );
 
 /*==============================================================*/
@@ -2729,7 +2720,7 @@ ID_CORREO
 /*==============================================================*/
 create table PENALIZACION (
    ID_PENALIZACION      SERIAL               not null,
-   ID_ORDEN_VENTA       INT4                 not null,
+   ID_ORDEN_SUBASTA       INT4                 not null,
    NOMBRE_PENALIZACION  VARCHAR(50)          not null,
    DESCRIPCION_PENALIZACION VARCHAR(200)         not null,
    ESTADO_PENALIZACION  VARCHAR(50)          not null,
@@ -2748,7 +2739,7 @@ ID_PENALIZACION
 /* Index: ES_PENALIZADO2_FK                                     */
 /*==============================================================*/
 create  index ES_PENALIZADO2_FK on PENALIZACION (
-ID_ORDEN_VENTA
+ID_ORDEN_SUBASTA
 );
 
 /*==============================================================*/
@@ -2970,19 +2961,19 @@ ID_BASEDISENO
 );
 
 /*==============================================================*/
-/* Table: PUEBRA                                                */
+/* Table: PRUEBA                                                */
 /*==============================================================*/
-create table PUEBRA (
+create table PRUEBA (
    ID_PRUEBA            SERIAL               not null,
    NOMBRE_PRUEBA        VARCHAR(50)          not null,
    DESCRIPCION_PRUEBA   VARCHAR(200)         not null,
-   constraint PK_PUEBRA primary key (ID_PRUEBA)
+   constraint PK_PRUEBA primary key (ID_PRUEBA)
 );
 
 /*==============================================================*/
-/* Index: PUEBRA_PK                                             */
+/* Index: PRUEBA_PK                                             */
 /*==============================================================*/
-create unique index PUEBRA_PK on PUEBRA (
+create unique index PRUEBA_PK on PRUEBA (
 ID_PRUEBA
 );
 
@@ -3176,17 +3167,17 @@ ID_PRODUCTO
 /* Table: TABULADOR_SALARIAL                                    */
 /*==============================================================*/
 create table TABULADOR_SALARIAL (
-   ID_TABULAR_SALARIAL  SERIAL               not null,
+   ID_TABULADOR_SALARIAL  SERIAL               not null,
    SUELDO_MENSUAL       DECIMAL(20,2)        not null,
    SUELDO_HORA          DECIMAL(20,2)        not null,
-   constraint PK_TABULADOR_SALARIAL primary key (ID_TABULAR_SALARIAL)
+   constraint PK_TABULADOR_SALARIAL primary key (ID_TABULADOR_SALARIAL)
 );
 
 /*==============================================================*/
 /* Index: TABULADOR_SALARIAL_PK                                 */
 /*==============================================================*/
 create unique index TABULADOR_SALARIAL_PK on TABULADOR_SALARIAL (
-ID_TABULAR_SALARIAL
+ID_TABULADOR_SALARIAL
 );
 
 /*==============================================================*/

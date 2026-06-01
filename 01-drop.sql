@@ -647,9 +647,9 @@ drop index PROFESION_BASEDISENO_PK;
 
 drop table PROFESION_BASEDISENO;
 
-drop index PUEBRA_PK;
+drop index PRUEBA_PK;
 
-drop table PUEBRA;
+drop table PRUEBA;
 
 drop index NECESITA_FK;
 
