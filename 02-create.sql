@@ -118,6 +118,7 @@ ID_COLECCION
 create table COLOR (
    ID_COLOR             SERIAL               not null,
    NOMBRE_COLOR         VARCHAR(50)          not null,
+   CODIGO_HEX VARCHAR(20) NOT NULL,
    constraint PK_COLOR primary key (ID_COLOR)
 );
 
