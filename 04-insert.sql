@@ -3252,7 +3252,7 @@ INSERT INTO PROFESION (ID_PROFESION, NOMBRE_PROFESION, DESCRIPCION_PROFESION) VA
 INSERT INTO CLASIFICACION (ID_CLASIFICACION, NOMBRE_CLASIFICACION, DESCRIPCION_CLASIFICACION) VALUES 
     (1, 'Black Label', 'Línea de colección orientada al público coleccionista'),
     (2, 'Gold Label', 'Ediciones exclusivas limitadas a un máximo de 25,000 unidades globales'),
-    (3, 'Platinum Label', 'Ediciones ultra exclusivas numeradas consecutivamente con menos de 1,000 unidades')
+    (3, 'Platinum Label', 'Ediciones ultra exclusivas numeradas consecutivamente con menos de 1,000 unidades'),
     (4, 'Pink Label', 'Línea de colección orientada a la venta masiva');
 --NAYKARID Y DEVONY
 INSERT INTO SET_REGALO (ID_SET_REGALO, NOMBRE_SET_REGALO) VALUES 
@@ -3957,3 +3957,281 @@ INSERT INTO LINEA_CREDITO (ID_LINEA_CREDITO, FK_PERSONA_JURIDICA, TOTAL_LINEA_CR
   (8, 8, 400000),
   (9, 9, 450000),
   (10, 10, 500000);
+--NAYKARID
+INSERT INTO TRANSPORTE (ID_TRANSPORTE, FK_TIPO_TRANSPORTE, NOMBRE_TRANSPORTE) VALUES 
+    (1, 1, 'Gándola Mack Titan 001'),
+    (2, 2, 'Furgoneta Mercedes Sprinter 02'),
+    (3, 3, 'Buque de Carga MSC Rosalind'),
+    (4, 4, 'Avión de Carga Boeing 767F'),
+    (5, 5, 'Camión Volvo FH 05'),
+    (6, 6, 'Moto de Carga Rápida 06'),
+    (7, 7, 'Tren de Carga Multimodal 07'),
+    (8, 8, 'Camión Refrigerado ThermoKing 08'),
+    (9, 9, 'Camión Ligero Isuzu 09'),
+    (10, 10, 'Furgón Comercial POP 10');
+--MATHIAS
+INSERT INTO TIPO_CRIPTOMONEDA (ID_TIPO_CRIPTOMONEDA, RED_BLOCKCHAIN) VALUES
+  (1, 'Bitcoin'),
+  (2, 'Ethereum (ERC-20)'),
+  (3, 'Tron (TRC-20)'),
+  (4, 'Binance Smart Chain'),
+  (5, 'Solana'),
+  (6, 'Polygon'),
+  (7, 'Litecoin'),
+  (8, 'Cardano'),
+  (9, 'Ripple'),
+  (10, 'Dogecoin');
+--NAYKARID
+INSERT INTO TASA_CAMBIO (ID_TASA_CAMBIO, FK_MONEDA, VALOR_USD_TASA, FECHA_EFECTIVA, FECHAFIN_PRECIO) VALUES 
+    (1, 1, 1.00, '2024-01-01', NULL), 
+    (2, 2, 36.20, '2024-01-01', '2024-02-15'), 
+    (3, 2, 38.50, '2024-02-16', '2024-03-31'), 
+    (4, 2, 39.10, '2024-04-01', NULL), 
+    (5, 3, 1.00, '2024-01-01', NULL), 
+    (6, 4, 62000.00, '2024-01-01', '2024-03-15'),
+    (7, 4, 67500.00, '2024-03-16', NULL),
+    (8, 5, 2.50, '2024-01-01', '2024-02-28'),
+    (9, 5, 5.00, '2024-03-01', '2024-04-15'),
+    (10, 5, 8.50, '2024-04-16', NULL);
+--DEVONY 
+INSERT INTO BASE_DISENO (ID_BASEDISENO, FK_ERA, FK_BASEDISENO, FK_TIPO_CUERPO, FK_COLECCION, FK_COLOR_OJOS, FK_COLOR_TONOPIEL, NOMBRE_BASEDISENO, DESCRIPCION_BASEDISENO,ALTO_BASEDISENO, ANCHO_BASEDISENO, PROFUNDIDAD_BASEDISENO) VALUES
+(1, 1, NULL, NULL, 3, NULL, NULL, 'Barbie Dreamhouse', 'Casa principal de tres pisos con ascensor, piscina en terraza y accesorios completos.', 120.00, 80.00, 40.00),
+(2, 3, NULL, 1, 2, 6, 2, 'Ken Fashionistas 130', 'Muñeco Ken con cabello rubio, atuendo casual y cuerpo original articulado.', 30.00, 12.00, 5.00),
+(3, 1, NULL, 4, 1, 6, 1, 'Skipper Babysitters', 'Hermana menor de Barbie con cuerpo petite y look juvenil de cuidado infantil.', 25.00, 10.00, 4.00),
+(4, 3, NULL, 3, 5, 9, 3, 'Teresa Sirena Dreamtopia', 'Amiga de Barbie con cuerpo tall para la línea de fantasía submarina.', 32.00, 9.00, 4.50),
+(5, 1, 1, 1, 3, 6, 1, 'Barbie Dreamhouse Host', 'Barbie anfitriona diseñada para interactuar con la Dreamhouse y sus accesorios.', 29.21, 6.35, 3.81),
+(6, 3, 2, 2, 2, 7, 3, 'Barbie y Ken Pareja Real', 'Barbie edición especial para coleccionar junto a Ken Fashionistas 130.', 29.21, 6.35, 3.81),
+(7, 1, 3, 4, 1, 8, 2, 'Barbie Hermana Mayor', 'Barbie con cuerpo petite a juego con Skipper para escenas familiares.', 29.21, 6.35, 3.81),
+(8, 3, 4, 3, 5, 6, 2, 'Barbie Sirena Dreamtopia', 'Barbie con cuerpo tall para acompañar a Teresa en aventuras submarinas.', 32.00, 9.00, 4.50),
+(9, 4, NULL, 5, 6, 6, 4, 'Barbie Inspiring Women', 'Barbie con cuerpo articulado representando figuras históricas femeninas.', 29.21, 6.99, 3.81),
+(10, 2, NULL, 1, 4, 6, 5, 'Barbie Dia de Muertos', 'Edición especial con tono fantasía y maquillaje tradicional mexicano.', 29.21, 6.35, 3.81);
+--DEVONY
+INSERT INTO BASE_DISENO_CONSTRUCCION (ID_BASEDISENO_CONSTRUCCION, PFK_PIEZA, PFK_MOLDE, PFK_MATERIAPRIMA, PFK_BASEDISENO, CANTIDAD_MATERIAPRIMA) VALUES
+(1, 1, 1, 2, 5, 10),
+(2, 2, 1, 1, 5, 50),
+(3, 3, 1, 1, 5, 20),
+(4, 1, 2, 2, 6, 12),
+(5, 2, 2, 1, 6, 5),
+(6, 1, 3, 2, 7, 7),
+(7, 2, 3, 1, 7, 9),
+(8, 1, 6, 2, 8, 11),
+(9, 2, 6, 1, 8, 13),
+(10, 5, 7, 1, 9, 3);
+--DEVONY
+INSERT INTO BASEDISENO_PRUEBA (ID_BASEDISENO_PRUEBA, FK_BASEDISENO, FK_PRUEBA) VALUES
+  (1, 5, 1),
+  (2, 5, 3),
+  (3, 5, 5),
+  (4, 6, 1),
+  (5, 6, 3),
+  (6, 6, 5),
+  (7, 7, 1),
+  (8, 7, 2),
+  (9, 7, 5),
+  (10, 8, 1);
+--DEVONY
+INSERT INTO BASEDISENO_SETREGALO (ID_BASEDISENO_SETREGALO, FK_BASEDISENO, FK_SET_REGALO) VALUES
+  (1, 5, 1),
+  (2, 2, 1),
+  (3, 6, 2),
+  (4, 3, 2),
+  (5, 7, 3),
+  (6, 4, 3),
+  (7, 8, 4),
+  (8, 9, 5),
+  (9, 10, 6),
+  (10, 5, 7);
+--DEVONY
+INSERT INTO CARACTERISTICA_BASEDISENO (ID_CARACTERISTICA_BASEDISENO, FK_BASEDISENO, FK_CARACTERISTICA, VALOR_CARACTERISITICA) VALUES
+(1, 5, 1, 'Azul Profundo'),
+(2, 5, 3, 'Mate Suave'),
+(3, 5, 5, '5 puntos'),
+(4, 6, 1, 'Verde Esmeralda'),
+(5, 6, 3, 'Brillo Satinado'),
+(6, 6, 5, '5 puntos'),
+(7, 7, 1, 'Miel Dorado'),
+(8, 7, 3, 'Mate Suave'),
+(9, 7, 5, '10 puntos'),
+(10, 8, 1, 'Azul Profundo');
+-- DEVONY
+INSERT INTO CATEGORIA_BASEDISENO (ID_CATEGORIA_BASEDISENO, FK_BASEDISENO, FK_CATEGORIA) VALUES
+(1, 1, 9),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 6),
+(5, 5, 1),
+(6, 6, 1),
+(7, 7, 1),
+(8, 8, 6),
+(9, 9, 7),
+(10, 10, 6);
+-- DEVONY
+INSERT INTO CLASIFICACION_BASEDISENO (ID_CLASIFICACION_BASEDISENO, FK_BASEDISENO, FK_CLASIFICACION) VALUES
+  (1, 1, 4),
+  (2, 2, 4),
+  (3, 3, 4),
+  (4, 4, 4),
+  (5, 5, 4),
+  (6, 6, 2),
+  (7, 7, 3),
+  (8, 8, 4),
+  (9, 9, 1),
+  (10, 10, 2);
+-- DEVONY
+INSERT INTO FASE_DISENO (ID_FASE_DISENO, FK_PRUEBA, FK_BASEDISENO, FK_FASE, FK_CARGO, CANTIDAD_CARGO) VALUES
+(1, 5, 5, 6, 2, 3),
+(2, 5, 5, 7, 7, 5),
+(3, 1, 5, 8, 8, 2),
+(4, 5, 6, 6, 2, 3),
+(5, 5, 6, 7, 7, 5),
+(6, 1, 6, 8, 8, 2),
+(7, 5, 7, 6, 2, 3),
+(8, 5, 7, 7, 7, 5),
+(9, 2, 7, 8, 8, 2),
+(10, 5, 8, 6, 2, 3);
+-- DEVONY
+INSERT INTO FASE_PRODUCCION (ID_FASE_PRODUCCION, FK_FASE_DISENO, FK_PERSONA_NATURAL) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 7),
+(4, 3, 8),
+(5, 4, 1),
+(6, 4, 2),
+(7, 5, 7),
+(8, 6, 8),
+(9, 7, 1),
+(10, 7, 2);
+-- DEVONY
+INSERT INTO CRIPTOMONEDA (ID_CRIPTOMONEDA, FK_TIPO_CRIPTOMONEDA, DIRECCION_WALLET_CRIPTOMONEDA) VALUES
+(1, 1, 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh'),
+(2, 2, '0x71C7656EC7ab88b098defB751B7401B5f6d8976F'),
+(3, 3, 'TV6MuMXfmLbBqPZvBHdwFsDnQAePK8Mw5c'),
+(4, 4, '0x3f5CE5FBFe3E9af3971dD833D26bA9b5C936f0bE'),
+(5, 5, '7XkBp3G4vN2mQw8YpLzRt5KfJn9HsQvTcE'),
+(6, 6, '0xdAC17F958D2ee523a2206206994597C13D831ec7'),
+(7, 7, 'ltc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0abc'),
+(8, 8, 'addr1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0xyz'),
+(9, 9, 'rN7n7otQDd6FczFgLdlqtyMVrn3HMfHgFj'),
+(10, 10, 'D6n7otQDd6FczFgLdlqtyMVrn3HMfHgFjD');
+
+INSERT INTO CHEQUE (ID_CHEQUE, FK_BANCO_CHEQUE, NUMERO_CHEQUE) VALUES
+(1, 1, '00010001'),
+(2, 2, '00020002'),
+(3, 3, '00030003'),
+(4, 4, '00040004'),
+(5, 5, '00050005'),
+(6, 6, '00060006'),
+(7, 7, '00070007'),
+(8, 8, '00080008'),
+(9, 9, '00090009'),
+(10, 10, '00100010');
+
+INSERT INTO CORREO (ID_CORREO, FK_PERSONA_JURIDICA, FK_PERSONA_NATURAL_CLIENTE, FK_PERSONA_NATURAL_EMPLEADO, NOMBRE_CORREO) VALUES
+(1, 1, NULL, NULL, 'contacto@mattelmax.com'),
+(2, NULL, 1, NULL, 'jose.gonzalez@email.com'),
+(3, NULL, NULL, 1, 'carlos.perez@mattelucab.com'),
+(4, 2, NULL, NULL, 'info@toyven.com'),
+(5, NULL, 2, NULL, 'ana.rodriguez@email.com'),
+(6, NULL, NULL, 2, 'maria.rodriguez@mattelucab.com'),
+(7, 3, NULL, NULL, 'ventas@juguetesya.com'),
+(8, NULL, 3, NULL, 'carlos.perez2@email.com'),
+(9, NULL, NULL, 3, 'juan.martinez@mattelucab.com'),
+(10, 4, NULL, NULL, 'soporte@playcenter.com');
+
+INSERT INTO PAYPAL (ID_PAYPAL, FK_CORREO) VALUES
+(1, 2),
+(2, 5),
+(3, 8),
+(4, 1),
+(5, 4),
+(6, 7),
+(7, 10),
+(8, 3),
+(9, 6),
+(10, 9);
+
+INSERT INTO PROFESION_BASEDISENO (ID_PROFESION_BASEDISENO, FK_PROFESION, FK_BASEDISENO) VALUES
+(1, 1, 5),
+(2, 2, 6),
+(3, 3, 6),
+(4, 4, 6),
+(5, 5, 7),
+(6, 6, 7),
+(7, 7, 8),
+(8, 8, 9),
+(9, 9, 9),
+(10, 10, 9);
+
+INSERT INTO TRANSFERENCIA_BANCARIA (ID_TRANSFERENCIA_BANCARIA, FK_BANCO) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
+INSERT INTO TARJETA_CREDITO (ID_TARJETA_CREDITO, FK_BANCO, NUMERO_TARJETA_CREDITO, CVV_TARJETA_CREDITO, FECHAEXP_TARJETA_CREDITO, TARJETAHABIENTE_CREDITO) VALUES
+(1, 1, '4111111111111111', '123', '2027-12-31', 'Carlos Luis Pérez Gómez'),
+(2, 2, '5500000000000004', '456', '2027-11-30', 'María Alejandra Rodríguez López'),
+(3, 3, '340000000000009', '789', '2028-01-31', 'Juan Carlos Martínez Ruiz'),
+(4, 4, '4111111111111129', '321', '2027-10-31', 'Ana Karina González Fernández'),
+(5, 5, '5500000000000012', '654', '2028-03-31', 'Luis Eduardo Díaz Silva'),
+(6, 6, '340000000000019', '987', '2027-09-30', 'Pedro José García Mendoza'),
+(7, 7, '4111111111111137', '147', '2028-06-30', 'Laura Victoria Hernández Rojas'),
+(8, 8, '5500000000000020', '258', '2027-08-31', 'Diego Alejandro Torres Castillo'),
+(9, 9, '340000000000028', '369', '2028-05-31', 'Carmen Alicia Flores Pineda'),
+(10, 10, '4111111111111145', '741', '2027-07-31', 'José Gregorio Romero Vargas');
+
+INSERT INTO TARJETA_DEBITO (ID_TARJETA_DEBITO, FK_BANCO, NUMERO_TARJETA_DEBITO, CVV_TARJETA_DEBITO, FECHAVENC_TARJETA_DEBITO, TARJETAHABIENTE_DEBITO) VALUES
+(1, 1, '4111111111111152', '852', '2027-12-31', 'Rosa María Velásquez Torres'),
+(2, 2, '5500000000000038', '963', '2027-11-30', 'Fernando Antonio Delgado Ruiz'),
+(3, 3, '340000000000037', '159', '2028-01-31', 'Camila Estefanía Morales Pineda'),
+(4, 4, '4111111111111160', '357', '2027-10-31', 'Sebastián Andrés León Castillo'),
+(5, 5, '5500000000000046', '486', '2028-03-31', 'Valentina Isabel Ortega Silva'),
+(6, 6, '340000000000046', '729', '2027-09-30', 'Mateo Alejandro Vargas Mendoza'),
+(7, 7, '4111111111111178', '951', '2028-06-30', 'Luciana Fernanda Herrera Rojas'),
+(8, 8, '5500000000000053', '753', '2027-08-31', 'Emiliano José Guerrero Bravo'),
+(9, 9, '340000000000055', '624', '2028-05-31', 'Mariana Victoria Soto Quintero'),
+(10, 10, '4111111111111186', '318', '2027-07-31', 'Santiago Nicolás Fuentes Lara');
+
+
+INSERT INTO HISTORICO_FASE_PRODUCCION (ID_HISTORICO_FASE_PRODUCCION, FK_ESTATUS_FP, FK_FASE_PRODUCCION, FECHAHORA_INICIO_FASEP, FECHAHORA_FINAL_FASEP) VALUES
+(1, 2, 1, '2026-06-01 08:00:00', '2026-06-01 16:00:00'),
+(2, 5, 1, '2026-06-01 16:00:00', NULL),
+(3, 2, 2, '2026-06-02 08:00:00', '2026-06-02 14:00:00'),
+(4, 3, 2, '2026-06-02 14:00:00', NULL),
+(5, 2, 3, '2026-06-03 06:00:00', '2026-06-03 14:00:00'),
+(6, 4, 3, '2026-06-03 14:00:00', NULL),
+(7, 2, 4, '2026-06-04 08:00:00', '2026-06-04 16:00:00'),
+(8, 5, 4, '2026-06-04 16:00:00', NULL),
+(9, 2, 5, '2026-06-05 08:00:00', '2026-06-05 12:00:00'),
+(10, 6, 5, '2026-06-05 12:00:00', NULL);
+
+INSERT INTO PRIVILEGIO (ID_PRIVILEGIO, DESCRIPCION_PRIVILEGIO) VALUES
+(1, 'Gestion diseño'),
+(2, 'Gestion ventas'),
+(3, 'Gestion inventario'),
+(4, 'Gestion produccion'),
+(5, 'Gestion calidad'),
+(6, 'Gestion logistica'),
+(7, 'Gestion finanzas'),
+(8, 'Gestion recursos humanos'),
+(9, 'Gestion compras clientes'),
+(10, 'Gestion subastas');
+
+INSERT INTO ROL_PRIVILEGIO (ID_ROL_PRIVILEGIO, FK_PRIVILEGIO, FK_ROL) VALUES
+(1, 9, 1),
+(2, 2, 2),
+(3, 10, 3),
+(4, 3, 4),
+(5, 2, 5),
+(6, 1, 6),
+(7, 2, 7),
+(8, 6, 8),
+(9, 1, 9),
+(10, 7, 10);
+
