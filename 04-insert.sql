@@ -4235,3 +4235,16 @@ INSERT INTO ROL_PRIVILEGIO (ID_ROL_PRIVILEGIO, FK_PRIVILEGIO, FK_ROL) VALUES
 (9, 1, 9),
 (10, 7, 10);
 
+-- Cruza los pagos recibidos con las órdenes de compra correspondientes.
+INSERT INTO DISTRIBUCION_PAGO_B2B (ID_DISTRIBUCION_PAGO_B2B, FK_PAGO_B2B, FK_ORDEN_COMPRA_B2B, MONTO_APLICADO) VALUES 
+    (1, 1, 1, 1500.00),
+    (2, 2, 2, 2450.50),
+    (3, 3, 3, 890.00),
+    (4, 4, 4, 3200.00),
+    (5, 5, 5, 4150.75),
+    (6, 6, 6, 1200.00),
+    (7, 7, 7, 650.25),
+    (8, 8, 8, 5000.00),
+    (9, 9, 9, 1750.00),
+    (10, 10, 10, 2990.99);
+
