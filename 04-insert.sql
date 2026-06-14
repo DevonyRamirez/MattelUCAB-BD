@@ -2331,7 +2331,7 @@ INSERT INTO ROL (ID_ROL, NOMBRE_ROL, DESCRIPCION_ROL) VALUES
   (6, 'Administrador', 'Acceso total al sistema'),
   (7, 'Gerente de Ventas', 'Supervisa metas y comisiones de ejecutivos de cuenta'),
   (8, 'Operador de Logistica', 'Gestiona despachos y manifiestos de carga'),
-  (9, 'Disenador I+D', 'Define especificaciones tecnicas y artisticas de productos'),
+  (9, 'Diseñador I+D', 'Define especificaciones tecnicas y artisticas de productos'),
   (10, 'Auditor', 'Consulta registros historicos sin modificar');
 
 
@@ -3167,7 +3167,11 @@ INSERT INTO PRIVILEGIO (ID_PRIVILEGIO, DESCRIPCION_PRIVILEGIO, TIPO_PRIVILEGIO) 
 (429, 'Insert en HISTORICO_EST_GANADOR', 'Insert'),
 (430, 'Update en HISTORICO_EST_GANADOR', 'Update'),
 (431, 'Delete en HISTORICO_EST_GANADOR', 'Delete'),
-(432, 'Select en HISTORICO_EST_GANADOR', 'Select');
+(432, 'Select en HISTORICO_EST_GANADOR', 'Select'),
+(433, 'Privilegios','Vista'),
+(434,'Reportes','Vista'),
+(435,'Diseño','Vista'),
+(436,'Usuarios','Vista');
 
 INSERT INTO ROL_PRIVILEGIO (ID_ROL_PRIVILEGIO, FK_PRIVILEGIO, FK_ROL) VALUES
 (1, 9, 1),
@@ -3222,7 +3226,7 @@ INSERT INTO USUARIO (ID_USUARIO, FK_PERSONA_JURIDICA, FK_ROL, FK_PERSONA_NATURAL
 (38, NULL, 3, 28, NULL, 'hernan_perez',        'Cli2024#28'),
 (39, NULL, 3, 29, NULL, 'carolina_hurtado',    'Cli2024#29'),
 (40, NULL, 3, 30, NULL, 'manuel_santana',      'Cli2024#30'),
-(41, NULL, 6, NULL, 1,  'carlos_perez',      'Emp2024#E1'),
+(41, NULL, 6, NULL, 1,  'ana_karina',      'bd123'),
 (42, NULL, 7, NULL, 2,  'maria_rodriguez',   'Emp2024#E2'),
 (43, NULL, 4, NULL, 3,  'juan_martinez',     'Emp2024#E3'),
 (44, NULL, 5, NULL, 4,  'ana_gonzalez',      'Emp2024#E4'),
@@ -10768,16 +10772,16 @@ INSERT INTO HISTORICO_INV_PRODUCTO (ID_HISTORICO_INV_PRODUCTO, FK_PRODUCTO, FK_E
     (2288, 2288, 3, '2023-03-29', NULL),
     (2289, 2289, 3, '2024-04-15', NULL),
     (2290, 2290, 3, '2024-03-08', NULL),
-    (2291, 2291, 1, '2025-08-31', NULL),
-    (2292, 2292, 8, '2024-07-09', NULL),
-    (2293, 2293, 9, '2023-04-06', NULL),
-    (2294, 2294, 10, '2023-06-02', NULL),
-    (2295, 2295, 1, '2024-07-28', NULL),
-    (2296, 2296, 8, '2023-03-09', NULL),
-    (2297, 2297, 9, '2024-01-03', NULL),
-    (2298, 2298, 10, '2024-10-06', NULL),
-    (2299, 2299, 1, '2023-02-02', NULL),
-    (2300, 2300, 8, '2024-02-29', NULL);
+    (2291, 2291, 6, '2025-08-31', NULL),
+    (2292, 2292, 6, '2024-07-09', NULL),
+    (2293, 2293, 6, '2023-04-06', NULL),
+    (2294, 2294, 6, '2023-06-02', NULL),
+    (2295, 2295, 6, '2024-07-28', NULL),
+    (2296, 2296, 6, '2023-03-09', NULL),
+    (2297, 2297, 6, '2024-01-03', NULL),
+    (2298, 2298, 6, '2024-10-06', NULL),
+    (2299, 2299, 6, '2023-02-02', NULL),
+    (2300, 2300, 6, '2024-02-29', NULL);
 
 INSERT INTO SUBASTA (ID_SUBASTA, FK_PRODUCTO, NOMBRE_SUBASTA, FECHAHORA_INICIO_SUBASTA, FECHAHORA_FIN_SUBASTA, PRECIO_BASE_SUBASTA, INCREMENTO_MINIMO_SUBASTA) VALUES
 
@@ -29568,25 +29572,25 @@ INSERT INTO INVENTARIO_PRODUCTO (ID_INVENTARIO_PRODUCTO, FK_SEDE, FK_PRODUCTO, C
 -- 20 REGISTROS ORDEN_COMPRA_B2B
 INSERT INTO ORDEN_COMPRA_B2B (ID_ORDEN_COMPRA_B2B, FK_USUARIO, FK_CONTRATO_CARGO, FECHAHORA_ORDEN_COMPRA_B2B, CONDICION_PAGO, N_FACTURA_COMPRA_B2B, SUBTOTAL_ORDEN_COMPRA_B2B, TOTAL_ORDEN_COMPRA_B2B) VALUES
     (1, 1, 5, '2025-10-16 00:00:00', 30, 1001, 1164.59, 1101.99),
-    (2, 2, 5, '2024-01-26 00:00:00', 90, 1002, 1156.2, 1055.92),
-    (3, 3, 5, '2024-10-08 00:00:00', 30, 1003, 976.45, 819.76),
-    (4, 4, 5, '2024-08-16 00:00:00', 30, 1004, 1222.98, 1053.51),
-    (5, 5, 5, '2024-04-14 00:00:00', 90, 1005, 1018.82, 963.33),
+    (2, 2, 5, '2025-01-26 00:00:00', 90, 1002, 1156.2, 1055.92),
+    (3, 3, 5, '2025-10-08 00:00:00', 30, 1003, 976.45, 819.76),
+    (4, 4, 5, '2025-08-16 00:00:00', 30, 1004, 1222.98, 1053.51),
+    (5, 5, 5, '2025-04-14 00:00:00', 90, 1005, 1018.82, 963.33),
     (6, 6, 5, '2025-07-12 00:00:00', 30, 1006, 1092.4, 999.66),
     (7, 7, 5, '2025-08-27 00:00:00', 60, 1007, 1104.68, 956.45),
-    (8, 8, 5, '2024-02-02 00:00:00', 30, 1008, 1152.5, 1056.77),
-    (9, 9, 5, '2024-04-05 00:00:00', 30, 1009, 1117.27, 925.75),
-    (10, 10, 5, '2024-08-26 00:00:00', 90, 1010, 1041.54, 870.91),
-    (11, 1, 5, '2025-09-08 00:00:00', 30, 1011, 1115.79, 943.15),
-    (12, 2, 5, '2025-07-28 00:00:00', 30, 1012, 1022.42, 928.68),
-    (13, 3, 5, '2025-10-27 00:00:00', 90, 1013, 1183.96, 954.77),
-    (14, 4, 5, '2025-07-12 00:00:00', 60, 1014, 1143.58, 1068.87),
-    (15, 5, 5, '2024-08-13 00:00:00', 60, 1015, 1234.73, 1155.08),
-    (16, 6, 5, '2025-08-26 00:00:00', 60, 1016, 1038.9, 892.87),
-    (17, 7, 5, '2024-01-07 00:00:00', 30, 1017, 956.22, 803.74),
-    (18, 8, 5, '2025-12-15 00:00:00', 60, 1018, 1043.24, 838.8),
-    (19, 9, 5, '2024-12-14 00:00:00', 60, 1019, 1029.72, 966.06),
-    (20, 10, 5, '2024-06-08 00:00:00', 30, 1020, 1096.4, 905.18);
+    (8, 8, 5, '2025-02-02 00:00:00', 30, 1008, 1152.5, 1056.77),
+    (9, 9, 5, '2025-04-05 00:00:00', 30, 1009, 1117.27, 925.75),
+    (10, 10, 5, '2025-08-26 00:00:00', 90, 1010, 1041.54, 870.91),
+    (11, 1, 5, '2026-09-08 00:00:00', 30, 1011, 1115.79, 943.15),
+    (12, 2, 5, '2026-07-28 00:00:00', 30, 1012, 1022.42, 928.68),
+    (13, 3, 5, '2026-10-27 00:00:00', 90, 1013, 1183.96, 954.77),
+    (14, 4, 5, '2026-07-12 00:00:00', 60, 1014, 1143.58, 1068.87),
+    (15, 5, 5, '2026-08-13 00:00:00', 60, 1015, 1234.73, 1155.08),
+    (16, 6, 5, '2026-08-26 00:00:00', 60, 1016, 1038.9, 892.87),
+    (17, 7, 5, '2026-01-07 00:00:00', 30, 1017, 956.22, 803.74),
+    (18, 8, 5, '2026-12-15 00:00:00', 60, 1018, 1043.24, 838.8),
+    (19, 9, 5, '2026-12-14 00:00:00', 60, 1019, 1029.72, 966.06),
+    (20, 10, 5, '2026-06-08 00:00:00', 30, 1020, 1096.4, 905.18);
 
 -- 480 REGISTROS DETALLE_ORDEN_B2B (24 productos por orden, cantidad=1, despacho 0/1)
 INSERT INTO DETALLE_ORDEN_B2B (ID_DETALLE_ORDEN_B2B, FK_PRODUCTO, FK_ORDEN_COMPRA_B2B, CANTIDADSOLICITAD_ORDEN_B2B, CANTIDAD_DESPACHADA, PRECIO_UNITARIO_DETALLE_B2B) VALUES

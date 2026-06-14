@@ -133,7 +133,7 @@ create table PRIVILEGIO (
    DESCRIPCION_PRIVILEGIO VARCHAR(300)       not null,
    TIPO_PRIVILEGIO      VARCHAR(40)          not null,
    constraint PK_PRIVILEGIO primary key (ID_PRIVILEGIO),
-   constraint chk_tipo_privilegio check (TIPO_PRIVILEGIO IN ('Insert','Update','Delete','Select'))
+   constraint chk_tipo_privilegio check (TIPO_PRIVILEGIO IN ('Insert','Update','Delete','Select', 'Vista'))
 );
 create unique index PRIVILEGIO_PK on PRIVILEGIO (ID_PRIVILEGIO);
 
