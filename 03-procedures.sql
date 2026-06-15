@@ -332,3 +332,57 @@ begin
     ('Se agregaron ' || v_insertados || ' y se eliminaron ' || v_eliminados || ' privilegio(s).')::text;
 end;
 $$;
+
+
+-- Crear usuario y asignarle un rol
+CREATE OR REPLACE FUNCTION public.crear_usuario_con_rol(
+    p_nombre_usuario VARCHAR,
+    p_contrasena VARCHAR,
+    p_id_rol INT4,
+    p_fk_persona_juridica INT4 DEFAULT NULL,
+    p_fk_persona_natural_cliente INT4 DEFAULT NULL,
+    p_fk_persona_natural_empleado INT4 DEFAULT NULL
+)
+RETURNS TABLE (
+    ok BOOLEAN,
+    id_nuevo_usuario INT4,
+    mensaje TEXT
+)
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+DECLARE
+    v_id_usuario INT4;
+BEGIN
+    -- Validar si el rol que intenta asignar existe
+    IF NOT EXISTS (SELECT 1 FROM public.ROL WHERE ID_ROL = p_id_rol) THEN
+        RETURN QUERY SELECT FALSE, 0, 'Error: El rol especificado no existe.'::TEXT;
+        RETURN;
+    END IF;
+
+    -- Validar si el nombre de usuario ya está en uso 
+    IF EXISTS (SELECT 1 FROM public.USUARIO WHERE NOMBRE_USUARIO = p_nombre_usuario) THEN
+        RETURN QUERY SELECT FALSE, 0, 'Error: El nombre de usuario ya está registrado.'::TEXT;
+        RETURN;
+    END IF;
+
+    -- Insertar el nuevo usuario con su rol asignado
+    INSERT INTO public.USUARIO (
+        FK_ROL, 
+        NOMBRE_USUARIO, 
+        CONTRASENA_USUARIO, 
+        FK_PERSONA_JURIDICA, 
+        FK_PERSONA_NATURAL_CLIENTE, 
+        FK_PERSONA_NATURAL_EMPLEADO
+    ) VALUES (
+        p_id_rol,
+        p_nombre_usuario,
+        p_contrasena,
+        p_fk_persona_juridica,
+        p_fk_persona_natural_cliente,
+        p_fk_persona_natural_empleado
+    ) RETURNING ID_USUARIO INTO v_id_usuario;
+
+    RETURN QUERY SELECT TRUE, v_id_usuario, 'Usuario creado y rol asignado exitosamente.'::TEXT;
+END;
+$$;
