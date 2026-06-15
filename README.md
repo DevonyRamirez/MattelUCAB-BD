@@ -22,9 +22,9 @@ La base de datos ha sido poblada siguiendo los lineamientos exactos del enunciad
 | Entidad / Concepto | Volumen de Datos | Descripción |
 | :--- | :--- | :--- |
 | **División Geográfica** | Completo | Estados, Municipios y Parroquias de Venezuela. |
-| **Clientes** | `400` registros | Usuarios base del sistema con sus datos de perfil. |
+| **Clientes** | `401` registros | Usuarios base del sistema con sus datos de perfil. |
 | **Órdenes de Compra** | `800` órdenes | 2 órdenes de compra asignadas por cada cliente. |
-| **Detalle de Órdenes** | `1,600` productos | Cada orden incluye exactamente 2 productos. |
+| **Detalle de Órdenes** | `2,300` productos | Cada orden incluye exactamente 2 productos. |
 | **Subastas** | `100` subastas | Eventos de subasta activos/finalizados. |
 | **Participación** | `2,000` registros | 20 usuarios únicos participando en cada una de las 100 subastas. |
 | **Pujas (Historial)** | `6,000` pujas | 3 pujas por cada usuario participante. |
