@@ -19,7 +19,7 @@ where d.fk_producto=p.id_producto and
 --tercer reporte Distribución porcentual del inventario que se encuentra en tránsito agrupado estrictamente por el atributo "Tono de Piel".
 select c.nombre_color, (count(*)::numeric/(Select count(*)::numeric 
                         from historico_inv_producto h2, estatus_inventario ei2 
-                        where h2.fk_estatus_inventario=ei2.id_estatus_inventario and
+                        where h.fk_estatus_inventario=ei.id_estatus_inventario and
                          ei2.id_estatus_inventario=3))*100 ||' %' as porcentaje
 from  producto p, estatus_inventario ei, base_diseno bd, color c, historico_inv_producto as h 
 where h.fk_producto=p.id_producto and
@@ -36,7 +36,14 @@ where p.id_producto=i.fk_producto and
       i.fk_estatus_inventario=e.id_estatus_inventario and
       e.id_estatus_inventario=3;
 
-
+select count(*) as inventario_producto_entransito, c.nombre_color
+from inventario_producto i join 
+producto p on i.fk_producto=p.id_producto 
+join historico_inv_producto h on h.fk_producto=p.id_producto 
+join estatus_inventario e on h.fk_estatus_inventario=e.id_estatus_inventario join base_diseno bd on bd.id_basediseno=p.fk_basediseno join color c on 
+c.id_color=bd.fk_color_tonopiel
+where e.id_estatus_inventario=3
+group by c.nombre_color;
 
 
 

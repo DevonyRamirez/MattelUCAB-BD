@@ -3,7 +3,6 @@ CREATE OR REPLACE FUNCTION public.iniciar_sesion(
     p_usuario VARCHAR,
     p_contrasena VARCHAR
 )
--- Definimos qué datos va a devolver si el inicio de sesión es exitoso
 RETURNS TABLE (
     id_usuario INT4,
     fk_rol INT4,
@@ -22,7 +21,6 @@ BEGIN
         u.FK_PERSONA_NATURAL_CLIENTE,
         u.FK_PERSONA_NATURAL_EMPLEADO
     FROM public.USUARIO u
-    -- Aquí se aplica la lógica de negocio (validación)
     WHERE u.NOMBRE_USUARIO = p_usuario
       AND u.CONTRASENA_USUARIO = p_contrasena;
 END;
@@ -332,3 +330,234 @@ begin
     ('Se agregaron ' || v_insertados || ' y se eliminaron ' || v_eliminados || ' privilegio(s).')::text;
 end;
 $$;
+
+
+create or replace function public.consultar_caracteristicas_basediseno()
+RETURNS table (
+  id_caracteristica int,
+  nombre_caracteristica varchar,
+  descripcion_caracteristica varchar
+)
+language sql
+security definer 
+as $$
+  select 
+  c.id_caracteristica,
+  c.nombre_caracteristica,
+  c.descripcion_caracteristica
+  from caracteristica c
+  order by c.nombre_caracteristica;
+$$;
+
+create or replace function public.consultar_materia_prima()
+returns table (
+  id_materiaprima int,
+  nombre_materiaprima varchar,
+  descripcion_materiaprima varchar
+)
+language sql
+security definer
+as $$
+  select 
+    m.id_materiaprima,
+    m.nombre_materiaprima varchar,
+    m.descripcion_materiaprima
+  from materiaprima m
+  order by m.nombre_materiaprima
+$$;
+
+create or replace function public.consultar_era()
+returns table (
+  id_era int,
+  nombre_era varchar,
+  descripcion_era varchar
+)
+language sql
+security definer 
+as $$
+  select
+    e.id_era,
+    e.nombre_era,
+    e.descripcion_era
+  from era e
+  order by e.nombre_era
+$$;  
+
+create or replace function public.consultar_color()
+returns table(
+  id_color int,
+  nombre_color varchar,
+  codigo_hex varchar
+)
+language sql
+security definer 
+as $$ 
+select 
+  col.id_color,
+  col.nombre_color,
+  col.codigo_hex
+from color col
+$$;
+
+create or replace function public.consultar_prueba()
+returns table(
+  id_prueba int,
+  nombre_prueba varchar,
+  descripcion_prueba varchar
+)
+language sql 
+security definer 
+as $$
+select 
+    pru.id_prueba,
+    pru.nombre_prueba,
+    pru.descripcion_prueba
+  from prueba pru
+$$;
+
+create or replace function public.consultar_profesion()
+returns table(
+  id_profesion int,
+  nombre_profesion varchar,
+  descripcion_profesion varchar
+)
+language sql
+security definer
+as $$
+select 
+  pr.id_profesion,
+  pr.nombre_profesion,
+  pr.descripcion_profesion
+  from profesion pr
+$$;
+
+create or replace function public.consultar_pieza()
+returns table (
+  id_pieza int,
+  nombre_pieza varchar,
+  descripcion_pieza varchar
+)
+language sql 
+security definer 
+as $$
+select 
+  pi.id_pieza,
+  pi.nombre_pieza,
+  pi.descripcion_pieza
+from pieza pi
+$$;
+
+create or replace function public.consultar_fase()
+returns table (
+  id_fase int,
+  nombre_fase varchar, 
+  descripcion_fase varchar 
+)
+language sql 
+security definer 
+as $$
+select 
+  f.id_fase,
+  f.nombre_fase,
+  f.descripcion_fase
+  from fase f
+$$;
+
+create or replace function public.consultar_cargo()
+returns table (
+  id_cargo int,
+  nombre_cargo varchar, 
+  descripcion_cargo varchar 
+)
+language sql 
+security definer 
+as $$
+select 
+  c.id_cargo,
+  c.nombre_cargo,
+  c.descripcion_cargo
+  from cargo c
+$$;
+
+create or replace function public.consultar_categoria()
+returns table (
+  id_categoria int,
+  nombre_categoria varchar, 
+  descripcion_categoria varchar 
+)
+language sql 
+security definer 
+as $$
+select 
+  ca.id_categoria,
+  ca.nombre_categoria,
+  ca.descripcion_categoria
+  from categoria ca
+$$;
+
+create or replace function public.consultar_molde()
+returns table (
+  id_molde int,
+  nombre_molde varchar, 
+  descripcion_molde varchar 
+)
+language sql 
+security definer 
+as $$
+select 
+  m.id_molde,
+  m.nombre_molde,
+  m.descripcion_molde
+  from molde m 
+$$;
+
+create or replace function public.consultar_clasificacion()
+returns table (
+  id_clasificacion int,
+  nombre_clasificacion varchar, 
+  descripcion_clasificacion varchar 
+)
+language sql 
+security definer 
+as $$
+select 
+  cl.id_clasificacion,
+  cl.nombre_clasificacion,
+  cl.descripcion_clasificacion
+  from clasificacion cl 
+$$;
+
+create or replace function public.consultar_setregalo()
+returns table (
+  id_setregalo int,
+  nombre_setregalo varchar
+)
+language sql 
+security definer 
+as $$
+select 
+  sr.id_set_regalo,
+  sr.nombre_set_regalo
+  from set_regalo sr 
+$$;
+
+create or replace function public.consultar_coleccion()
+returns table (
+  id_coleccion int,
+  nombre_coleccion varchar, 
+  descripcion_coleccion varchar 
+)
+language sql 
+security definer 
+as $$
+select 
+  col.id_coleccion,
+  col.nombre_coleccion,
+  col.descripcion_coleccion
+  from coleccion col 
+$$;
+
+
+
+
+
