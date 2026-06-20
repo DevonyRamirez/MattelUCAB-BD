@@ -58,31 +58,63 @@ as $$
   order by rp.fk_privilegio;
 $$;
 
-create or replace function asignar_privilegios_a_rol(
+CREATE OR REPLACE FUNCTION public.asignar_privilegios_a_rol(
   p_id_rol int,
   p_privilegios int[]
 )
-returns table (
+RETURNS TABLE (
   ok boolean,
   insertados int,
   mensaje text
 )
-language plpgsql
-security definer
-as $$
-declare
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+DECLARE
   v_insertados int;
-  v_privilegios int[] := coalesce(p_privilegios, array[]::int[]);
-begin
-  if not exists (select 1 from rol where id_rol = p_id_rol) then
-    raise exception 'El rol % no existe.', p_id_rol;
-  end if;
+  v_privilegios int[] := COALESCE(p_privilegios, ARRAY[]::int[]);
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM public.rol WHERE id_rol = p_id_rol) THEN
+    RAISE EXCEPTION 'El rol % no existe.', p_id_rol;
+  END IF;
 
-  if cardinality(v_privilegios) = 0 then
-    return query select false, 0, 'No se recibieron privilegios para asignar.'::text;
-    return;
-  end if;
+  IF cardinality(v_privilegios) = 0 THEN
+    RETURN QUERY SELECT false, 0, 'No se recibieron privilegios para asignar.'::text;
+    RETURN;
+  END IF;
 
+  IF EXISTS (
+    SELECT 1
+    FROM unnest(v_privilegios) AS seleccionado(id_privilegio)
+    WHERE NOT EXISTS (
+      SELECT 1
+      FROM public.privilegio p
+      WHERE p.id_privilegio = seleccionado.id_privilegio
+    )
+  ) THEN
+    RAISE EXCEPTION 'Uno o mas privilegios no existen.';
+  END IF;
+
+  IF EXISTS (
+    SELECT 1
+    FROM public.rol_privilegio rp
+    WHERE rp.fk_rol = p_id_rol
+      AND rp.fk_privilegio = ANY(v_privilegios)
+  ) THEN
+    RAISE EXCEPTION 'Uno o mas privilegios ya estan asignados a este rol.';
+  END IF;
+
+  LOCK TABLE public.rol_privilegio IN EXCLUSIVE MODE;
+
+  INSERT INTO public.rol_privilegio (fk_privilegio, fk_rol)
+  SELECT DISTINCT seleccionado.id_privilegio, p_id_rol
+  FROM unnest(v_privilegios) AS seleccionado(id_privilegio);
+
+  GET DIAGNOSTICS v_insertados = row_count;
+
+  RETURN QUERY SELECT true, v_insertados, ('Se asignaron ' || v_insertados || ' privilegio(s).')::text;
+END;
+$$;
 
 create or replace function public.consultar_privilegios_por_rol()
 returns table (
@@ -349,21 +381,21 @@ as $$
   order by c.nombre_caracteristica;
 $$;
 
-create or replace function public.consultar_materia_prima()
-returns table (
+CREATE OR REPLACE FUNCTION public.consultar_materia_prima()
+RETURNS TABLE (
   id_materiaprima int,
   nombre_materiaprima varchar,
   descripcion_materiaprima varchar
 )
-language sql
-security definer
-as $$
-  select 
+LANGUAGE sql
+SECURITY DEFINER
+AS $$
+  SELECT 
     m.id_materiaprima,
-    m.nombre_materiaprima varchar,
+    m.nombre_materiaprima, 
     m.descripcion_materiaprima
-  from materiaprima m
-  order by m.nombre_materiaprima
+  FROM materiaprima m
+  ORDER BY m.nombre_materiaprima;
 $$;
 
 create or replace function public.consultar_era()
@@ -557,7 +589,440 @@ select
   from coleccion col 
 $$;
 
+CREATE OR REPLACE FUNCTION consultar_personas_sin_usuario()
+RETURNS TABLE (
+    id_persona int,
+    tipo_persona VARCHAR,
+    rif VARCHAR,
+    nombre_o_razon_social VARCHAR,
+    apellido_o_comercial VARCHAR
+)
+LANGUAGE plpgsql
+SECURITY DEFINER 
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        c.ID_PERSONA_NATURAL,
+        'CLIENTE_B2C'::VARCHAR,
+        c.RIF_PERSONA_NATURAL,
+        c.P_NOMBRE_PERSONA_NATURAL, -- Se eliminó Cédula para respetar las 5 columnas del retorno
+        c.P_APELLIDO_PERSONA_NATURAL
+    FROM CLIENTE_B2C c
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM USUARIO u
+        WHERE u.FK_PERSONA_NATURAL_CLIENTE = c.ID_PERSONA_NATURAL
+    )
 
+    UNION ALL
 
+    SELECT
+        e.ID_PERSONA_NATURAL,
+        'EMPLEADO'::VARCHAR,
+        e.RIF_PERSONA_NATURAL,
+        e.P_NOMBRE_PERSONA_NATURAL, -- Se eliminó Cédula
+        e.P_APELLIDO_PERSONA_NATURAL
+    FROM EMPLEADO e
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM USUARIO u
+        WHERE u.FK_PERSONA_NATURAL_EMPLEADO = e.ID_PERSONA_NATURAL
+    )
 
+    UNION ALL
 
+    SELECT
+        pj.ID_PERSONA_JURIDICA,
+        'PERSONA_JURIDICA'::VARCHAR,
+        pj.RIF_PERSONA_JURIDICA,
+        pj.RAZON_SOCIAL_PERSONA_JURIDICA,
+        pj.DENOM_COMERCIAL_PERJUR
+    FROM PERSONA_JURIDICA pj
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM USUARIO u
+        WHERE u.FK_PERSONA_JURIDICA = pj.ID_PERSONA_JURIDICA
+    );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION consultar_personas_con_usuario()
+RETURNS TABLE (
+    tipo_persona VARCHAR,
+    id_persona int,
+    rif VARCHAR,
+    nombre_o_razon_social VARCHAR,
+    apellido_o_comercial VARCHAR,
+    nombre_usuario varchar,
+    nombre_rol varchar
+)
+LANGUAGE plpgsql
+SECURITY DEFINER 
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        'CLIENTE_B2C'::VARCHAR, -- Se corrigieron las comas faltantes y se ordenó según el RETURNS TABLE
+        c.ID_PERSONA_NATURAL,
+        c.RIF_PERSONA_NATURAL,
+        c.P_NOMBRE_PERSONA_NATURAL,
+        c.P_APELLIDO_PERSONA_NATURAL,
+        u.nombre_usuario,
+        r.nombre_rol
+    FROM CLIENTE_B2C c 
+    JOIN usuario u ON u.fk_persona_natural_cliente = c.id_persona_natural 
+    JOIN rol r ON u.fk_rol = r.id_rol
+
+    UNION ALL
+
+    SELECT
+        'EMPLEADO'::VARCHAR,
+        e.ID_PERSONA_NATURAL,
+        e.RIF_PERSONA_NATURAL,
+        e.P_NOMBRE_PERSONA_NATURAL,
+        e.P_APELLIDO_PERSONA_NATURAL,
+        u.nombre_usuario,
+        r.nombre_rol
+    FROM EMPLEADO e 
+    JOIN usuario u ON u.fk_persona_natural_empleado = e.id_persona_natural  
+    JOIN rol r ON u.fk_rol = r.id_rol
+
+    UNION ALL
+
+    SELECT
+        'PERSONA_JURIDICA'::VARCHAR,
+        pj.id_persona_juridica,
+        pj.RIF_PERSONA_JURIDICA,
+        pj.RAZON_SOCIAL_PERSONA_JURIDICA,
+        pj.DENOM_COMERCIAL_PERJUR,
+        u.nombre_usuario,
+        r.nombre_rol
+    FROM PERSONA_JURIDICA pj 
+    JOIN usuario u ON u.fk_persona_juridica = pj.id_persona_juridica  
+    JOIN rol r ON u.fk_rol = r.id_rol;
+END;
+$$;
+
+create or replace function public.verificar_nombre_usuario_existe(
+  p_nombre_usuario text
+)
+returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if nullif(trim(p_nombre_usuario), '') is null then
+    return false;
+  end if;
+
+  return exists (
+    select 1
+    from public.usuario u
+    where lower(trim(u.nombre_usuario)) = lower(trim(p_nombre_usuario))
+  );
+end;
+$$;
+
+drop function if exists public.insertar_nuevo_usuario(integer, text, text, integer);
+
+create or replace function public.insertar_nuevo_usuario(
+  p_id_persona integer,
+  p_tipo_persona text,
+  p_nombre_usuario text,
+  p_contrasena_usuario text,
+  p_id_rol integer
+)
+returns table (
+  ok boolean,
+  mensaje text
+)
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_tipo_persona text := upper(trim(coalesce(p_tipo_persona, '')));
+  v_sequence_name text;
+  v_max_usuario_id integer;
+  v_constraint_name text;
+begin
+  if p_id_persona is null or p_id_persona <= 0 then
+    return query select false, 'Selecciona una persona valida.';
+    return;
+  end if;
+
+  if v_tipo_persona = '' then
+    return query select false, 'No se pudo identificar el tipo de persona.';
+    return;
+  end if;
+
+  if nullif(trim(p_nombre_usuario), '') is null then
+    return query select false, 'Ingresa un nombre de usuario.';
+    return;
+  end if;
+
+  if nullif(p_contrasena_usuario, '') is null then
+    return query select false, 'Ingresa una contrasena.';
+    return;
+  end if;
+
+  if p_id_rol is null or p_id_rol <= 0 then
+    return query select false, 'Selecciona un rol valido.';
+    return;
+  end if;
+
+  if public.verificar_nombre_usuario_existe(p_nombre_usuario) then
+    return query select false, 'El nombre de usuario ya existe.';
+    return;
+  end if;
+  v_sequence_name := pg_get_serial_sequence('public.usuario', 'id_usuario');
+  select max(u.id_usuario) into v_max_usuario_id from public.usuario u;
+
+  if v_sequence_name is not null then
+    perform setval(v_sequence_name, coalesce(v_max_usuario_id, 1), v_max_usuario_id is not null);
+  end if;
+
+  if v_tipo_persona in ('CLIENTE_B2C', 'B2C', 'CLIENTE') then
+    if exists (select 1 from public.usuario u where u.fk_persona_natural_cliente = p_id_persona) then
+      return query select false, 'La persona seleccionada ya tiene usuario.';
+      return;
+    end if;
+
+    insert into public.usuario (
+      fk_persona_natural_cliente,
+      fk_rol,
+      nombre_usuario,
+      contrasena_usuario
+    ) values (
+      p_id_persona,
+      p_id_rol,
+      trim(p_nombre_usuario),
+      p_contrasena_usuario
+    );
+  elsif v_tipo_persona = 'EMPLEADO' then
+    if exists (select 1 from public.usuario u where u.fk_persona_natural_empleado = p_id_persona) then
+      return query select false, 'La persona seleccionada ya tiene usuario.';
+      return;
+    end if;
+
+    insert into public.usuario (
+      fk_persona_natural_empleado,
+      fk_rol,
+      nombre_usuario,
+      contrasena_usuario
+    ) values (
+      p_id_persona,
+      p_id_rol,
+      trim(p_nombre_usuario),
+      p_contrasena_usuario
+    );
+  elsif v_tipo_persona in ('PERSONA_JURIDICA', 'JURIDICA', 'CLIENTE_B2B', 'B2B') then
+    if exists (select 1 from public.usuario u where u.fk_persona_juridica = p_id_persona) then
+      return query select false, 'La persona seleccionada ya tiene usuario.';
+      return;
+    end if;
+
+    insert into public.usuario (
+      fk_persona_juridica,
+      fk_rol,
+      nombre_usuario,
+      contrasena_usuario
+    ) values (
+      p_id_persona,
+      p_id_rol,
+      trim(p_nombre_usuario),
+      p_contrasena_usuario
+    );
+  else
+    return query select false, 'Tipo de persona no soportado: ' || p_tipo_persona;
+    return;
+  end if;
+
+  return query select true, 'Usuario creado correctamente.';
+exception
+  when foreign_key_violation then
+    return query select false, 'La persona o el rol seleccionado no existe.';
+  when unique_violation then
+    get stacked diagnostics v_constraint_name = constraint_name;
+
+    if lower(coalesce(v_constraint_name, '')) like '%nombre_usuario%' then
+      return query select false, 'El nombre de usuario ya existe.';
+    elsif lower(coalesce(v_constraint_name, '')) = 'pk_usuario' then
+      return query select false, 'No se pudo crear el usuario: la secuencia de ID_USUARIO esta desincronizada. Ejecuta nuevamente este script y reintenta.';
+    else
+      return query select false, 'No se pudo crear el usuario por restriccion unica: ' || coalesce(v_constraint_name, sqlerrm);
+    end if;
+  when check_violation then
+    return query select false, 'El usuario debe pertenecer a un solo tipo de persona.';
+  when others then
+    return query select false, 'No se pudo crear el usuario: ' || sqlerrm;
+end;
+$$;
+
+create or replace function public.modificar_usuario(
+  p_id_usuario integer,
+  p_nombre_usuario_actual text,
+  p_nombre_usuario text,
+  p_contrasena_usuario text,
+  p_id_rol integer
+)
+returns table (
+  ok boolean,
+  mensaje text
+)
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_id_usuario integer;
+  v_nombre_actual text := trim(coalesce(p_nombre_usuario_actual, ''));
+  v_nombre_nuevo text := trim(coalesce(p_nombre_usuario, ''));
+  v_constraint_name text;
+begin
+  if v_nombre_nuevo = '' then
+    return query select false, 'Ingresa un nombre de usuario.';
+    return;
+  end if;
+
+  if p_id_rol is null or p_id_rol <= 0 then
+    return query select false, 'Selecciona un rol valido.';
+    return;
+  end if;
+
+  select u.id_usuario
+  into v_id_usuario
+  from public.usuario u
+  where (p_id_usuario is not null and u.id_usuario = p_id_usuario)
+     or (p_id_usuario is null and lower(trim(u.nombre_usuario)) = lower(v_nombre_actual))
+  limit 1;
+
+  if v_id_usuario is null then
+    return query select false, 'No se encontro el usuario a modificar.';
+    return;
+  end if;
+
+  if exists (
+    select 1
+    from public.usuario u
+    where lower(trim(u.nombre_usuario)) = lower(v_nombre_nuevo)
+      and u.id_usuario <> v_id_usuario
+  ) then
+    return query select false, 'El nombre de usuario ya existe.';
+    return;
+  end if;
+
+  update public.usuario u
+  set nombre_usuario = v_nombre_nuevo,
+      contrasena_usuario = case
+        when nullif(p_contrasena_usuario, '') is null then u.contrasena_usuario
+        else p_contrasena_usuario
+      end,
+      fk_rol = p_id_rol
+  where u.id_usuario = v_id_usuario;
+
+  return query select true, 'Usuario modificado correctamente.';
+exception
+  when foreign_key_violation then
+    return query select false, 'El rol seleccionado no existe.';
+  when unique_violation then
+    get stacked diagnostics v_constraint_name = constraint_name;
+
+    if lower(coalesce(v_constraint_name, '')) like '%nombre_usuario%' then
+      return query select false, 'El nombre de usuario ya existe.';
+    else
+      return query select false, 'No se pudo modificar el usuario por restriccion unica: ' || coalesce(v_constraint_name, sqlerrm);
+    end if;
+  when others then
+    return query select false, 'No se pudo modificar el usuario: ' || sqlerrm;
+end;
+$$;
+
+--stored procedures para los reportes muajaja 
+
+----Calcular la cantidad total de unidades y Cajas Máster para subastas.
+create or replace function public.reporte_inventario_caja_master_para_subasta()
+returns table (
+  sku bigint,
+  caja_master numeric
+)
+language sql
+security definer
+set search_path = public
+as $$
+  select
+    count(*) as sku,
+    round(count(*)::numeric / 12, 2) as caja_master
+  from public.producto p
+  join public.historico_inv_producto h
+    on p.id_producto = h.fk_producto
+  join public.estatus_inventario ei
+    on h.fk_estatus_inventario = ei.id_estatus_inventario
+  where ei.id_estatus_inventario = 6;
+$$;
+
+--segundo reporte Cantidad de SKUs adquiridos por clientes B2B en el ultimo año por categoría de producto.
+
+create or replace function public.reporte_productos_b2b_por_categoria(
+  p_fecha_inicio date,
+  p_fecha_fin date
+)
+returns table (
+  cantidad bigint,
+  nombre_categoria text
+)
+language sql
+security definer
+set search_path = public
+as $$
+  select
+    count(*) as cantidad,
+    c.nombre_categoria
+  from public.detalle_orden_b2b d
+  join public.producto p
+    on d.fk_producto = p.id_producto
+  join public.orden_compra_b2b o
+    on d.fk_orden_compra_b2b = o.id_orden_compra_b2b
+  join public.categoria_basediseno cd
+    on cd.id_categoria_basediseno = p.fk_categoria_basediseno
+  join public.categoria c
+    on cd.fk_categoria = c.id_categoria
+  where o.fechahora_orden_compra_b2b >= p_fecha_inicio
+    and o.fechahora_orden_compra_b2b < (p_fecha_fin + interval '1 day')
+  group by c.nombre_categoria
+  order by cantidad desc, c.nombre_categoria asc;
+$$;
+
+create or replace function public.reporte_inventario_transito_por_tono_piel()
+returns table (
+  nombre_color text,
+  porcentaje numeric
+)
+language sql
+security definer
+set search_path = public
+as $$
+  with total_estatus as (
+    select count(*)::numeric as total_filas
+    from public.historico_inv_producto
+    where fk_estatus_inventario = 3
+  )
+  select
+    c.nombre_color,
+    round((count(*)::numeric / nullif(t.total_filas, 0)) * 100, 2) as porcentaje
+  from public.historico_inv_producto h
+  join public.producto p
+    on h.fk_producto = p.id_producto
+  join public.estatus_inventario ei
+    on h.fk_estatus_inventario = ei.id_estatus_inventario
+  join public.base_diseno bd
+    on p.fk_basediseno = bd.id_basediseno
+  join public.color c
+    on bd.fk_color_tonopiel = c.id_color
+  cross join total_estatus t
+  where ei.id_estatus_inventario = 3
+  group by c.nombre_color, t.total_filas
+  order by porcentaje desc, c.nombre_color asc;
+$$;

@@ -17,34 +17,24 @@ where d.fk_producto=p.id_producto and
     group by c.nombre_categoria;
 
 --tercer reporte Distribución porcentual del inventario que se encuentra en tránsito agrupado estrictamente por el atributo "Tono de Piel".
-select c.nombre_color, (count(*)::numeric/(Select count(*)::numeric 
-                        from historico_inv_producto h2, estatus_inventario ei2 
-                        where h.fk_estatus_inventario=ei.id_estatus_inventario and
-                         ei2.id_estatus_inventario=3))*100 ||' %' as porcentaje
-from  producto p, estatus_inventario ei, base_diseno bd, color c, historico_inv_producto as h 
-where h.fk_producto=p.id_producto and
-      h.fk_estatus_inventario=ei.id_estatus_inventario and
-      p.fk_basediseno=bd.id_basediseno and
-      bd.fk_color_tonopiel=c.id_color and 
-      ei.id_estatus_inventario=3
-    group by c.nombre_color;
-
-
-select count(*)
-from historico_inv_producto as i , producto as p , estatus_inventario as e
-where p.id_producto=i.fk_producto and
-      i.fk_estatus_inventario=e.id_estatus_inventario and
-      e.id_estatus_inventario=3;
-
-select count(*) as inventario_producto_entransito, c.nombre_color
-from inventario_producto i join 
-producto p on i.fk_producto=p.id_producto 
-join historico_inv_producto h on h.fk_producto=p.id_producto 
-join estatus_inventario e on h.fk_estatus_inventario=e.id_estatus_inventario join base_diseno bd on bd.id_basediseno=p.fk_basediseno join color c on 
-c.id_color=bd.fk_color_tonopiel
-where e.id_estatus_inventario=3
-group by c.nombre_color;
-
+WITH total_estatus AS (
+    -- PRIMERO: Contamos el total REAL de registros históricos que tienen estatus 3
+    SELECT COUNT(*)::numeric AS total_filas
+    FROM historico_inv_producto
+    WHERE fk_estatus_inventario = 3
+)
+SELECT 
+    c.nombre_color,
+    -- Ahora sí dividimos entre el gran total real
+    ROUND((COUNT(*)::numeric / t.total_filas) * 100, 2) || ' %' AS porcentaje
+FROM historico_inv_producto h
+INNER JOIN producto p ON h.fk_producto = p.id_producto
+INNER JOIN estatus_inventario ei ON h.fk_estatus_inventario = ei.id_estatus_inventario
+INNER JOIN base_diseno bd ON p.fk_basediseno = bd.id_basediseno
+INNER JOIN color c ON bd.fk_color_tonopiel = c.id_color
+CROSS JOIN total_estatus t -- Traemos el verdadero total para la división
+WHERE ei.id_estatus_inventario = 3
+GROUP BY c.nombre_color, t.total_filas;
 
 
 

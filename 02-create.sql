@@ -696,9 +696,6 @@ create unique index CARACTERISTICA_BASEDISENO_PK on CARACTERISTICA_BASEDISENO (I
 create index ES_CARACTERIZADA_FK on CARACTERISTICA_BASEDISENO (FK_BASEDISENO);
 create index CARACTERIZA_FK on CARACTERISTICA_BASEDISENO (FK_CARACTERISTICA);
 
--- ============================================================
--- BLOQUE 7: PERSONAL (USUARIO, CONTRATOS, CORREO, ETC.)
--- ============================================================
 
 create table USUARIO (
    ID_USUARIO           SERIAL               not null,
