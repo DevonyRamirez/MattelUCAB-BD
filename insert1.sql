@@ -3167,7 +3167,7 @@ INSERT INTO PRIVILEGIO (ID_PRIVILEGIO, DESCRIPCION_PRIVILEGIO, TIPO_PRIVILEGIO) 
 (429, 'Insert en HISTORICO_EST_GANADOR', 'Insert'),
 (430, 'Update en HISTORICO_EST_GANADOR', 'Update'),
 (431, 'Delete en HISTORICO_EST_GANADOR', 'Delete'),
-(432, 'Select en HISTORICO_EST_GANADOR', 'Select')
+(432, 'Select en HISTORICO_EST_GANADOR', 'Select'),
 (433, 'Privilegios','Vista'),
 (434,'Reportes','Vista'),
 (435,'Diseño','Vista'),
