@@ -239,6 +239,7 @@ create table MOLDE (
    ID_MOLDE             SERIAL               not null,
    NOMBRE_MOLDE         VARCHAR(50)          not null,
    DESCRIPCION_MOLDE    VARCHAR(200)         not null,
+   FECHA_MOLDE          DATE                   NOT NULL,
    constraint PK_MOLDE primary key (ID_MOLDE)
 );
 create unique index MOLDE_PK on MOLDE (ID_MOLDE);
@@ -644,6 +645,7 @@ create table PROFESION_BASEDISENO (
    ID_PROFESION_BASEDISENO SERIAL            not null,
    FK_PROFESION         INT4                 not null,
    FK_BASEDISENO        INT4                 not null,
+   FECHA_PROFESION      DATE                 NOT NULL,
    constraint PK_PROFESION_BASEDISENO primary key (ID_PROFESION_BASEDISENO),
    constraint FK_PROFESION_BASEDISENO_ESEJERCIDA foreign key (FK_PROFESION) references PROFESION(ID_PROFESION),
    constraint FK_PROFESION_BASEDISENO_EJERCE foreign key (FK_BASEDISENO) references BASE_DISENO(ID_BASEDISENO)
