@@ -1873,17 +1873,17 @@ INSERT INTO PIEZA (ID_PIEZA, NOMBRE_PIEZA, DESCRIPCION_PIEZA) VALUES
     (9, 'Pie Izquierdo Articulado', 'Componente terminal inferior izquierdo con eje de movimiento para calzado.'),
     (10, 'Micro-articulación de Codo', 'Conector mecánico a pequeña escala para la flexión de la extremidad.');
 
-INSERT INTO MOLDE (ID_MOLDE, NOMBRE_MOLDE, DESCRIPCION_MOLDE) VALUES 
-    (1, 'Superstar', 'Molde clásico de cara con sonrisa amplia y ojos mirando al frente.'), 
-    (2, 'Mackie', 'Molde de rostro estilizado y boca cerrada, diseñado originalmente para ediciones de colección.'), 
-    (3, 'Millie', 'Esculpido facial contemporáneo de facciones suaves y sonrisa sutil de apariencia moderna.'), 
-    (4, 'Steffie', 'Molde de expresión nostálgica con labios redondeados y levemente fruncidos.'), 
-    (5, 'Generation Girl', 'Diseño de rostro juvenil de finales de los noventa con sonrisa de dientes visibles.'),
-    (6, 'Lara', 'Molde de facciones delgadas, pómulos marcados y boca cerrada con expresión seria.'), 
-    (7, 'Goddess', 'Esculpido de facciones simétricas y estética madura orientado a ediciones de gala.'), 
-    (8, 'Aphrodite', 'Molde de nariz perfilada y labios carnosos diseñado para líneas de diseñador premium.'), 
-    (9, 'Claudette', 'Diseño de rostro contemporáneo y angular optimizado para rasgos étnicos específicos.'), 
-    (10, 'Diva', 'Molde clásico con sutil apertura de boca, pómulos altos y expresión sofisticada.');
+INSERT INTO MOLDE (ID_MOLDE, NOMBRE_MOLDE, DESCRIPCION_MOLDE, FECHA_MOLDE) VALUES 
+    (1, 'Superstar', 'Molde clásico de cara con sonrisa amplia y ojos mirando al frente.', '1976-01-01'), 
+    (2, 'Mackie', 'Molde de rostro estilizado y boca cerrada, diseñado originalmente para ediciones de colección.', '1991-01-01'), 
+    (3, 'Millie', 'Esculpido facial contemporáneo de facciones suaves y sonrisa sutil de apariencia moderna.', '2015-01-01'), 
+    (4, 'Steffie', 'Molde de expresión nostálgica con labios redondeados y levemente fruncidos.', '1971-01-01'), 
+    (5, 'Generation Girl', 'Diseño de rostro juvenil de finales de los noventa con sonrisa de dientes visibles.', '1998-01-01'),
+    (6, 'Lara', 'Molde de facciones delgadas, pómulos marcados y boca cerrada con expresión seria.', '1998-01-01'), 
+    (7, 'Goddess', 'Esculpido de facciones simétricas y estética madura orientado a ediciones de gala.', '1998-01-01'), 
+    (8, 'Aphrodite', 'Molde de nariz perfilada y labios carnosos diseñado para líneas de diseñador premium.', '2008-01-01'), 
+    (9, 'Claudette', 'Diseño de rostro contemporáneo y angular optimizado para rasgos étnicos específicos.', '2014-01-01'), 
+    (10, 'Diva', 'Molde clásico con sutil apertura de boca, pómulos altos y expresión sofisticada.', '1985-01-01');
 --MATHIAS Y DEVONY 
 INSERT INTO PERSONA_JURIDICA
   (ID_PERSONA_JURIDICA, FK_LUGAR_DIR_FISICA, FK_LUGAR_DIR_FISCAL, RIF_PERSONA_JURIDICA,
@@ -2672,17 +2672,17 @@ INSERT INTO PAYPAL (ID_PAYPAL, FK_CORREO) VALUES
 (9, 6),
 (10, 9);
 
-INSERT INTO PROFESION_BASEDISENO (ID_PROFESION_BASEDISENO, FK_PROFESION, FK_BASEDISENO) VALUES
-(1, 1, 5),
-(2, 2, 6),
-(3, 3, 6),
-(4, 4, 6),
-(5, 5, 7),
-(6, 6, 7),
-(7, 7, 8),
-(8, 8, 9),
-(9, 9, 9),
-(10, 10, 9);
+INSERT INTO PROFESION_BASEDISENO (ID_PROFESION_BASEDISENO, FK_PROFESION, FK_BASEDISENO, FECHA_PROFESION) VALUES
+(1, 1, 5, '2018-03-15'),
+(2, 2, 6, '2019-06-22'),
+(3, 3, 6, '2019-07-10'),
+(4, 4, 6, '2019-08-05'),
+(5, 5, 7, '2020-01-20'),
+(6, 6, 7, '2020-04-14'),
+(7, 7, 8, '2021-09-30'),
+(8, 8, 9, '2022-11-12'),
+(9, 9, 9, '2022-12-01'),
+(10, 10, 9, '2023-02-18');
 
 INSERT INTO TRANSFERENCIA_BANCARIA (ID_TRANSFERENCIA_BANCARIA, FK_BANCO) VALUES
 (1, 1),
