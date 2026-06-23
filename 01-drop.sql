@@ -1,4 +1,37 @@
 SET CONSTRAINTS ALL DEFERRED;
+DO $$
+DECLARE
+  routine RECORD;
+  drop_kind text;
+BEGIN
+  FOR routine IN
+    SELECT p.oid, p.prokind, n.nspname, p.proname
+    FROM pg_proc p
+    JOIN pg_namespace n ON n.oid = p.pronamespace
+    WHERE n.nspname = 'public'
+      AND NOT EXISTS (
+        SELECT 1
+        FROM pg_depend d
+        WHERE d.objid = p.oid
+          AND d.deptype = 'e'
+      )
+    ORDER BY p.oid DESC
+  LOOP
+    drop_kind := CASE routine.prokind
+      WHEN 'p' THEN 'PROCEDURE'
+      WHEN 'a' THEN 'AGGREGATE'
+      ELSE 'FUNCTION'
+    END;
+
+    EXECUTE format(
+      'DROP %s IF EXISTS %I.%I(%s) CASCADE',
+      drop_kind,
+      routine.nspname,
+      routine.proname,
+      pg_get_function_identity_arguments(routine.oid)
+    );
+  END LOOP;
+END $$;
 
 DROP TABLE IF EXISTS ASISTENCIA CASCADE;
 DROP TABLE IF EXISTS BACKORDER CASCADE;
@@ -51,7 +84,6 @@ DROP TABLE IF EXISTS ESTATUS_PUJA CASCADE;
 DROP TABLE IF EXISTS ESTATUS_SUBASTA CASCADE;
 DROP TABLE IF EXISTS FASE CASCADE;
 DROP TABLE IF EXISTS FASE_DISENO CASCADE;
-DROP TABLE IF EXISTS FASE_PRODUCCION CASCADE;
 DROP TABLE IF EXISTS GANADOR CASCADE;
 DROP TABLE IF EXISTS HISTORICO_BACKORDER CASCADE;
 DROP TABLE IF EXISTS HISTORICO_EST_GANADOR CASCADE;
@@ -108,14 +140,17 @@ DROP TABLE IF EXISTS TRANSFERENCIA_BANCARIA CASCADE;
 DROP TABLE IF EXISTS TRANSPORTE CASCADE;
 DROP TABLE IF EXISTS USUARIO CASCADE;
 DROP TABLE IF EXISTS USUARIO_METODO_PAGO CASCADE;
+drop table if exists fase_produccion cascade;
 
 DO $$
 DECLARE
-    seq RECORD;
+  seq RECORD;
 BEGIN
-    FOR seq IN
-        SELECT sequencename FROM pg_sequences WHERE schemaname = 'public'
-    LOOP
-        EXECUTE 'DROP SEQUENCE IF EXISTS ' || seq.sequencename || ' CASCADE';
-    END LOOP;
+  FOR seq IN
+    SELECT schemaname, sequencename
+    FROM pg_sequences
+    WHERE schemaname = 'public'
+  LOOP
+    EXECUTE format('DROP SEQUENCE IF EXISTS %I.%I CASCADE', seq.schemaname, seq.sequencename);
+  END LOOP;
 END $$;
